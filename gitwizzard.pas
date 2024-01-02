@@ -51,7 +51,7 @@ begin
   {$R image.res}
   GW_MainForm := TGW_MainForm.CreateNew(Application,0);
 
-  IDEWindowCreators.Add('GW_MainForm',@CreateGW_MainForm,nil,'100','20%','+330','+80%');
+  IDEWindowCreators.Add('GW_MainForm',@CreateGW_MainForm,nil,'50','15%','+330','+80%');
 
   //Erzeugt den Menüeintrag mit Shortcut:
   Key := IDEShortCut(VK_M,[ssCtrl],VK_UNKNOWN,[]);
