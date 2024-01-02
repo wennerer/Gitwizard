@@ -1,0 +1,14 @@
+backup
+lib
+Linux_64
+FreeBSD_64
+Linux_32
+Linux_64_Debug
+Linux_64_Release
+Linux_64_qt5
+Win_32
+Win_64
+Linux_64_Default
+Debug
+*.exe
+project1
