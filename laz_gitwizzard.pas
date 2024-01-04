@@ -8,7 +8,7 @@ unit laz_gitwizzard;
 interface
 
 uses
-  gitwizzard, LazarusPackageIntf;
+  gitwizzard, gw_frame, LazarusPackageIntf;
 
 implementation
 

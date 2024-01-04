@@ -6,7 +6,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <Files>
@@ -14,6 +14,10 @@
         <Filename Value="gitwizzard.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="gitwizzard"/>
+      </Item>
+      <Item>
+        <Filename Value="gw_frame.pas"/>
+        <UnitName Value="gw_frame"/>
       </Item>
     </Files>
     <RequiredPkgs>

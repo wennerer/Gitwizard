@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, IDEWindowIntf, MenuIntf, IDECommands, Forms, LCLType,
-  Dialogs, Graphics;
+  Dialogs, Graphics, gw_frame;
 
 resourcestring
   mnuShowGitWizzard = 'GitWizzard';
@@ -16,6 +16,8 @@ type
   { TGW_MainForm }
 
   TGW_MainForm = class (TCustomForm)
+  private
+   MainFrame : TFrame1;
   public
    constructor CreateNew(AOwner: TComponent; Num: Integer = 0); override;
    destructor  Destroy; override;
@@ -70,8 +72,11 @@ begin
   inherited CreateNew(AOwner, Num);
   Name := 'GW_MainForm';
   Caption := 'GitWizzard';
-  //SetBounds(100,100,500,800);
   Color := clWindow;
+
+  MainFrame := TFrame1.Create(self);
+  MainFrame.Parent := self;
+
 end;
 
 destructor TGW_MainForm.Destroy;
