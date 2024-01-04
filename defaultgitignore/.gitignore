@@ -3,6 +3,7 @@
 *.so
 *.lib
 *.bak
+*.res
 project1
 backup
 lib

@@ -6,33 +6,58 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
-  ExtCtrls, FileCtrl, LazIDEIntf, DOM, XMLRead, XPath, process, StrUtils;
+  ExtCtrls, FileCtrl, LCLIntf, LazIDEIntf, DOM, XMLRead, XPath, process,
+  Contnrs, StrUtils;
 
 resourcestring
-  rs_comnotfound = 'Command-File not found';
-  rs_comerror    = 'The command is incorrect';
+  rs_comnotfound = 'Command-File not found!';
+  rs_comerror    = 'The command is incorrect!';
+  rs_ignorenorfound = 'Defaulr gitignore not found!';
+
+type
+
+  { CommandButton }
+
+  CommandButton = class(TButton)
+
+  private
+    FPath: string;
+  public
+   property Path : string read FPath write FPath;
+  end;
+
+
+
+
 type
 
   { TFrame1 }
 
   TFrame1 = class(TFrame)
-    Git_init: TButton;
+    Git_init               : TButton;
     ImageList1             : TImageList;
     Path_Panel             : TPanel;
-    Input : TEdit;
+    Input                  : TEdit;
     GitDirectoryDlg        : TSelectDirectoryDialog;
-    Separator_Shape1: TShape;
+    Separator_Shape1       : TShape;
+
+
+    SpeedButton_NewCommand: TSpeedButton;
+    SpeedButton_defgitignore: TSpeedButton;
     SpeedButton_SingleInput: TSpeedButton;
     SpeedButton_LastSavedPackage: TSpeedButton;
-    SpeedButton_Open       : TSpeedButton;
+    SpeedButton_AnyDir       : TSpeedButton;
     SpeedButton_LastSavedProject: TSpeedButton;
     ToolBar1               : TToolBar;
     procedure Git_initClick(Sender: TObject);
+    procedure SpeedButton_defgitignoreClick(Sender: TObject);
     procedure SpeedButton_LastSavedPackageClick(Sender: TObject);
-    procedure SpeedButton_OpenClick(Sender: TObject);
+    procedure SpeedButton_AnyDirClick(Sender: TObject);
     procedure SpeedButton_LastSavedProjectClick(Sender: TObject);
+    procedure SpeedButton_NewCommandClick(Sender: TObject);
     procedure SpeedButton_SingleInputClick(Sender: TObject);
   private
+    CommandList            : TObjectList;
     PathToGitDirectory     : string; //The path to the directory that is to be versioned using git
     PathToGitWizzard       : string; //The path to the directory where the gitwizzard package is located
     procedure ExecuteCommand(aCommandBash: String;
@@ -41,6 +66,7 @@ type
     procedure SetPathToGitDirectory(aPath: string);
   public
     constructor Create(AOwner: TComponent); override;
+    destructor  Destroy; override;
   end;
 
 implementation
@@ -88,25 +114,32 @@ end;
 
 { TFrame1 }
 constructor TFrame1.Create(AOwner: TComponent);
+var PathToEnviro     : string;
 begin
-  inherited Create(AOwner);
+ inherited Create(AOwner);
+ CommandList := TObjectList.Create(True);
+ PathToEnviro := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'packagefiles.xml';
+ PathToGitWizzard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizzard"]]/Filename/@*');
+end;
+
+destructor TFrame1.Destroy;
+begin
+ FreeAndNil(CommandList);
+ inherited Destroy;
 end;
 
 procedure TFrame1.SetPathToGitDirectory(aPath : string);
-var PathToEnviro     : string;
+
 begin
  Path_Panel.Caption := AdjustText(aPath,Path_Panel);
  Path_Panel.Hint:= aPath;
-
- PathToEnviro := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'packagefiles.xml';
- PathToGitWizzard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizzard"]]/Filename/@*');
 
  //Checks whether git has already been initialised
  if DirectoryExists(aPath+PathDelim+'.git') then Git_init.Enabled:= false
   else Git_init.Enabled:=true;
 end;
 
-procedure TFrame1.SpeedButton_OpenClick(Sender: TObject);
+procedure TFrame1.SpeedButton_AnyDirClick(Sender: TObject);
 begin
  if GitDirectoryDlg.Execute then
   PathToGitDirectory := GitDirectoryDlg.FileName;
@@ -131,6 +164,32 @@ begin
  SetPathToGitDirectory(PathToGitDirectory);
 end;
 
+procedure TFrame1.SpeedButton_NewCommandClick(Sender: TObject);
+var i : integer;
+begin
+ CommandList.Add(CommandButton.Create(self));
+ CommandButton(CommandList.Last).Parent:= self;
+ CommandButton(CommandList.Last).BorderSpacing.Around:= 2;
+ i := CommandList.Count-2;
+ input.Text:=inttostr(CommandList.Count);
+ if CommandList.Count = 1 then
+  CommandButton(CommandList.Last).AnchorSideTop.Control := Git_init
+ else
+  CommandButton(CommandList.Last).AnchorSideTop.Control := CommandButton(CommandList.Items[i]);
+ CommandButton(CommandList.Last).AnchorSideTop.Side:=asrBottom;
+ CommandButton(CommandList.Last).AnchorSideLeft.Control := self;
+ CommandButton(CommandList.Last).AnchorSideRight.Control:= self;
+ CommandButton(CommandList.Last).AnchorSideRight.Side:=asrBottom;
+ CommandButton(CommandList.Last).Anchors := [akLeft, akRight, akTop];
+ CommandButton(CommandList.Last).Tag:= CommandList.Count;
+end;
+
+
+procedure TFrame1.SpeedButton_defgitignoreClick(Sender: TObject);
+begin
+ if not OpenDocument(PathToGitWizzard+PathDelim+'defaultgitignore'+PathDelim+'.gitignore')
+     then showmessage(rs_ignorenorfound);
+end;
 
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx----Commands----XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -161,7 +220,7 @@ begin
  strList  := TStringlist.Create;
  try
   strList.Add('#!/bin/bash');
-  strList.Add('cd '+PathToGitWizzard+'/linuxCommands');
+  strList.Add('cd '+PathToGitDirectory);
   strList.Add(Input.Text);
   strList.SaveToFile(PathToGitWizzard+'/linuxCommands/singlecommand.sh');
  finally
@@ -177,6 +236,7 @@ begin
  if DirectoryExists(PathToGitDirectory+PathDelim+'.git') then Git_init.Enabled:= false
   else Git_init.Enabled:=true;
 end;
+
 
 
 
