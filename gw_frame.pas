@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead, XPath,
-  process, Contnrs, StrUtils, newcommand;
+  process, Contnrs, StrUtils, newcommand, input_form;
 
 resourcestring
   rs_comnotfound = 'Command-File not found!';
@@ -299,9 +299,35 @@ begin
  ExecuteCommand('singlecommand',[],[],swoNone);
 end;
 
+//here execute CommandButtons
 procedure TFrame1.CommandButtonMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
+var strList : TStringlist;
 begin
+ if (Sender as TCommandButton).NeedsInput then
+  begin
+   InputForm  := TInputForm.Create(self);
+   strList    := TStringlist.Create;
+   try
+    strList.LoadFromFile(PathToGitWizzard+'/linuxCommands/'+(Sender as TCommandButton).FileName+'.sh');
+    InputForm.Edit_Complete.Text := strList[1];
+    InputForm.ShowModal;
+
+    SaveABashfile('NeedsInput',InputForm.Edit_Complete.Text);
+    ExecuteCommand('NeedsInput',[],[],swoNone);
+   finally
+    InputForm.Free;
+    strList.Free;
+   end;
+
+  exit;
+  end;
+
+
+
+
+
+
  ExecuteCommand((Sender as TCommandButton).FileName,[],[],swoNone);
 end;
 

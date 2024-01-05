@@ -23,6 +23,10 @@
         <Filename Value="newcommand.pas"/>
         <UnitName Value="newcommand"/>
       </Item>
+      <Item>
+        <Filename Value="input_form.pas"/>
+        <UnitName Value="input_form"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
