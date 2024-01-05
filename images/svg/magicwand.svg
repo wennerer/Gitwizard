@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6"
-     inkscape:cx="370.20955"
-     inkscape:cy="713.31162"
+     inkscape:cx="323.95955"
+     inkscape:cy="720.45448"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -45,7 +45,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -72,15 +72,15 @@
        id="rect819"
        width="16.867735"
        height="16.867735"
-       x="90.992767"
-       y="94.645447" />
+       x="78.992027"
+       y="91.101921" />
     <rect
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
        id="rect821"
        width="1.5119077"
        height="12.18973"
-       x="141.96785"
-       y="10.561975"
+       x="130.59419"
+       y="15.778714"
        transform="rotate(41.090022)" />
     <path
        sodipodi:type="spiral"
@@ -94,14 +94,14 @@
        sodipodi:argument="-18.652161"
        sodipodi:t0="0"
        d="m 73.752602,104.65736 c 0.201355,0.0403 0.04506,0.29129 -0.06693,0.33466 -0.303487,0.11755 -0.571722,-0.19273 -0.602399,-0.46853 -0.05487,-0.49334 0.409098,-0.86473 0.870132,-0.87013 0.676586,-0.008 1.163376,0.62729 1.137866,1.27173 -0.034,0.85893 -0.845995,1.46423 -1.673331,1.4056 -1.041119,-0.0738 -1.7662,-1.0649 -1.673333,-2.07493 0.112475,-1.22328 1.283918,-2.0688 2.476531,-1.94107 1.405453,0.15053 2.371801,1.503 2.208799,2.87813 -0.188192,1.58764 -1.722127,2.67507 -3.27973,2.47653 -1.769848,-0.22558 -2.978517,-1.94128 -2.744265,-3.68133 0.262794,-1.95206 2.160467,-3.2821 4.082929,-3.01199 2.134297,0.29986 3.58579,2.37966 3.279732,4.48452"
-       transform="matrix(-0.22143199,0.51356399,-0.55749217,-0.20398403,179.17295,81.709807)" />
+       transform="matrix(-0.22143199,0.51356399,-0.55749217,-0.20398403,167.17221,78.16628)" />
     <rect
        style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:0.26458332;stroke-opacity:1"
        id="rect829"
        width="1.5119048"
        height="2.7403271"
-       x="142.17003"
-       y="4.6154962"
+       x="130.91698"
+       y="10.08755"
        transform="rotate(42.382994)" />
     <path
        sodipodi:type="star"
@@ -120,7 +120,7 @@
        d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
        inkscape:transform-center-x="0.0040326527"
        inkscape:transform-center-y="-0.071887246"
-       transform="matrix(0.51975442,0,0,0.47760696,50.413584,50.839487)" />
+       transform="matrix(0.51975442,0,0,0.47760696,38.41284,47.29596)" />
     <path
        sodipodi:type="star"
        style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
@@ -138,7 +138,7 @@
        d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
        inkscape:transform-center-x="0.0040326527"
        inkscape:transform-center-y="-0.071887246"
-       transform="matrix(0.51975443,0,0,0.47760697,53.06785,50.271882)" />
+       transform="matrix(0.51975443,0,0,0.47760697,41.067106,46.728355)" />
     <path
        sodipodi:type="star"
        style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
@@ -156,7 +156,7 @@
        d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
        inkscape:transform-center-x="0.0040326527"
        inkscape:transform-center-y="-0.071887246"
-       transform="matrix(0.51975443,0,0,0.47760697,52.208342,51.990996)" />
+       transform="matrix(0.51975443,0,0,0.47760697,40.207598,48.447469)" />
     <path
        sodipodi:type="star"
        style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
@@ -174,7 +174,7 @@
        d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
        inkscape:transform-center-x="0.0040326527"
        inkscape:transform-center-y="-0.071887246"
-       transform="matrix(0.51975443,0,0,0.47760697,54.201779,49.563177)" />
+       transform="matrix(0.51975443,0,0,0.47760697,42.201035,46.01965)" />
     <path
        sodipodi:type="star"
        style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
@@ -192,7 +192,7 @@
        d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
        inkscape:transform-center-x="0.0040326527"
        inkscape:transform-center-y="-0.071887246"
-       transform="matrix(0.51975443,0,0,0.47760697,54.532508,51.689293)" />
+       transform="matrix(0.51975443,0,0,0.47760697,42.531764,48.145766)" />
     <path
        sodipodi:type="star"
        style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
@@ -210,7 +210,7 @@
        d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
        inkscape:transform-center-x="0.0040326527"
        inkscape:transform-center-y="-0.071887246"
-       transform="matrix(0.51975443,0,0,0.47760697,53.493072,54.240633)" />
+       transform="matrix(0.51975443,0,0,0.47760697,41.492328,50.697106)" />
     <path
        sodipodi:type="star"
        style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
@@ -228,6 +228,201 @@
        d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
        inkscape:transform-center-x="0.0040326527"
        inkscape:transform-center-y="-0.071887246"
-       transform="matrix(0.51975443,0,0,0.47760697,51.792179,48.948965)" />
+       transform="matrix(0.51975443,0,0,0.47760697,39.791435,45.405438)" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.06559877;stroke-opacity:1"
+       id="rect819-3"
+       width="16.867735"
+       height="16.867735"
+       x="59.034882"
+       y="104.39723"
+       inkscape:export-filename="/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizzard/images/magicwand_weiss64.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
+       id="rect821-6"
+       width="1.5119077"
+       height="12.18973"
+       x="124.2912"
+       y="38.91581"
+       transform="rotate(41.090021)"
+       inkscape:export-filename="/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizzard/images/magicwand_weiss64.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       sodipodi:type="spiral"
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332;stroke-opacity:1;fill-opacity:1"
+       id="path831-7"
+       sodipodi:cx="73.752602"
+       sodipodi:cy="104.65736"
+       sodipodi:expansion="1"
+       sodipodi:revolution="3"
+       sodipodi:radius="4.0955291"
+       sodipodi:argument="-18.652161"
+       sodipodi:t0="0"
+       d="m 73.752602,104.65736 c 0.201355,0.0403 0.04506,0.29129 -0.06693,0.33466 -0.303487,0.11755 -0.571722,-0.19273 -0.602399,-0.46853 -0.05487,-0.49334 0.409098,-0.86473 0.870132,-0.87013 0.676586,-0.008 1.163376,0.62729 1.137866,1.27173 -0.034,0.85893 -0.845995,1.46423 -1.673331,1.4056 -1.041119,-0.0738 -1.7662,-1.0649 -1.673333,-2.07493 0.112475,-1.22328 1.283918,-2.0688 2.476531,-1.94107 1.405453,0.15053 2.371801,1.503 2.208799,2.87813 -0.188192,1.58764 -1.722127,2.67507 -3.27973,2.47653 -1.769848,-0.22558 -2.978517,-1.94128 -2.744265,-3.68133 0.262794,-1.95206 2.160467,-3.2821 4.082929,-3.01199 2.134297,0.29986 3.58579,2.37966 3.279732,4.48452"
+       transform="matrix(-0.22143199,0.513564,-0.55749216,-0.20398403,147.21506,91.46159)"
+       inkscape:export-filename="/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizzard/images/magicwand_weiss64.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.26458332;stroke-opacity:1"
+       id="rect829-5"
+       width="1.5119048"
+       height="2.7403269"
+       x="125.13766"
+       y="33.360981"
+       transform="rotate(42.382994)"
+       inkscape:export-filename="/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizzard/images/magicwand_weiss64.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
+       id="path835-35"
+       sodipodi:sides="5"
+       sodipodi:cx="98.982513"
+       sodipodi:cy="97.995537"
+       sodipodi:r1="1.6536458"
+       sodipodi:r2="0.82682294"
+       sodipodi:arg1="0.92729522"
+       sodipodi:arg2="1.5556137"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
+       inkscape:transform-center-x="0.0040326527"
+       inkscape:transform-center-y="-0.071887246"
+       transform="matrix(0.51975443,0,0,0.47760697,18.455696,60.591269)"
+       inkscape:export-filename="/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizzard/images/magicwand_weiss64.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
+       id="path835-3-6"
+       sodipodi:sides="5"
+       sodipodi:cx="98.982513"
+       sodipodi:cy="97.995537"
+       sodipodi:r1="1.6536458"
+       sodipodi:r2="0.82682294"
+       sodipodi:arg1="0.92729522"
+       sodipodi:arg2="1.5556137"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
+       inkscape:transform-center-x="0.0040326527"
+       inkscape:transform-center-y="-0.071887246"
+       transform="matrix(0.51975443,0,0,0.47760697,21.109962,60.023666)"
+       inkscape:export-filename="/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizzard/images/magicwand_weiss64.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
+       id="path835-6-2"
+       sodipodi:sides="5"
+       sodipodi:cx="98.982513"
+       sodipodi:cy="97.995537"
+       sodipodi:r1="1.6536458"
+       sodipodi:r2="0.82682294"
+       sodipodi:arg1="0.92729522"
+       sodipodi:arg2="1.5556137"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
+       inkscape:transform-center-x="0.0040326527"
+       inkscape:transform-center-y="-0.071887246"
+       transform="matrix(0.51975443,0,0,0.47760697,20.250452,61.742778)"
+       inkscape:export-filename="/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizzard/images/magicwand_weiss64.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
+       id="path835-6-7-9"
+       sodipodi:sides="5"
+       sodipodi:cx="98.982513"
+       sodipodi:cy="97.995537"
+       sodipodi:r1="1.6536458"
+       sodipodi:r2="0.82682294"
+       sodipodi:arg1="0.92729522"
+       sodipodi:arg2="1.5556137"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
+       inkscape:transform-center-x="0.0040326527"
+       inkscape:transform-center-y="-0.071887246"
+       transform="matrix(0.51975443,0,0,0.47760697,22.243889,59.314961)"
+       inkscape:export-filename="/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizzard/images/magicwand_weiss64.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
+       id="path835-6-5-1"
+       sodipodi:sides="5"
+       sodipodi:cx="98.982513"
+       sodipodi:cy="97.995537"
+       sodipodi:r1="1.6536458"
+       sodipodi:r2="0.82682294"
+       sodipodi:arg1="0.92729522"
+       sodipodi:arg2="1.5556137"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
+       inkscape:transform-center-x="0.0040326527"
+       inkscape:transform-center-y="-0.071887246"
+       transform="matrix(0.51975443,0,0,0.47760697,22.574618,61.441076)"
+       inkscape:export-filename="/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizzard/images/magicwand_weiss64.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
+       id="path835-6-3-2"
+       sodipodi:sides="5"
+       sodipodi:cx="98.982513"
+       sodipodi:cy="97.995537"
+       sodipodi:r1="1.6536458"
+       sodipodi:r2="0.82682294"
+       sodipodi:arg1="0.92729522"
+       sodipodi:arg2="1.5556137"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
+       inkscape:transform-center-x="0.0040326527"
+       inkscape:transform-center-y="-0.071887246"
+       transform="matrix(0.51975443,0,0,0.47760697,21.535184,63.992416)"
+       inkscape:export-filename="/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizzard/images/magicwand_weiss64.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
+       id="path835-6-56-7"
+       sodipodi:sides="5"
+       sodipodi:cx="98.982513"
+       sodipodi:cy="97.995537"
+       sodipodi:r1="1.6536458"
+       sodipodi:r2="0.82682294"
+       sodipodi:arg1="0.92729522"
+       sodipodi:arg2="1.5556137"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 99.974701,99.318453 -0.979635,-0.496189 -0.964118,0.525703 0.16918,-1.085019 -0.797902,-0.75448 1.084194,-0.17439 0.470988,-0.991996 0.500888,0.97724 1.088984,0.141392 -0.774623,0.778357 z"
+       inkscape:transform-center-x="0.0040326527"
+       inkscape:transform-center-y="-0.071887246"
+       transform="matrix(0.51975443,0,0,0.47760697,19.834292,58.700747)"
+       inkscape:export-filename="/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizzard/images/magicwand_weiss64.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
   </g>
 </svg>

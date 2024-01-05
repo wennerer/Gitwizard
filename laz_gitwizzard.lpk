@@ -19,6 +19,10 @@
         <Filename Value="gw_frame.pas"/>
         <UnitName Value="gw_frame"/>
       </Item>
+      <Item>
+        <Filename Value="newcommand.pas"/>
+        <UnitName Value="newcommand"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
