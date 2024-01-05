@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
-  ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead, XPath,
+  ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead, XMLWrite, XPath,
   process, Contnrs, StrUtils, newcommand, input_form;
 
 resourcestring
@@ -40,28 +40,26 @@ type
   { TFrame1 }
 
   TFrame1 = class(TFrame)
-    Git_init               : TButton;
-    gitignore              : TButton;
-    ImageList1             : TImageList;
-    deletebash: TMenuItem;
-    openbash: TMenuItem;
-    Path_Panel             : TPanel;
-    Input                  : TEdit;
-    GitDirectoryDlg        : TSelectDirectoryDialog;
-    PopupMenu_CommandButtons             : TPopupMenu;
-    Separator_Shape1       : TShape;
-
-
-    SpeedButton_NewCommand: TSpeedButton;
-    SpeedButton_defgitignore: TSpeedButton;
-    SpeedButton_SingleInput: TSpeedButton;
+    Git_init                 : TButton;
+    gitignore                : TButton;
+    ImageList1               : TImageList;
+    deletebash               : TMenuItem;
+    openbash                 : TMenuItem;
+    Path_Panel               : TPanel;
+    Input                    : TEdit;
+    GitDirectoryDlg          : TSelectDirectoryDialog;
+    PopupMenu_CommandButtons : TPopupMenu;
+    Separator_Shape1         : TShape;
+    SpeedButton_NewCommand   : TSpeedButton;
+    SpeedButton_defgitignore : TSpeedButton;
+    SpeedButton_SingleInput  : TSpeedButton;
     SpeedButton_LastSavedPackage: TSpeedButton;
     SpeedButton_AnyDir       : TSpeedButton;
     SpeedButton_LastSavedProject: TSpeedButton;
-    ToolBar1               : TToolBar;
+    ToolBar1                 : TToolBar;
+    procedure WriteValues;
     procedure deletebashClick(Sender: TObject);
-    procedure gitignoreMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
+    procedure gitignoreMouseDown(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
     procedure Git_initClick(Sender: TObject);
     procedure openbashClick(Sender: TObject);
     procedure SpeedButton_defgitignoreClick(Sender: TObject);
@@ -74,11 +72,9 @@ type
     CommandList            : TObjectList;
     PathToGitDirectory     : string; //The path to the directory that is to be versioned using git
     PathToGitWizzard       : string; //The path to the directory where the gitwizzard package is located
-    procedure CommandButtonMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure ExecuteCommand(aCommandBash: String;
-      Com: array of TProcessString; Options: TProcessOptions=[];
-      swOptions: TShowWindowOptions=swoNone);
+    procedure CommandButtonMouseDown(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
+    procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; Options: TProcessOptions=[];
+                             swOptions: TShowWindowOptions=swoNone);
     procedure SaveABashfile(aFileName, aCommand: string);
     procedure SetPathToGitDirectory(aPath: string);
   public
@@ -113,7 +109,7 @@ var
 begin
   Path:= '';
   ReadXMLFile(Xml, aFilename);
-  XPathResult := EvaluateXPathExpression(aSearchString, Xml.DocumentElement);
+  XPathResult := EvaluateXPathExpression(Unicodestring(aSearchString), Xml.DocumentElement);
   For APtr in XPathResult.AsNodeSet do
     Path := Path + string(TDOMNode(APtr).NodeValue);
   XPathResult.Free;
@@ -146,6 +142,61 @@ begin
  FreeAndNil(CommandList);
  inherited Destroy;
 end;
+
+procedure TFrame1.WriteValues;
+var Doc: TXMLDocument;                                         // Variable für das Dokument
+    RootNode, parentNode, nofilho: TDOMNode;                   // Variable für die Elemente (Knoten)
+    s : string;
+    lv : integer;
+begin
+  if CommandList.Count = 0 then exit;
+  try
+    // Erzeuge ein Dokument
+    Doc := TXMLDocument.Create;
+
+    // Erzeuge einen Wurzelknoten
+    RootNode := Doc.CreateElement('commandbuttons');
+    Doc.Appendchild(RootNode);
+  for lv:= 0 to pred(CommandList.Count) do begin
+    // Create a parent node
+    RootNode:= Doc.DocumentElement;
+    s:= 'CommandButton';
+    parentNode := Doc.CreateElement(Unicodestring(s));
+    TDOMElement(parentNode).SetAttribute('id',Unicodestring(inttostr(TCommandButton(CommandList.Items[lv]).Tag)));
+    RootNode.Appendchild(parentNode);
+
+    // Create a child node
+    parentNode := Doc.CreateElement('Caption');
+    nofilho := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList.Items[lv]).Caption));
+    parentNode.Appendchild(nofilho);
+    RootNode.ChildNodes.Item[lv].AppendChild(parentNode);
+
+    // Create a child node
+    parentNode := Doc.CreateElement('FileName');
+    nofilho := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList.Items[lv]).FileName));
+    parentNode.Appendchild(nofilho);
+    RootNode.ChildNodes.Item[lv].AppendChild(parentNode);
+
+    // Create a child node
+    parentNode := Doc.CreateElement('Hint');
+    nofilho := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList.Items[lv]).Hint));
+    parentNode.Appendchild(nofilho);
+    RootNode.ChildNodes.Item[lv].AppendChild(parentNode);
+
+    if TCommandButton(CommandList.Items[lv]).NeedsInput then s:='true' else s:='false';
+    // Create a child node
+    parentNode := Doc.CreateElement('NeedsInput');
+    nofilho := Doc.CreateTextNode(Unicodestring(s));
+    parentNode.Appendchild(nofilho);
+    RootNode.ChildNodes.Item[lv].AppendChild(parentNode);
+  end;
+    writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml');
+  finally
+    Doc.Free;
+  end;
+end;
+
+
 
 procedure TFrame1.SetPathToGitDirectory(aPath : string);
 begin
@@ -252,6 +303,7 @@ begin
  TCommandButton(CommandList.Last).ShowHint               := true;
  TCommandButton(CommandList.Last).OnMouseDown            := @CommandButtonMouseDown;
  SaveABashfile(TCommandButton(CommandList.Last).FileName,aCommand);
+ WriteValues;
 end;
 
 
@@ -323,11 +375,6 @@ begin
   exit;
   end;
 
-
-
-
-
-
  ExecuteCommand((Sender as TCommandButton).FileName,[],[],swoNone);
 end;
 
@@ -345,6 +392,8 @@ procedure TFrame1.deletebashClick(Sender: TObject);
 begin
  showmessage('Delete Bash');
 end;
+
+
 
 
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx----Commands----XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -377,9 +426,6 @@ begin
             PathToGitDirectory+PathDelim+'.gitignore');
   end;
 end;
-
-
-
 
 
 
