@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m '---a_comment---'
+git commit -a -m 'aComment'

@@ -57,6 +57,7 @@ type
     SpeedButton_AnyDir       : TSpeedButton;
     SpeedButton_LastSavedProject: TSpeedButton;
     ToolBar1                 : TToolBar;
+    procedure ReadValues;
     procedure WriteValues;
     procedure deletebashClick(Sender: TObject);
     procedure gitignoreMouseDown(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
@@ -135,6 +136,7 @@ begin
  PathToGitWizzard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizzard"]]/Filename/@*');
  //PathToGitDirectory := '';
  //SetPathToGitDirectory(PathToGitDirectory);
+ ReadValues;
 end;
 
 destructor TFrame1.Destroy;
@@ -144,57 +146,111 @@ begin
 end;
 
 procedure TFrame1.WriteValues;
-var Doc: TXMLDocument;                                         // Variable für das Dokument
-    RootNode, parentNode, nofilho: TDOMNode;                   // Variable für die Elemente (Knoten)
-    s : string;
+var Doc               : TXMLDocument;
+    RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,aText: TDOMNode;
     lv : integer;
+    s  : string;
 begin
-  if CommandList.Count = 0 then exit;
+ if CommandList.Count = 0 then exit;
   try
-    // Erzeuge ein Dokument
     Doc := TXMLDocument.Create;
 
-    // Erzeuge einen Wurzelknoten
-    RootNode := Doc.CreateElement('commandbuttons');
+    RootNode := Doc.CreateElement('Commandbuttons');
     Doc.Appendchild(RootNode);
-  for lv:= 0 to pred(CommandList.Count) do begin
-    // Create a parent node
     RootNode:= Doc.DocumentElement;
-    s:= 'CommandButton';
-    parentNode := Doc.CreateElement(Unicodestring(s));
-    TDOMElement(parentNode).SetAttribute('id',Unicodestring(inttostr(TCommandButton(CommandList.Items[lv]).Tag)));
-    RootNode.Appendchild(parentNode);
 
-    // Create a child node
-    parentNode := Doc.CreateElement('Caption');
-    nofilho := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList.Items[lv]).Caption));
-    parentNode.Appendchild(nofilho);
-    RootNode.ChildNodes.Item[lv].AppendChild(parentNode);
+    for lv:= 0 to pred(CommandList.Count) do
+     begin
+     ButtonNode   := Doc.CreateElement('Commandbutton'+unicodestring(inttostr(lv)));
+     RootNode.AppendChild(ButtonNode);
 
-    // Create a child node
-    parentNode := Doc.CreateElement('FileName');
-    nofilho := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList.Items[lv]).FileName));
-    parentNode.Appendchild(nofilho);
-    RootNode.ChildNodes.Item[lv].AppendChild(parentNode);
+      CaptionNode   := Doc.CreateElement('Caption');
+       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList.Items[lv]).Caption));
+       CaptionNode.AppendChild(aText);
+      ButtonNode.AppendChild(CaptionNode);
 
-    // Create a child node
-    parentNode := Doc.CreateElement('Hint');
-    nofilho := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList.Items[lv]).Hint));
-    parentNode.Appendchild(nofilho);
-    RootNode.ChildNodes.Item[lv].AppendChild(parentNode);
+      FilenameNode   := Doc.CreateElement('Filename');
+       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList.Items[lv]).FileName));
+       FilenameNode.AppendChild(aText);
+      ButtonNode.AppendChild(FilenameNode);
 
-    if TCommandButton(CommandList.Items[lv]).NeedsInput then s:='true' else s:='false';
-    // Create a child node
-    parentNode := Doc.CreateElement('NeedsInput');
-    nofilho := Doc.CreateTextNode(Unicodestring(s));
-    parentNode.Appendchild(nofilho);
-    RootNode.ChildNodes.Item[lv].AppendChild(parentNode);
-  end;
+      HintNode   := Doc.CreateElement('Hint');
+       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList.Items[lv]).Hint));
+       HintNode.AppendChild(aText);
+      ButtonNode.AppendChild(HintNode);
+
+      if TCommandButton(CommandList.Items[lv]).NeedsInput then s:='true' else s:='false';
+      NeedsInputNode   := Doc.CreateElement('NeedsInput');
+       aText   := Doc.CreateTextNode(Unicodestring(s));
+       NeedsInputNode.AppendChild(aText);
+      ButtonNode.AppendChild(NeedsInputNode);
+     end;
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml');
   finally
     Doc.Free;
   end;
 end;
+
+procedure TFrame1.ReadValues;
+var xml     :  TXMLDocument;
+    k,i,j   : integer;
+    bol     : string;
+  procedure ParseXML(Node : TDomNode);
+  begin
+   while (Assigned(Node)) do
+    begin
+      if (Node.NodeName <> '')  then
+       begin
+         if Node.NodeName = 'Commandbutton'+inttostr(k) then
+          begin
+           CommandList.Add(TCommandButton.Create(self));
+           TCommandButton(CommandList.Last).Parent     := self;
+           TCommandButton(CommandList.Last).BorderSpacing.Around:= 2;
+           i := CommandList.Count-2;
+           if CommandList.Count = 1 then
+            TCommandButton(CommandList.Last).AnchorSideTop.Control := gitignore
+           else
+            TCommandButton(CommandList.Last).AnchorSideTop.Control := TCommandButton(CommandList.Items[i]);
+           TCommandButton(CommandList.Last).AnchorSideTop.Side     := asrBottom;
+           TCommandButton(CommandList.Last).AnchorSideLeft.Control := self;
+           TCommandButton(CommandList.Last).AnchorSideRight.Control:= self;
+           TCommandButton(CommandList.Last).AnchorSideRight.Side   := asrBottom;
+           TCommandButton(CommandList.Last).Anchors := [akLeft, akRight, akTop];
+           TCommandButton(CommandList.Last).Tag                    := CommandList.Count-1;
+           TCommandButton(CommandList.Last).ShowHint               := true;
+           TCommandButton(CommandList.Last).OnMouseDown            := @CommandButtonMouseDown;
+           inc(k);
+          end;
+         if Node.NodeName = '#text' then
+          begin
+           if j = 0 then TCommandButton(CommandList.Last).Caption := string(Node.NodeValue);
+           if j = 1 then TCommandButton(CommandList.Last).FileName := string(Node.NodeValue);
+           if j = 2 then TCommandButton(CommandList.Last).Hint := string(Node.NodeValue);
+           if j = 3 then
+            begin
+             bol := string(Node.NodeValue);
+             if bol = 'true' then TCommandButton(CommandList.Last).NeedsInput := true
+             else TCommandButton(CommandList.Last).NeedsInput := false;
+            end;//bol
+           inc(j);
+           if j=4 then j:=0;
+          end;//#text
+       ParseXML(Node.FirstChild);
+       Node := Node.NextSibling;
+      end;//' '
+   end;//while
+  end;
+begin
+  ReadXMLFile(xml,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml');
+  k:=0;J:=0;
+  ParseXML( xml.FirstChild);
+  xml.Free;
+end;
+
+
+
+
+
 
 
 
@@ -422,8 +478,9 @@ begin
      showmessage(rs_Filealreadyexists);
      exit;
     end;
-   CopyFile(PathToGitWizzard+PathDelim+'defaultgitignore'+PathDelim+'.gitignore',
-            PathToGitDirectory+PathDelim+'.gitignore');
+   if CopyFile(PathToGitWizzard+PathDelim+'defaultgitignore'+PathDelim+'.gitignore',
+            PathToGitDirectory+PathDelim+'.gitignore')
+   then showmessage('Ok') else showmessage('Error');
   end;
 end;
 

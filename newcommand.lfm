@@ -104,7 +104,7 @@ object NewcommandDlg: TNewcommandDlg
     Caption = 'Please enter a caption for the new button:'
     Font.Height = 18
     ParentFont = False
-    TabOrder = 0
+    TabOrder = 7
   end
   object Edit_newcaption: TEdit
     Left = 32
@@ -113,7 +113,7 @@ object NewcommandDlg: TNewcommandDlg
     Width = 395
     Font.Height = 16
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 0
   end
   object StaticText2: TStaticText
     Left = 31
@@ -123,7 +123,7 @@ object NewcommandDlg: TNewcommandDlg
     Caption = 'Please enter a filename for the new bash:'
     Font.Height = 18
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 8
   end
   object Edit_newfilename: TEdit
     Left = 31
@@ -132,7 +132,7 @@ object NewcommandDlg: TNewcommandDlg
     Width = 395
     Font.Height = 16
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 2
   end
   object Okay: TButton
     Left = 136
@@ -141,7 +141,7 @@ object NewcommandDlg: TNewcommandDlg
     Width = 112
     Caption = 'Okay'
     OnClick = OkayClick
-    TabOrder = 4
+    TabOrder = 5
   end
   object Cancel: TButton
     Left = 312
@@ -150,7 +150,7 @@ object NewcommandDlg: TNewcommandDlg
     Width = 112
     Caption = 'Cancel'
     OnClick = CancelClick
-    TabOrder = 5
+    TabOrder = 6
   end
   object StaticText3: TStaticText
     Left = 31
@@ -160,7 +160,7 @@ object NewcommandDlg: TNewcommandDlg
     Caption = 'Please enter a new command:'
     Font.Height = 18
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 9
   end
   object Edit_newcommand: TEdit
     Left = 31
@@ -169,7 +169,7 @@ object NewcommandDlg: TNewcommandDlg
     Width = 395
     Font.Height = 16
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 3
   end
   object StaticText4: TStaticText
     Left = 32
@@ -179,7 +179,7 @@ object NewcommandDlg: TNewcommandDlg
     Caption = 'Please enter a hint for the new button:'
     Font.Height = 18
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 10
   end
   object Edit_newhint: TEdit
     Left = 31
@@ -188,7 +188,7 @@ object NewcommandDlg: TNewcommandDlg
     Width = 395
     Font.Height = 16
     ParentFont = False
-    TabOrder = 9
+    TabOrder = 1
   end
   object NeedsInput: TCheckBox
     Left = 136
@@ -196,6 +196,6 @@ object NewcommandDlg: TNewcommandDlg
     Top = 488
     Width = 216
     Caption = 'The command requires an input'
-    TabOrder = 10
+    TabOrder = 4
   end
 end

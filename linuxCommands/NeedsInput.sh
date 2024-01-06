@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'needsinput'
+git commit -a -m 'read xml okay'
