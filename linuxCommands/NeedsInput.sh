@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'read xml okay'
+git commit -a -m 'opendirectory'

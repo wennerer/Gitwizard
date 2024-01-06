@@ -15,6 +15,8 @@ resourcestring
   rs_ignorenofound = 'Default gitignore not found!';
   rs_nodirectoryselected = 'No directory selected!';
   rs_Filealreadyexists = 'File already exists';
+  rs_filenotfound = 'File not found';
+  rs_Directorynotfound = 'Directory not found';
 
 type
 
@@ -40,16 +42,16 @@ type
   { TFrame1 }
 
   TFrame1 = class(TFrame)
-    Git_init                 : TButton;
     gitignore                : TButton;
     ImageList1               : TImageList;
-    deletebash               : TMenuItem;
-    openbash                 : TMenuItem;
+    deletecommand               : TMenuItem;
+    openfile                 : TMenuItem;
     Path_Panel               : TPanel;
     Input                    : TEdit;
     GitDirectoryDlg          : TSelectDirectoryDialog;
     PopupMenu_CommandButtons : TPopupMenu;
     Separator_Shape1         : TShape;
+    SpeedButton1: TSpeedButton;
     SpeedButton_NewCommand   : TSpeedButton;
     SpeedButton_defgitignore : TSpeedButton;
     SpeedButton_SingleInput  : TSpeedButton;
@@ -58,11 +60,11 @@ type
     SpeedButton_LastSavedProject: TSpeedButton;
     ToolBar1                 : TToolBar;
     procedure ReadValues;
+    procedure SpeedButton1Click(Sender: TObject);
     procedure WriteValues;
-    procedure deletebashClick(Sender: TObject);
+    procedure deletecommandClick(Sender: TObject);
     procedure gitignoreMouseDown(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
-    procedure Git_initClick(Sender: TObject);
-    procedure openbashClick(Sender: TObject);
+    procedure openfileClick(Sender: TObject);
     procedure SpeedButton_defgitignoreClick(Sender: TObject);
     procedure SpeedButton_LastSavedPackageClick(Sender: TObject);
     procedure SpeedButton_AnyDirClick(Sender: TObject);
@@ -71,6 +73,7 @@ type
     procedure SpeedButton_SingleInputClick(Sender: TObject);
   private
     CommandList            : TObjectList;
+    FSender                : TObject;
     PathToGitDirectory     : string; //The path to the directory that is to be versioned using git
     PathToGitWizzard       : string; //The path to the directory where the gitwizzard package is located
     procedure CommandButtonMouseDown(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
@@ -247,6 +250,11 @@ begin
   xml.Free;
 end;
 
+procedure TFrame1.SpeedButton1Click(Sender: TObject);
+begin
+ if not OpenDocument(PathToGitDirectory) then showmessage(rs_Directorynotfound);
+end;
+
 
 
 
@@ -261,8 +269,8 @@ begin
  Path_Panel.Hint:= aPath;
 
  //Checks whether git has already been initialised
- if DirectoryExists(aPath+PathDelim+'.git') then Git_init.Enabled:= false
-  else Git_init.Enabled:=true;
+// if DirectoryExists(aPath+PathDelim+'.git') then Git_init.Enabled:= false
+  //else Git_init.Enabled:=true;
 end;
 
 procedure TFrame1.SaveABashfile(aFileName,aCommand:string);
@@ -412,6 +420,15 @@ procedure TFrame1.CommandButtonMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 var strList : TStringlist;
 begin
+ if Button = mbRight then
+  begin
+   FSender := nil;
+   FSender := Sender;
+   PopupMenu_CommandButtons.PopUp;
+   exit;
+  end;
+
+
  if (Sender as TCommandButton).NeedsInput then
   begin
    InputForm  := TInputForm.Create(self);
@@ -438,15 +455,41 @@ end;
 
 
 //The Popup
-procedure TFrame1.openbashClick(Sender: TObject);
+procedure TFrame1.openfileClick(Sender: TObject);
+var aPath : string;
 begin
- if not OpenDocument(PathToGitDirectory+PathDelim+'.gitignore')
-     then showmessage(rs_ignorenofound);
+ {$IFDEF WINDOWS}
+  aPath := PathToGitWizzard+PathDelim+'winCommands'+PathDelim;
+  if FSender is TCommandButton then
+   if not OpenDocument(aPath+(FSender as TCommandButton).FileName+'.bat') then showmessage(rs_filenotfound);
+ {$ENDIF}
+ {$IFDEF Linux}
+  aPath := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim;
+  if FSender is TCommandButton then
+   if not OpenDocument(aPath+(FSender as TCommandButton).FileName+'.sh') then showmessage(rs_filenotfound);
+ {$ENDIF}
+ if FSender = gitignore then
+   if not OpenDocument(PathToGitDirectory+PathDelim+'.gitignore') then showmessage(rs_ignorenofound);
 end;
 
-procedure TFrame1.deletebashClick(Sender: TObject);
+procedure TFrame1.deletecommandClick(Sender: TObject);
+var aPath : string;
 begin
- showmessage('Delete Bash');
+ {$IFDEF WINDOWS}
+  aPath := PathToGitWizzard+PathDelim+'winCommands'+PathDelim;
+  if FSender is TCommandButton then
+   if deletefile(aPath+(FSender as TCommandButton).FileName+'.bat') then showmessage('Okay')
+   else showmessage(rs_filenotfound);
+ {$ENDIF}
+ {$IFDEF Linux}
+  aPath := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim;
+  if FSender is TCommandButton then
+   if deletefile(aPath+(FSender as TCommandButton).FileName+'.sh') then showmessage('Okay')
+   else showmessage(rs_filenotfound);
+ {$ENDIF}
+ if FSender = gitignore then
+  if deletefile(PathToGitDirectory+PathDelim+'.gitignore') then showmessage('Okay')
+  else showmessage(rs_filenotfound);
 end;
 
 
@@ -454,25 +497,22 @@ end;
 
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx----Commands----XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-procedure TFrame1.Git_initClick(Sender: TObject);
-begin
- ExecuteCommand('git_init',[],[],swoNone);
- //Checks whether git has already been initialised
- if DirectoryExists(PathToGitDirectory+PathDelim+'.git') then Git_init.Enabled:= false
-  else Git_init.Enabled:=true;
-end;
-
 procedure TFrame1.gitignoreMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
- if PathToGitDirectory = '' then
+ if Button = mbRight then
+  begin
+   FSender := nil;
+   FSender := Sender;
+   PopupMenu_CommandButtons.PopUp;
+  end
+ else
+  begin
+   if PathToGitDirectory = '' then
   begin
    showmessage(rs_nodirectoryselected);
    exit;
   end;
- if Button = mbRight then PopupMenu_CommandButtons.PopUp
- else
-  begin
    if FileExists(PathToGitDirectory+PathDelim+'.gitignore') then
     begin
      showmessage(rs_Filealreadyexists);
