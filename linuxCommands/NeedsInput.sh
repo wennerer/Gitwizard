@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'opendirectory'
+git commit -a -m 'Optionsform'

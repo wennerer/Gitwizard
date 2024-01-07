@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead, XMLWrite, XPath,
-  process, Contnrs, StrUtils, newcommand, input_form;
+  process, Contnrs, StrUtils, newcommand, input_form,options_form;
 
 resourcestring
   rs_comnotfound = 'Command-File not found!';
@@ -17,6 +17,7 @@ resourcestring
   rs_Filealreadyexists = 'File already exists';
   rs_filenotfound = 'File not found';
   rs_Directorynotfound = 'Directory not found';
+  rs_checkoptionsdialog = 'Please check optionsdialog';
 
 type
 
@@ -44,14 +45,15 @@ type
   TFrame1 = class(TFrame)
     gitignore                : TButton;
     ImageList1               : TImageList;
-    deletecommand               : TMenuItem;
+    deletecommand            : TMenuItem;
     openfile                 : TMenuItem;
     Path_Panel               : TPanel;
     Input                    : TEdit;
     GitDirectoryDlg          : TSelectDirectoryDialog;
     PopupMenu_CommandButtons : TPopupMenu;
     Separator_Shape1         : TShape;
-    SpeedButton1: TSpeedButton;
+    SpeedButton_opendir             : TSpeedButton;
+    SpeedButton_options             : TSpeedButton;
     SpeedButton_NewCommand   : TSpeedButton;
     SpeedButton_defgitignore : TSpeedButton;
     SpeedButton_SingleInput  : TSpeedButton;
@@ -60,7 +62,8 @@ type
     SpeedButton_LastSavedProject: TSpeedButton;
     ToolBar1                 : TToolBar;
     procedure ReadValues;
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton_opendirClick(Sender: TObject);
+    procedure SpeedButton_optionsClick(Sender: TObject);
     procedure WriteValues;
     procedure deletecommandClick(Sender: TObject);
     procedure gitignoreMouseDown(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
@@ -74,6 +77,7 @@ type
   private
     CommandList            : TObjectList;
     FSender                : TObject;
+    FEditor                : string;
     PathToGitDirectory     : string; //The path to the directory that is to be versioned using git
     PathToGitWizzard       : string; //The path to the directory where the gitwizzard package is located
     procedure CommandButtonMouseDown(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
@@ -140,6 +144,7 @@ begin
  //PathToGitDirectory := '';
  //SetPathToGitDirectory(PathToGitDirectory);
  ReadValues;
+
 end;
 
 destructor TFrame1.Destroy;
@@ -150,10 +155,32 @@ end;
 
 procedure TFrame1.WriteValues;
 var Doc               : TXMLDocument;
-    RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,aText: TDOMNode;
+    RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,OptionsNode,aText: TDOMNode;
     lv : integer;
     s  : string;
 begin
+ try
+    Doc := TXMLDocument.Create;
+
+    RootNode := Doc.CreateElement('Options');
+    Doc.Appendchild(RootNode);
+    RootNode:= Doc.DocumentElement;
+
+    OptionsNode := Doc.CreateElement('Editor');
+    TDOMElement(OptionsNode).SetAttribute('Editor', FEditor);
+    RootNode.Appendchild(OptionsNode);
+
+    (*LangugaeNode := Doc.CreateElement('Language');
+    TDOMElement(LangugaeNode).SetAttribute('Language', 'de');
+    RootNode.Appendchild(LangugaeNode); *)
+
+    writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_options.xml');
+  finally
+    Doc.Free;
+  end;
+
+
+
  if CommandList.Count = 0 then exit;
   try
     Doc := TXMLDocument.Create;
@@ -198,6 +225,8 @@ procedure TFrame1.ReadValues;
 var xml     :  TXMLDocument;
     k,i,j   : integer;
     bol     : string;
+    XPathResult: TXPathVariable;
+    APtr:Pointer;
   procedure ParseXML(Node : TDomNode);
   begin
    while (Assigned(Node)) do
@@ -248,19 +277,21 @@ begin
   k:=0;J:=0;
   ParseXML( xml.FirstChild);
   xml.Free;
+
+  if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml') then
+   begin
+    ReadXMLFile(Xml,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml');
+    XPathResult := EvaluateXPathExpression('/Options/Editor/@*', Xml.DocumentElement);
+    For APtr in XPathResult.AsNodeSet do
+     FEDitor := string(TDOMNode(APtr).NodeValue);
+    XPathResult.Free;
+    (*XPathResult := EvaluateXPathExpression('/Options/Language/@*', Xml.DocumentElement);
+    For APtr in XPathResult.AsNodeSet do
+    Memo1.Lines.Add(string(TDOMNode(APtr).NodeValue));
+    XPathResult.Free; *)
+    Xml.Free;
+  end;
 end;
-
-procedure TFrame1.SpeedButton1Click(Sender: TObject);
-begin
- if not OpenDocument(PathToGitDirectory) then showmessage(rs_Directorynotfound);
-end;
-
-
-
-
-
-
-
 
 procedure TFrame1.SetPathToGitDirectory(aPath : string);
 begin
@@ -370,6 +401,22 @@ begin
  WriteValues;
 end;
 
+procedure TFrame1.SpeedButton_opendirClick(Sender: TObject);
+begin
+ if not OpenDocument(PathToGitDirectory) then showmessage(rs_Directorynotfound);
+end;
+
+procedure TFrame1.SpeedButton_optionsClick(Sender: TObject);
+begin
+  Optionsform := TOptionsform.Create(self);
+  try
+   FEditor := Optionsform.Edit_Editor.Text;
+   Optionsform.ShowModal;
+  finally
+   Optionsform.Free;
+  end;
+  WriteValues;
+end;
 
 
 
@@ -456,17 +503,38 @@ end;
 
 //The Popup
 procedure TFrame1.openfileClick(Sender: TObject);
-var aPath : string;
+var aPath,s : string;
+    sa      : array of string;
 begin
+ if not fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml') then
+  begin
+   showmessage(rs_checkoptionsdialog);
+   exit;
+  end;
+
  {$IFDEF WINDOWS}
   aPath := PathToGitWizzard+PathDelim+'winCommands'+PathDelim;
   if FSender is TCommandButton then
-   if not OpenDocument(aPath+(FSender as TCommandButton).FileName+'.bat') then showmessage(rs_filenotfound);
+   begin
+    setlength(sa,1);
+    sa[0] := aPath+(FSender as TCommandButton).FileName+'.bat';
+    RunCommand(FEditor,sa,s,[],swoNone);
+    showmessage(s);
+   end;
+  //if FSender is TCommandButton then
+   //if not OpenDocument(aPath+(FSender as TCommandButton).FileName+'.bat') then showmessage(rs_filenotfound);
  {$ENDIF}
  {$IFDEF Linux}
-  aPath := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim;
+ aPath := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim;
   if FSender is TCommandButton then
-   if not OpenDocument(aPath+(FSender as TCommandButton).FileName+'.sh') then showmessage(rs_filenotfound);
+   begin
+    setlength(sa,1);
+    sa[0] := aPath+(FSender as TCommandButton).FileName+'.sh';
+    RunCommand(FEditor,sa,s,[],swoNone);
+    //if s <> 'ok' then showmessage(s);
+   end;
+ //if FSender is TCommandButton then
+   //if not OpenDocument(aPath+(FSender as TCommandButton).FileName+'.sh') then showmessage(rs_filenotfound);
  {$ENDIF}
  if FSender = gitignore then
    if not OpenDocument(PathToGitDirectory+PathDelim+'.gitignore') then showmessage(rs_ignorenofound);

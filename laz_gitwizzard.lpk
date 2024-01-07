@@ -27,6 +27,10 @@
         <Filename Value="input_form.pas"/>
         <UnitName Value="input_form"/>
       </Item>
+      <Item>
+        <Filename Value="options_form.pas"/>
+        <UnitName Value="options_form"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
