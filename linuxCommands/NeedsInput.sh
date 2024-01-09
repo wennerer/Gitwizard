@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'nach win test'
+git commit -a -m 'farbe toolbar clform'
