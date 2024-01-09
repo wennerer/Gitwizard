@@ -187,7 +187,7 @@ object Frame1: TFrame1
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 2
     Caption = 'set gitignore'
-    OnMouseDown = gitignoreMouseDown
+    OnClick = gitignoreClick
     ParentShowHint = False
     PopupMenu = PopupMenu_CommandButtons
     ShowHint = True
@@ -789,7 +789,6 @@ object Frame1: TFrame1
   end
   object PopupMenu_CommandButtons: TPopupMenu
     Images = ImageList1
-    AutoPopup = False
     Left = 128
     Top = 576
     object openfile: TMenuItem

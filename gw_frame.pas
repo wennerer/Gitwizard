@@ -18,6 +18,7 @@ resourcestring
   rs_filenotfound = 'File not found';
   rs_Directorynotfound = 'Directory not found';
   rs_checkoptionsdialog = 'Please check optionsdialog';
+  rs_gw_commands = 'File nor found: gw_commands.xml';
 
 type
 
@@ -29,13 +30,14 @@ type
 
   private
     FFileName  : string;
+    FLastClick: boolean;
     FNeedsInput: boolean;
   public
    property FileName   : string  read FFileName   write FFileName;
    property NeedsInput : boolean read FNeedsInput write FNeedsInput;
+   property LastClick : boolean read FLastClick write FLastClick;
+   procedure MouseDown({%H-}Button: TMouseButton;{%H-}Shift: TShiftState; X, Y: Integer);override;
   end;
-
-
 
 
 type
@@ -43,30 +45,30 @@ type
   { TFrame1 }
 
   TFrame1 = class(TFrame)
-    gitignore                : TButton;
-    ImageList1               : TImageList;
-    deletecommand            : TMenuItem;
-    openfile                 : TMenuItem;
-    Path_Panel               : TPanel;
-    Input                    : TEdit;
-    GitDirectoryDlg          : TSelectDirectoryDialog;
-    PopupMenu_CommandButtons : TPopupMenu;
-    Separator_Shape1         : TShape;
-    SpeedButton_opendir             : TSpeedButton;
-    SpeedButton_options             : TSpeedButton;
-    SpeedButton_NewCommand   : TSpeedButton;
-    SpeedButton_defgitignore : TSpeedButton;
-    SpeedButton_SingleInput  : TSpeedButton;
+    gitignore                   : TButton;
+    ImageList1                  : TImageList;
+    deletecommand               : TMenuItem;
+    openfile                    : TMenuItem;
+    Path_Panel                  : TPanel;
+    Input                       : TEdit;
+    GitDirectoryDlg             : TSelectDirectoryDialog;
+    PopupMenu_CommandButtons    : TPopupMenu;
+    Separator_Shape1            : TShape;
+    SpeedButton_opendir         : TSpeedButton;
+    SpeedButton_options         : TSpeedButton;
+    SpeedButton_NewCommand      : TSpeedButton;
+    SpeedButton_defgitignore    : TSpeedButton;
+    SpeedButton_SingleInput     : TSpeedButton;
     SpeedButton_LastSavedPackage: TSpeedButton;
-    SpeedButton_AnyDir       : TSpeedButton;
+    SpeedButton_AnyDir          : TSpeedButton;
     SpeedButton_LastSavedProject: TSpeedButton;
-    ToolBar1                 : TToolBar;
+    ToolBar1                      : TToolBar;
+    procedure gitignoreClick(Sender: TObject);
     procedure ReadValues;
     procedure SpeedButton_opendirClick(Sender: TObject);
     procedure SpeedButton_optionsClick(Sender: TObject);
     procedure WriteValues;
     procedure deletecommandClick(Sender: TObject);
-    procedure gitignoreMouseDown(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
     procedure openfileClick(Sender: TObject);
     procedure SpeedButton_defgitignoreClick(Sender: TObject);
     procedure SpeedButton_LastSavedPackageClick(Sender: TObject);
@@ -80,11 +82,12 @@ type
     FEditor                : string;
     PathToGitDirectory     : string; //The path to the directory that is to be versioned using git
     PathToGitWizzard       : string; //The path to the directory where the gitwizzard package is located
-    procedure CommandButtonMouseDown(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
+    procedure CommandButtonClick(Sender: TObject);
     procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; Options: TProcessOptions=[];
                              swOptions: TShowWindowOptions=swoNone);
     procedure SaveABashfile(aFileName, aCommand: string);
     procedure SetPathToGitDirectory(aPath: string);
+    procedure AdjustTheButtons;
   public
     constructor Create(AOwner: TComponent); override;
     destructor  Destroy; override;
@@ -112,7 +115,7 @@ var
   Xml         : TXMLDocument;
   XPathResult : TXPathVariable;
   APtr        : Pointer;
-  Path        : string;
+  Path,s      : string;
   i           : integer;
 begin
   Path:= '';
@@ -123,17 +126,34 @@ begin
   XPathResult.Free;
   Xml.Free;
 
+
+ {$IFDEF WINDOWS}
+   s:='\';
+ {$ENDIF}
+ {$IFDEF Linux}
+   s:='/';
+ {$ENDIF}
   Path:=ReverseString(Path);
-  i:=Pos('/',Path);
+  i:=Pos(s,Path);
   Delete(Path, 1, i);
   Path:=ReverseString(Path);
 
   Result := Path;
 end;
 
+{ TCommandButton }
+
+procedure TCommandButton.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
+  Y: Integer);
+begin
+ inherited MouseDown(Button, Shift, X, Y);
+ LastClick:=true;
+end;
+
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx---FRAME---XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 { TFrame1 }
+
 constructor TFrame1.Create(AOwner: TComponent);
 var PathToEnviro     : string;
 begin
@@ -143,7 +163,9 @@ begin
  PathToGitWizzard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizzard"]]/Filename/@*');
  //PathToGitDirectory := '';
  //SetPathToGitDirectory(PathToGitDirectory);
- ReadValues;
+
+ if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml') then ReadValues
+ else showmessage(rs_gw_commands);
 
 end;
 
@@ -250,7 +272,9 @@ var xml     :  TXMLDocument;
            TCommandButton(CommandList.Last).Anchors := [akLeft, akRight, akTop];
            TCommandButton(CommandList.Last).Tag                    := CommandList.Count-1;
            TCommandButton(CommandList.Last).ShowHint               := true;
-           TCommandButton(CommandList.Last).OnMouseDown            := @CommandButtonMouseDown;
+           TCommandButton(CommandList.Last).OnClick                := @CommandButtonClick;
+           TCommandButton(CommandList.Last).PopupMenu              := PopupMenu_CommandButtons;
+           TCommandButton(CommandList.Last).LastClick              := false;
            inc(k);
           end;
          if Node.NodeName = '#text' then
@@ -304,18 +328,44 @@ begin
   //else Git_init.Enabled:=true;
 end;
 
+procedure TFrame1.AdjustTheButtons;
+var lv,i : integer;
+begin
+ for lv:=0 to pred(CommandList.Count) do
+  begin
+   TCommandButton(CommandList.Items[lv]).Anchors:=[];
+   if lv = 0 then
+    TCommandButton(CommandList.Items[lv]).AnchorSideTop.Control := gitignore
+   else
+    TCommandButton(CommandList.Items[lv]).AnchorSideTop.Control := TCommandButton(CommandList.Items[lv-1]);
+    TCommandButton(CommandList.Items[lv]).AnchorSideTop.Side     := asrBottom;
+    TCommandButton(CommandList.Items[lv]).AnchorSideLeft.Control := self;
+    TCommandButton(CommandList.Items[lv]).AnchorSideRight.Control:= self;
+    TCommandButton(CommandList.Items[lv]).AnchorSideRight.Side   := asrBottom;
+    TCommandButton(CommandList.Items[lv]).Anchors := [akLeft, akRight, akTop];
+  end;
+end;
+
 procedure TFrame1.SaveABashfile(aFileName,aCommand:string);
 var strList          : TStringList;
 begin
  strList  := TStringlist.Create;
  try
-  strList.Add('#!/bin/bash');
-  strList.Add(aCommand);
-  strList.SaveToFile(PathToGitWizzard+'/linuxCommands/'+aFileName+'.sh');
+  {$IFDEF WINDOWS}
+   strList.Add(aCommand);
+   strList.SaveToFile(PathToGitWizzard+'\winCommands\'+aFileName+'.bat');
+  {$ENDIF}
+  {$IFDEF Linux}
+   strList.Add('#!/bin/bash');
+   strList.Add(aCommand);
+   strList.SaveToFile(PathToGitWizzard+'/linuxCommands/'+aFileName+'.sh');
+  {$ENDIF}
  finally
   strList.Free;
  end;
-
+ {$IFDEF WINDOWS}
+  exit;
+ {$ENDIF}
  strList  := TStringlist.Create;
  try
   strList.Add('#!/bin/bash');
@@ -396,7 +446,9 @@ begin
  TCommandButton(CommandList.Last).Anchors := [akLeft, akRight, akTop];
  TCommandButton(CommandList.Last).Tag                    := CommandList.Count-1;
  TCommandButton(CommandList.Last).ShowHint               := true;
- TCommandButton(CommandList.Last).OnMouseDown            := @CommandButtonMouseDown;
+ TCommandButton(CommandList.Last).OnClick                := @CommandButtonClick;
+ TCommandButton(CommandList.Last).PopupMenu              := PopupMenu_CommandButtons;
+ TCommandButton(CommandList.Last).LastClick              := false;
  SaveABashfile(TCommandButton(CommandList.Last).FileName,aCommand);
  WriteValues;
 end;
@@ -410,8 +462,10 @@ procedure TFrame1.SpeedButton_optionsClick(Sender: TObject);
 begin
   Optionsform := TOptionsform.Create(self);
   try
-   FEditor := Optionsform.Edit_Editor.Text;
+   Optionsform.Edit_Editor.Text := FEditor;
    Optionsform.ShowModal;
+
+   FEditor := Optionsform.Edit_Editor.Text;
   finally
    Optionsform.Free;
   end;
@@ -433,7 +487,7 @@ begin
   end;
 
  {$IFDEF WINDOWS}
-    pathtobash := comdir + aBash+'.bat';
+    pathtobash := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+ aCommandBash+'.bat';
  {$ENDIF}
  {$IFDEF Linux}
     pathtobash := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+ aCommandBash+'.sh';
@@ -453,35 +507,58 @@ var strList          : TStringList;
 begin
  strList  := TStringlist.Create;
  try
+ {$IFDEF WINDOWS}
+  strList.Add(Input.Text);
+  strList.SaveToFile(PathToGitWizzard+'\winCommands\singlecommand.bat');
+ {$ENDIF}
+ {$IFDEF Linux}
   strList.Add('#!/bin/bash');
   strList.Add(Input.Text);
   strList.SaveToFile(PathToGitWizzard+'/linuxCommands/singlecommand.sh');
+  {$ENDIF}
  finally
   strList.Free;
  end;
  ExecuteCommand('singlecommand',[],[],swoNone);
 end;
 
-//here execute CommandButtons
-procedure TFrame1.CommandButtonMouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-var strList : TStringlist;
+
+procedure TFrame1.gitignoreClick(Sender: TObject);
 begin
- if Button = mbRight then
+ if PathToGitDirectory = '' then
   begin
-   FSender := nil;
-   FSender := Sender;
-   PopupMenu_CommandButtons.PopUp;
+   showmessage(rs_nodirectoryselected);
    exit;
   end;
+ if FileExists(PathToGitDirectory+PathDelim+'.gitignore') then
+  begin
+   showmessage(rs_Filealreadyexists);
+   exit;
+  end;
+ if CopyFile(PathToGitWizzard+PathDelim+'defaultgitignore'+PathDelim+'.gitignore',
+             PathToGitDirectory+PathDelim+'.gitignore')
+ then showmessage('Ok') else showmessage('Error');
+end;
 
 
+
+//here execute CommandButtons
+procedure TFrame1.CommandButtonClick(Sender: TObject);
+var strList : TStringlist;
+begin
  if (Sender as TCommandButton).NeedsInput then
   begin
    InputForm  := TInputForm.Create(self);
    strList    := TStringlist.Create;
    try
-    strList.LoadFromFile(PathToGitWizzard+'/linuxCommands/'+(Sender as TCommandButton).FileName+'.sh');
+    {$IFDEF WINDOWS}
+      strList.LoadFromFile(PathToGitWizzard+'\winCommands\'+(Sender as TCommandButton).FileName+'.bat');
+
+    {$ENDIF}
+    {$IFDEF Linux}
+     strList.LoadFromFile(PathToGitWizzard+'/linuxCommands/'+(Sender as TCommandButton).FileName+'.sh');
+    {$ENDIF}
+
     InputForm.Edit_Complete.Text := strList[1];
     InputForm.ShowModal;
 
@@ -494,7 +571,7 @@ begin
 
   exit;
   end;
-
+ //showmessage(PathToGitWizzard+'\winCommands\'+(Sender as TCommandButton).FileName+'.bat');
  ExecuteCommand((Sender as TCommandButton).FileName,[],[],swoNone);
 end;
 
@@ -502,10 +579,19 @@ end;
 
 
 //The Popup
-procedure TFrame1.openfileClick(Sender: TObject);
+procedure TFrame1.OpenFileClick(Sender: TObject);
 var aPath,s : string;
     sa      : array of string;
+    lv      : integer;
 begin
+ FSender := nil;
+ for lv := 0 to pred(CommandList.Count) do
+  begin
+   if TCommandButton(CommandList.Items[lv]).LastClick then FSender := TCommandButton(CommandList.Items[lv]);
+   TCommandButton(CommandList.Items[lv]).LastClick:= false;
+  end;
+ if FSender = nil then FSender := gitignore;
+
  if not fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml') then
   begin
    showmessage(rs_checkoptionsdialog);
@@ -518,7 +604,8 @@ begin
    begin
     setlength(sa,1);
     sa[0] := aPath+(FSender as TCommandButton).FileName+'.bat';
-    RunCommand(FEditor,sa,s,[],swoNone);
+    showmessage(FEditor);
+    RunCommand(FEditor,sa,s,[],swoNone);   //if abfrage für showmessage
     showmessage(s);
    end;
   //if FSender is TCommandButton then
@@ -540,9 +627,19 @@ begin
    if not OpenDocument(PathToGitDirectory+PathDelim+'.gitignore') then showmessage(rs_ignorenofound);
 end;
 
-procedure TFrame1.deletecommandClick(Sender: TObject);
+
+procedure TFrame1.DeleteCommandClick(Sender: TObject);
 var aPath : string;
+    lv    : integer;
 begin
+ FSender := nil;
+ for lv := 0 to pred(CommandList.Count) do
+  begin
+   if TCommandButton(CommandList.Items[lv]).LastClick then FSender := TCommandButton(CommandList.Items[lv]);
+   TCommandButton(CommandList.Items[lv]).LastClick:= false;
+  end;
+ if FSender = nil then FSender := gitignore;
+
  {$IFDEF WINDOWS}
   aPath := PathToGitWizzard+PathDelim+'winCommands'+PathDelim;
   if FSender is TCommandButton then
@@ -555,42 +652,21 @@ begin
    if deletefile(aPath+(FSender as TCommandButton).FileName+'.sh') then showmessage('Okay')
    else showmessage(rs_filenotfound);
  {$ENDIF}
+
  if FSender = gitignore then
   if deletefile(PathToGitDirectory+PathDelim+'.gitignore') then showmessage('Okay')
   else showmessage(rs_filenotfound);
-end;
 
-
-
-
-//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx----Commands----XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-procedure TFrame1.gitignoreMouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
- if Button = mbRight then
+ if FSender <> gitignore then
   begin
-   FSender := nil;
-   FSender := Sender;
-   PopupMenu_CommandButtons.PopUp;
-  end
- else
-  begin
-   if PathToGitDirectory = '' then
-  begin
-   showmessage(rs_nodirectoryselected);
-   exit;
-  end;
-   if FileExists(PathToGitDirectory+PathDelim+'.gitignore') then
-    begin
-     showmessage(rs_Filealreadyexists);
-     exit;
-    end;
-   if CopyFile(PathToGitWizzard+PathDelim+'defaultgitignore'+PathDelim+'.gitignore',
-            PathToGitDirectory+PathDelim+'.gitignore')
-   then showmessage('Ok') else showmessage('Error');
+   CommandList.Delete((FSender as TCommandButton).Tag);
+   AdjustTheButtons;
+   WriteValues;
   end;
 end;
+
+
+
 
 
 

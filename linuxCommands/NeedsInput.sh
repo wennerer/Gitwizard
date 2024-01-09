@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Optionsform'
+git commit -a -m 'nach win test'
