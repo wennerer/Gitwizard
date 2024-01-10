@@ -1,0 +1,10 @@
+{"version":1,"strings":[
+{"hash":86021015,"name":"tnewcommanddlg.caption","sourcebytes":[78,101,119,32,67,111,109,109,97,110,100,32,68,105,97,108,111,103],"value":"New Command Dialog"},
+{"hash":2952746,"name":"tnewcommanddlg.statictext1.caption","sourcebytes":[80,108,101,97,115,101,32,101,110,116,101,114,32,97,32,99,97,112,116,105,111,110,32,102,111,114,32,116,104,101,32,110,101,119,32,98,117,116,116,111,110,58],"value":"Please enter a caption for the new button:"},
+{"hash":263027162,"name":"tnewcommanddlg.statictext2.caption","sourcebytes":[80,108,101,97,115,101,32,101,110,116,101,114,32,97,32,102,105,108,101,110,97,109,101,32,102,111,114,32,116,104,101,32,110,101,119,32,98,97,115,104,58],"value":"Please enter a filename for the new bash:"},
+{"hash":352649,"name":"tnewcommanddlg.okay.caption","sourcebytes":[79,107,97,121],"value":"Okay"},
+{"hash":77089212,"name":"tnewcommanddlg.cancel.caption","sourcebytes":[67,97,110,99,101,108],"value":"Cancel"},
+{"hash":225088874,"name":"tnewcommanddlg.statictext3.caption","sourcebytes":[80,108,101,97,115,101,32,101,110,116,101,114,32,97,32,110,101,119,32,99,111,109,109,97,110,100,58],"value":"Please enter a new command:"},
+{"hash":185612394,"name":"tnewcommanddlg.statictext4.caption","sourcebytes":[80,108,101,97,115,101,32,101,110,116,101,114,32,97,32,104,105,110,116,32,102,111,114,32,116,104,101,32,110,101,119,32,98,117,116,116,111,110,58],"value":"Please enter a hint for the new button:"},
+{"hash":209852452,"name":"tnewcommanddlg.needsinput.caption","sourcebytes":[84,104,101,32,99,111,109,109,97,110,100,32,114,101,113,117,105,114,101,115,32,97,110,32,105,110,112,117,116],"value":"The command requires an input"}
+]}

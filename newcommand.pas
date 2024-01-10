@@ -5,12 +5,8 @@ unit newcommand;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls;
-
-resourcestring
-  rs_nocaption   = 'No caption entered';
-  rs_nofilename  = 'No filename entered';
-  rs_nocommand   = 'No command entered';
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  StdCtrls,gw_rsstrings;
 
 type
 
@@ -49,7 +45,13 @@ implementation
 
 procedure TNewcommandDlg.FormCreate(Sender: TObject);
 begin
-
+ Caption := rs_newcommandform;
+ StaticText1.Caption := rs_EnterACaption;
+ StaticText2.Caption := rs_EnterAFilename;
+ StaticText3.Caption := rs_EnterACommand;
+ StaticText4.Caption := rs_EnterAHint;
+ Cancel.Caption      := rs_Cancel;
+ NeedsInput.Caption  := rs_NeedInput;
 end;
 
 procedure TNewcommandDlg.OkayClick(Sender: TObject);

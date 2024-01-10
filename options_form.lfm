@@ -6,6 +6,7 @@ object Optionsform: TOptionsform
   Caption = 'Options'
   ClientHeight = 240
   ClientWidth = 496
+  OnCreate = FormCreate
   object StaticText1: TStaticText
     Left = 32
     Height = 23

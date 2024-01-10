@@ -3,12 +3,14 @@
   <Package Version="5">
     <Name Value="laz_gitwizzard"/>
     <Type Value="RunAndDesignTime"/>
+    <Author Value="Bernd Hübner (wennerer)"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
+    <Version Build="1"/>
     <Files>
       <Item>
         <Filename Value="gitwizzard.pas"/>
@@ -31,7 +33,16 @@
         <Filename Value="options_form.pas"/>
         <UnitName Value="options_form"/>
       </Item>
+      <Item>
+        <Filename Value="gw_rsstrings.pas"/>
+        <UnitName Value="gw_rsstrings"/>
+      </Item>
     </Files>
+    <i18n>
+      <EnableI18N Value="True"/>
+      <OutDir Value="locale"/>
+      <EnableI18NForLFM Value="True"/>
+    </i18n>
     <RequiredPkgs>
       <Item>
         <PackageName Value="IDEIntf"/>

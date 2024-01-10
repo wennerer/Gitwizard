@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'farbe toolbar clform'
+git commit -a -m 'i18n'

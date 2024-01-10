@@ -1,0 +1,15 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: newcommand.rs_nocaption
+msgid "No caption entered"
+msgstr ""
+
+#: newcommand.rs_nocommand
+msgid "No command entered"
+msgstr ""
+
+#: newcommand.rs_nofilename
+msgid "No filename entered"
+msgstr ""
+

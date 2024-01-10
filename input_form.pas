@@ -5,7 +5,7 @@ unit input_form;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,gw_rsstrings;
 
 type
 
@@ -17,6 +17,7 @@ type
     Image1: TImage;
     StaticText1: TStaticText;
     procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
 
   public
@@ -35,6 +36,12 @@ implementation
 procedure TInputForm.Button1Click(Sender: TObject);
 begin
  close;
+end;
+
+procedure TInputForm.FormCreate(Sender: TObject);
+begin
+ Caption := rs_InputForm;
+ StaticText1.Caption:= rs_CopleteCommand;
 end;
 
 end.

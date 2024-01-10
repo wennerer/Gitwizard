@@ -23,7 +23,7 @@ object Frame1: TFrame1
     Align = alNone
     Anchors = [akTop, akLeft, akRight]
     Caption = 'ToolBar1'
-    Color = clBackground
+    Color = clForm
     ParentColor = False
     TabOrder = 0
     object SpeedButton_AnyDir: TSpeedButton

@@ -7,18 +7,10 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead, XMLWrite, XPath,
-  process, Contnrs, StrUtils, newcommand, input_form,options_form;
+  process, Contnrs, gettext, StrUtils, newcommand, input_form,options_form,
+  Translations, LCLTranslator, DefaultTranslator,gw_rsstrings;
 
-resourcestring
-  rs_comnotfound = 'Command-File not found!';
-  rs_comerror    = 'The command is incorrect!';
-  rs_ignorenofound = 'Default gitignore not found!';
-  rs_nodirectoryselected = 'No directory selected!';
-  rs_Filealreadyexists = 'File already exists';
-  rs_filenotfound = 'File not found';
-  rs_Directorynotfound = 'Directory not found';
-  rs_checkoptionsdialog = 'Please check optionsdialog';
-  rs_gw_commands = 'File nor found: gw_commands.xml';
+
 
 type
 
@@ -82,6 +74,7 @@ type
     FEditor                : string;
     PathToGitDirectory     : string; //The path to the directory that is to be versioned using git
     PathToGitWizzard       : string; //The path to the directory where the gitwizzard package is located
+    Lang                   : string;
     procedure CommandButtonClick(Sender: TObject);
     procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; Options: TProcessOptions=[];
                              swOptions: TShowWindowOptions=swoNone);
@@ -156,6 +149,7 @@ end;
 
 constructor TFrame1.Create(AOwner: TComponent);
 var PathToEnviro     : string;
+    localedir,s      : string;
 begin
  inherited Create(AOwner);
  CommandList := TObjectList.Create(True);
@@ -167,7 +161,30 @@ begin
  if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml') then ReadValues
  else showmessage(rs_gw_commands);
 
+ GetLanguageIDs(s{%H-},lang{%H-});
+ SetDefaultlang(lang);
+
+ localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'gw_rsstrings.%s.po';
+ Translations.TranslateUnitResourceStrings('gw_rsstrings', Format(localedir, [lang]));
+ localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'gw_frame.%s.po';
+ Translations.TranslateUnitResourceStrings('gw_frame', Format(localedir, [lang]));
+ localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'newcommand.%s.po';
+ Translations.TranslateUnitResourceStrings('newcommand', Format(localedir, [lang]));
+ localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'input_form.%s.po';
+ Translations.TranslateUnitResourceStrings('input_form', Format(localedir, [lang]));
+ localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'options_form.%s.po';
+ Translations.TranslateUnitResourceStrings('options_form', Format(localedir, [lang]));
+
+
+ SpeedButton_AnyDir.Hint                     := rs_AnyDirHint;
+ SpeedButton_LastSavedProject.Hint           := rs_LastSavedProject;
+ SpeedButton_LastSavedPackage.Hint           := rs_LastSavePackage;
+ SpeedButton_defgitignore.Hint               := rs_defgitignore;
+ SpeedButton_NewCommand.Hint                 := rs_newCommand;
+ SpeedButton_opendir.Hint                    := rs_opendir;
+ SpeedButton_options.Hint                    := rs_options;
 end;
+
 
 destructor TFrame1.Destroy;
 begin
@@ -189,7 +206,7 @@ begin
     RootNode:= Doc.DocumentElement;
 
     OptionsNode := Doc.CreateElement('Editor');
-    TDOMElement(OptionsNode).SetAttribute('Editor', FEditor);
+    TDOMElement(OptionsNode).SetAttribute('Editor',unicodestring(FEditor));
     RootNode.Appendchild(OptionsNode);
 
     (*LangugaeNode := Doc.CreateElement('Language');
@@ -255,7 +272,7 @@ var xml     :  TXMLDocument;
     begin
       if (Node.NodeName <> '')  then
        begin
-         if Node.NodeName = 'Commandbutton'+inttostr(k) then
+         if Node.NodeName = 'Commandbutton'+unicodestring(inttostr(k)) then
           begin
            CommandList.Add(TCommandButton.Create(self));
            TCommandButton(CommandList.Last).Parent     := self;
@@ -329,7 +346,7 @@ begin
 end;
 
 procedure TFrame1.AdjustTheButtons;
-var lv,i : integer;
+var lv : integer;
 begin
  for lv:=0 to pred(CommandList.Count) do
   begin
@@ -542,6 +559,7 @@ end;
 
 
 
+
 //here execute CommandButtons
 procedure TFrame1.CommandButtonClick(Sender: TObject);
 var strList : TStringlist;
@@ -605,11 +623,10 @@ begin
     setlength(sa,1);
     sa[0] := aPath+(FSender as TCommandButton).FileName+'.bat';
     showmessage(FEditor);
-    RunCommand(FEditor,sa,s,[],swoNone);   //if abfrage für showmessage
+    if not RunCommand(FEditor,sa,s,[],swoNone) then showmessage(s);
     showmessage(s);
    end;
-  //if FSender is TCommandButton then
-   //if not OpenDocument(aPath+(FSender as TCommandButton).FileName+'.bat') then showmessage(rs_filenotfound);
+
  {$ENDIF}
  {$IFDEF Linux}
  aPath := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim;
@@ -617,11 +634,9 @@ begin
    begin
     setlength(sa,1);
     sa[0] := aPath+(FSender as TCommandButton).FileName+'.sh';
-    RunCommand(FEditor,sa,s,[],swoNone);
-    //if s <> 'ok' then showmessage(s);
+    if not RunCommand(FEditor,sa,s,[],swoNone) then showmessage(s);
    end;
- //if FSender is TCommandButton then
-   //if not OpenDocument(aPath+(FSender as TCommandButton).FileName+'.sh') then showmessage(rs_filenotfound);
+
  {$ENDIF}
  if FSender = gitignore then
    if not OpenDocument(PathToGitDirectory+PathDelim+'.gitignore') then showmessage(rs_ignorenofound);

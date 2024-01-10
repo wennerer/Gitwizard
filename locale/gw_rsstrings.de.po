@@ -1,0 +1,135 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de_DE\n"
+
+#: gw_rsstrings.rs_anydirhint
+msgid "Set Any Directory"
+msgstr "Wähle ein Verzeichnis"
+
+#: gw_rsstrings.rs_cancel
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: gw_rsstrings.rs_checkoptionsdialog
+msgid "Please check optionsdialog!"
+msgstr "Bitte schaue in den Options_Dialog!"
+
+#: gw_rsstrings.rs_comerror
+msgid "The command is incorrect!"
+msgstr "Der Befehl ist nicht korrekt!"
+
+#: gw_rsstrings.rs_comnotfound
+msgid "Command-File not found!"
+msgstr "Befehlsdatei nicht gefunden!"
+
+#: gw_rsstrings.rs_copletecommand
+msgid "Complete the command:"
+msgstr "Vervollständige den Befehl:"
+
+#: gw_rsstrings.rs_defgitignore
+msgid "Edit default gitignore"
+msgstr "Standard gitignore bearbeiten"
+
+#: gw_rsstrings.rs_directorynotfound
+msgid "Directory not found!"
+msgstr "Verzeichnis nicht gefunden!"
+
+#: gw_rsstrings.rs_enteracaption
+msgid "Please enter a caption for the new button:"
+msgstr "Bitte gib eine Caption für den neuen Button ein:"
+
+#: gw_rsstrings.rs_enteracommand
+msgid "Please enter a new command:"
+msgstr "Bitte gib einen neuen Befehl ein:"
+
+#: gw_rsstrings.rs_enterafilename
+msgid "Please enter a filename for the new bash:"
+msgstr "Bitte gib einen Dateinamen für die Bashdatei ein;"
+
+#: gw_rsstrings.rs_enterahint
+msgid "Please enter a hint for the new button:"
+msgstr "Bitte gib einen Hint für den neuen Button ein:"
+
+#: gw_rsstrings.rs_filealreadyexists
+msgid "File already exists!"
+msgstr "Datei existiert schon!"
+
+#: gw_rsstrings.rs_filenotfound
+msgid "File not found!"
+msgstr "Datei nicht gefunden!"
+
+#: gw_rsstrings.rs_gw_commands
+msgid "File nor found: gw_commands.xml!"
+msgstr "gw_commands.xml nicht gefunden"
+
+#: gw_rsstrings.rs_ignorenofound
+msgid "Default gitignore not found!"
+msgstr "Standard gitignore nicht gefunden!"
+
+#: gw_rsstrings.rs_inputform
+msgid "Complete the command dialog"
+msgstr "Vervollständige den Befehl Dialog"
+
+#: gw_rsstrings.rs_lastsavedproject
+msgid "Set Last Saved Project-Directory"
+msgstr "Setzt das letzte gespeicherte Project-Verzeichnis"
+
+#: gw_rsstrings.rs_lastsavepackage
+msgid "Set Last Saved Package-Directory"
+msgstr "Setzt das letzte gespeicherte Package-Verzeichnis"
+
+#: gw_rsstrings.rs_needinput
+msgid "The command requires an input"
+msgstr "Der Befehl benötigt eine Eingabe"
+
+#: gw_rsstrings.rs_newcommand
+msgid "Create a new command"
+msgstr "Erzeuge einen neuen Befehl"
+
+#: gw_rsstrings.rs_newcommandform
+msgid "New Command Dialog"
+msgstr "Neuer Befehl Dialog"
+
+#: gw_rsstrings.rs_nocaption
+msgid "No caption entered"
+msgstr "Keine Caption eingegeben"
+
+#: gw_rsstrings.rs_nocommand
+msgid "No command entered"
+msgstr "Keinen Befehl eingegeben"
+
+#: gw_rsstrings.rs_nodirectoryselected
+msgid "No directory selected!"
+msgstr "Kein Verzeichnis ausgewählt!"
+
+#: gw_rsstrings.rs_nofilename
+msgid "No filename entered"
+msgstr "Keinen Datei eingegeben"
+
+#: gw_rsstrings.rs_opendir
+msgid "Open Directory"
+msgstr "Öffne Verzeichnis"
+
+#: gw_rsstrings.rs_options
+msgctxt "gw_rsstrings.rs_options"
+msgid "Options"
+msgstr "Optionen"
+
+#: gw_rsstrings.rs_optionsform
+msgctxt "gw_rsstrings.rs_optionsform"
+msgid "Options"
+msgstr "Optionen"
+
+#: gw_rsstrings.rs_selecteditor
+msgid "Select an editor:"
+msgstr "Wähle einen Editor:"

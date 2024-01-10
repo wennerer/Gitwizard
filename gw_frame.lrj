@@ -1,0 +1,14 @@
+{"version":1,"strings":[
+{"hash":106991073,"name":"tframe1.toolbar1.caption","sourcebytes":[84,111,111,108,66,97,114,49],"value":"ToolBar1"},
+{"hash":12073945,"name":"tframe1.speedbutton_anydir.hint","sourcebytes":[83,101,116,32,65,110,121,32,68,105,114,101,99,116,111,114,121],"value":"Set Any Directory"},
+{"hash":259302937,"name":"tframe1.speedbutton_lastsavedproject.hint","sourcebytes":[83,101,116,32,76,97,115,116,32,83,97,118,101,100,32,80,114,111,106,101,99,116,45,68,105,114,101,99,116,111,114,121],"value":"Set Last Saved Project-Directory"},
+{"hash":50622985,"name":"tframe1.speedbutton_lastsavedpackage.hint","sourcebytes":[83,101,116,32,76,97,115,116,32,83,97,118,101,100,32,80,97,99,107,97,103,101,45,68,105,114,101,99,116,111,114,121],"value":"Set Last Saved Package-Directory"},
+{"hash":78003461,"name":"tframe1.speedbutton_defgitignore.hint","sourcebytes":[69,100,105,116,32,100,101,102,97,117,108,116,32,103,105,116,105,103,110,111,114,101],"value":"Edit default gitignore"},
+{"hash":63987428,"name":"tframe1.speedbutton_newcommand.hint","sourcebytes":[67,114,101,97,116,101,32,97,32,110,101,119,32,99,111,109,109,97,110,100],"value":"Create a new command"},
+{"hash":242943737,"name":"tframe1.speedbutton_opendir.hint","sourcebytes":[79,112,101,110,32,68,105,114,101,99,116,111,114,121],"value":"Open Directory"},
+{"hash":108725763,"name":"tframe1.speedbutton_options.hint","sourcebytes":[79,112,116,105,111,110,115],"value":"Options"},
+{"hash":39188457,"name":"tframe1.gitignore.hint","sourcebytes":[67,111,112,105,101,115,32,116,104,101,32,100,101,102,97,117,108,116,32,103,105,116,105,103,110,111,114,101,32,102,105,108,101,32,105,110,116,111,32,116,104,101,32,100,105,114,101,99,116,111,114,121],"value":"Copies the default gitignore file into the directory"},
+{"hash":54278389,"name":"tframe1.gitignore.caption","sourcebytes":[115,101,116,32,103,105,116,105,103,110,111,114,101],"value":"set gitignore"},
+{"hash":201628229,"name":"tframe1.openfile.caption","sourcebytes":[79,112,101,110,32,70,105,108,101],"value":"Open File"},
+{"hash":110138788,"name":"tframe1.deletecommand.caption","sourcebytes":[68,101,108,101,116,101,32,67,111,109,109,97,110,100],"value":"Delete Command"}
+]}

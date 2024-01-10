@@ -6,6 +6,7 @@ object InputForm: TInputForm
   Caption = 'Complete the command dialog'
   ClientHeight = 240
   ClientWidth = 653
+  OnCreate = FormCreate
   object StaticText1: TStaticText
     Left = 24
     Height = 23
