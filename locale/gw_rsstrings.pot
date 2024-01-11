@@ -29,6 +29,10 @@ msgstr ""
 msgid "Edit default gitignore"
 msgstr ""
 
+#: gw_rsstrings.rs_deletecommand
+msgid "Delete command"
+msgstr ""
+
 #: gw_rsstrings.rs_directorynotfound
 msgid "Directory not found!"
 msgstr ""
@@ -77,6 +81,10 @@ msgstr ""
 msgid "Set Last Saved Package-Directory"
 msgstr ""
 
+#: gw_rsstrings.rs_movebutton
+msgid "Move Button"
+msgstr ""
+
 #: gw_rsstrings.rs_needinput
 msgid "The command requires an input"
 msgstr ""
@@ -107,6 +115,10 @@ msgstr ""
 
 #: gw_rsstrings.rs_opendir
 msgid "Open Directory"
+msgstr ""
+
+#: gw_rsstrings.rs_openfile
+msgid "Open File"
 msgstr ""
 
 #: gw_rsstrings.rs_options

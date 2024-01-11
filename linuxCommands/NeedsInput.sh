@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'i18n'
+git commit -a -m 'setzt den Pfad beim start'

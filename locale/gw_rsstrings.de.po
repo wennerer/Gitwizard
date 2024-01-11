@@ -40,6 +40,10 @@ msgstr "Vervollständige den Befehl:"
 msgid "Edit default gitignore"
 msgstr "Standard gitignore bearbeiten"
 
+#: gw_rsstrings.rs_deletecommand
+msgid "Delete command"
+msgstr "Lösche den Befehl"
+
 #: gw_rsstrings.rs_directorynotfound
 msgid "Directory not found!"
 msgstr "Verzeichnis nicht gefunden!"
@@ -88,6 +92,10 @@ msgstr "Setzt das letzte gespeicherte Project-Verzeichnis"
 msgid "Set Last Saved Package-Directory"
 msgstr "Setzt das letzte gespeicherte Package-Verzeichnis"
 
+#: gw_rsstrings.rs_movebutton
+msgid "Move Button"
+msgstr "Verschiebe den Button"
+
 #: gw_rsstrings.rs_needinput
 msgid "The command requires an input"
 msgstr "Der Befehl benötigt eine Eingabe"
@@ -119,6 +127,10 @@ msgstr "Keinen Datei eingegeben"
 #: gw_rsstrings.rs_opendir
 msgid "Open Directory"
 msgstr "Öffne Verzeichnis"
+
+#: gw_rsstrings.rs_openfile
+msgid "Open File"
+msgstr "Öffne die Datei"
 
 #: gw_rsstrings.rs_options
 msgctxt "gw_rsstrings.rs_options"

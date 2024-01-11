@@ -10,5 +10,6 @@
 {"hash":39188457,"name":"tframe1.gitignore.hint","sourcebytes":[67,111,112,105,101,115,32,116,104,101,32,100,101,102,97,117,108,116,32,103,105,116,105,103,110,111,114,101,32,102,105,108,101,32,105,110,116,111,32,116,104,101,32,100,105,114,101,99,116,111,114,121],"value":"Copies the default gitignore file into the directory"},
 {"hash":54278389,"name":"tframe1.gitignore.caption","sourcebytes":[115,101,116,32,103,105,116,105,103,110,111,114,101],"value":"set gitignore"},
 {"hash":201628229,"name":"tframe1.openfile.caption","sourcebytes":[79,112,101,110,32,70,105,108,101],"value":"Open File"},
-{"hash":110138788,"name":"tframe1.deletecommand.caption","sourcebytes":[68,101,108,101,116,101,32,67,111,109,109,97,110,100],"value":"Delete Command"}
+{"hash":110138788,"name":"tframe1.deletecommand.caption","sourcebytes":[68,101,108,101,116,101,32,67,111,109,109,97,110,100],"value":"Delete Command"},
+{"hash":183189838,"name":"tframe1.movebutton.caption","sourcebytes":[77,111,118,101,32,116,104,101,32,98,117,116,116,111,110],"value":"Move the button"}
 ]}

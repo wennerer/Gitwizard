@@ -24,6 +24,9 @@ resourcestring
   rs_newCommand                       = 'Create a new command';
   rs_opendir                          = 'Open Directory';
   rs_options                          = 'Options';
+  rs_openfile                         = 'Open File';
+  rs_deletecommand                    = 'Delete command';
+  rs_movebutton                       = 'Move Button';
 
   rs_newcommandform                   = 'New Command Dialog';
   rs_nocaption                        = 'No caption entered';

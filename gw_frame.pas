@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead, XMLWrite, XPath,
   process, Contnrs, gettext, StrUtils, newcommand, input_form,options_form,
-  Translations, LCLTranslator, DefaultTranslator,gw_rsstrings;
+  Translations, LCLTranslator, DefaultTranslator, LMessages,gw_rsstrings;
 
 
 
@@ -40,6 +40,7 @@ type
     gitignore                   : TButton;
     ImageList1                  : TImageList;
     deletecommand               : TMenuItem;
+    movebutton: TMenuItem;
     openfile                    : TMenuItem;
     Path_Panel                  : TPanel;
     Input                       : TEdit;
@@ -56,6 +57,7 @@ type
     SpeedButton_LastSavedProject: TSpeedButton;
     ToolBar1                      : TToolBar;
     procedure gitignoreClick(Sender: TObject);
+    procedure movebuttonClick(Sender: TObject);
     procedure ReadValues;
     procedure SpeedButton_opendirClick(Sender: TObject);
     procedure SpeedButton_optionsClick(Sender: TObject);
@@ -75,12 +77,15 @@ type
     PathToGitDirectory     : string; //The path to the directory that is to be versioned using git
     PathToGitWizzard       : string; //The path to the directory where the gitwizzard package is located
     Lang                   : string;
+    FFirst                 : boolean;
     procedure CommandButtonClick(Sender: TObject);
     procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; Options: TProcessOptions=[];
                              swOptions: TShowWindowOptions=swoNone);
     procedure SaveABashfile(aFileName, aCommand: string);
     procedure SetPathToGitDirectory(aPath: string);
     procedure AdjustTheButtons;
+  protected
+    procedure WMShowWindow(var Message: TLMShowWindow); message LM_SHOWWINDOW;
   public
     constructor Create(AOwner: TComponent); override;
     destructor  Destroy; override;
@@ -158,8 +163,10 @@ begin
  //PathToGitDirectory := '';
  //SetPathToGitDirectory(PathToGitDirectory);
 
- if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml') then ReadValues
- else showmessage(rs_gw_commands);
+ //if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml') then ReadValues
+ //else showmessage(rs_gw_commands);
+
+ FFirst := true;
 
  GetLanguageIDs(s{%H-},lang{%H-});
  SetDefaultlang(lang);
@@ -183,6 +190,9 @@ begin
  SpeedButton_NewCommand.Hint                 := rs_newCommand;
  SpeedButton_opendir.Hint                    := rs_opendir;
  SpeedButton_options.Hint                    := rs_options;
+ openfile.Caption                            := rs_openfile;
+ deletecommand.Caption                       := rs_deletecommand;
+ movebutton.Caption                          := rs_movebutton;
 end;
 
 
@@ -194,7 +204,7 @@ end;
 
 procedure TFrame1.WriteValues;
 var Doc               : TXMLDocument;
-    RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,OptionsNode,aText: TDOMNode;
+    RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,OptionsNode,LastNode,aText: TDOMNode;
     lv : integer;
     s  : string;
 begin
@@ -208,6 +218,10 @@ begin
     OptionsNode := Doc.CreateElement('Editor');
     TDOMElement(OptionsNode).SetAttribute('Editor',unicodestring(FEditor));
     RootNode.Appendchild(OptionsNode);
+
+    LastNode := Doc.CreateElement('Last');
+    TDOMElement(LastNode).SetAttribute('Last',unicodestring(PathToGitDirectory));
+    RootNode.Appendchild(LastNode);
 
     (*LangugaeNode := Doc.CreateElement('Language');
     TDOMElement(LangugaeNode).SetAttribute('Language', 'de');
@@ -324,8 +338,15 @@ begin
     ReadXMLFile(Xml,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml');
     XPathResult := EvaluateXPathExpression('/Options/Editor/@*', Xml.DocumentElement);
     For APtr in XPathResult.AsNodeSet do
-     FEDitor := string(TDOMNode(APtr).NodeValue);
+     FEditor := string(TDOMNode(APtr).NodeValue);
     XPathResult.Free;
+
+    XPathResult := EvaluateXPathExpression('/Options/Last/@*', Xml.DocumentElement);
+    For APtr in XPathResult.AsNodeSet do
+     PathToGitDirectory := string(TDOMNode(APtr).NodeValue);
+    XPathResult.Free;
+
+
     (*XPathResult := EvaluateXPathExpression('/Options/Language/@*', Xml.DocumentElement);
     For APtr in XPathResult.AsNodeSet do
     Memo1.Lines.Add(string(TDOMNode(APtr).NodeValue));
@@ -335,10 +356,36 @@ begin
 end;
 
 procedure TFrame1.SetPathToGitDirectory(aPath : string);
+var Doc               : TXMLDocument;
+    RootNode,OptionsNode,LastNode: TDOMNode;
 begin
  if PathToGitDirectory = '' then exit;
  Path_Panel.Caption := AdjustText(aPath,Path_Panel);
  Path_Panel.Hint:= aPath;
+
+ try
+    Doc := TXMLDocument.Create;
+
+    RootNode := Doc.CreateElement('Options');
+    Doc.Appendchild(RootNode);
+    RootNode:= Doc.DocumentElement;
+
+    OptionsNode := Doc.CreateElement('Editor');
+    TDOMElement(OptionsNode).SetAttribute('Editor',unicodestring(FEditor));
+    RootNode.Appendchild(OptionsNode);
+
+    LastNode := Doc.CreateElement('Last');
+    TDOMElement(LastNode).SetAttribute('Last',unicodestring(PathToGitDirectory));
+    RootNode.Appendchild(LastNode);
+
+    (*LangugaeNode := Doc.CreateElement('Language');
+    TDOMElement(LangugaeNode).SetAttribute('Language', 'de');
+    RootNode.Appendchild(LangugaeNode); *)
+
+    writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_options.xml');
+  finally
+    Doc.Free;
+  end;
 
  //Checks whether git has already been initialised
 // if DirectoryExists(aPath+PathDelim+'.git') then Git_init.Enabled:= false
@@ -362,6 +409,18 @@ begin
     TCommandButton(CommandList.Items[lv]).Anchors := [akLeft, akRight, akTop];
   end;
 end;
+
+procedure TFrame1.WMShowWindow(var Message: TLMShowWindow);
+begin
+ if not FFirst then exit;
+ if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml') then ReadValues
+ else showmessage(rs_gw_commands);
+ if PathToGitDirectory = '' then exit;
+ Path_Panel.Caption := AdjustText(PathToGitDirectory,Path_Panel);
+ Path_Panel.Hint:= PathToGitDirectory;
+ FFirst := false;
+end;
+
 
 procedure TFrame1.SaveABashfile(aFileName,aCommand:string);
 var strList          : TStringList;
@@ -557,6 +616,11 @@ begin
  then showmessage('Ok') else showmessage('Error');
 end;
 
+procedure TFrame1.movebuttonClick(Sender: TObject);
+begin
+  showmessage('move');
+end;
+
 
 
 
@@ -597,7 +661,7 @@ end;
 
 
 //The Popup
-procedure TFrame1.OpenFileClick(Sender: TObject);
+procedure TFrame1.openfileClick(Sender: TObject);
 var aPath,s : string;
     sa      : array of string;
     lv      : integer;
@@ -643,7 +707,7 @@ begin
 end;
 
 
-procedure TFrame1.DeleteCommandClick(Sender: TObject);
+procedure TFrame1.deletecommandClick(Sender: TObject);
 var aPath : string;
     lv    : integer;
 begin
