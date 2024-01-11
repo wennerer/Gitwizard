@@ -53,6 +53,10 @@ msgstr ""
 msgid "Please enter a hint for the new button:"
 msgstr ""
 
+#: gw_rsstrings.rs_enternewpos
+msgid "Enter a new position!"
+msgstr ""
+
 #: gw_rsstrings.rs_filealreadyexists
 msgid "File already exists!"
 msgstr ""
@@ -95,6 +99,10 @@ msgstr ""
 
 #: gw_rsstrings.rs_newcommandform
 msgid "New Command Dialog"
+msgstr ""
+
+#: gw_rsstrings.rs_newpos
+msgid "New Position:"
 msgstr ""
 
 #: gw_rsstrings.rs_nocaption

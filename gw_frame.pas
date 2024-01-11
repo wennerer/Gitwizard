@@ -181,6 +181,8 @@ begin
  Translations.TranslateUnitResourceStrings('input_form', Format(localedir, [lang]));
  localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'options_form.%s.po';
  Translations.TranslateUnitResourceStrings('options_form', Format(localedir, [lang]));
+ localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'move_button.%s.po';
+ Translations.TranslateUnitResourceStrings('move_button', Format(localedir, [lang]));
 
 
  SpeedButton_AnyDir.Hint                     := rs_AnyDirHint;

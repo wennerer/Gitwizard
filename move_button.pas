@@ -5,7 +5,7 @@ unit move_button;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Spin, StdCtrls;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Spin, StdCtrls,gw_rsstrings;
 
 type
 
@@ -14,6 +14,7 @@ type
   TMoveButtonForm = class(TForm)
     SpinEdit1: TSpinEdit;
     StaticText1: TStaticText;
+    procedure FormCreate(Sender: TObject);
   private
 
   public
@@ -26,6 +27,14 @@ var
 implementation
 
 {$R *.lfm}
+
+{ TMoveButtonForm }
+
+procedure TMoveButtonForm.FormCreate(Sender: TObject);
+begin
+ Caption := rs_EnterNewPos;
+ StaticText1.Caption := rs_NewPos;
+end;
 
 end.
 

@@ -46,6 +46,9 @@ resourcestring
   rs_InputForm                        = 'Complete the command dialog';
   rs_CopleteCommand                   = 'Complete the command:';
 
+  rs_NewPos                           = 'New Position:';
+  rs_EnterNewPos                      = 'Enter a new position!';
+
 implementation
 
 end.

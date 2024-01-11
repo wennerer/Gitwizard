@@ -6,6 +6,7 @@ object MoveButtonForm: TMoveButtonForm
   Caption = 'Enter a new position!'
   ClientHeight = 61
   ClientWidth = 398
+  OnCreate = FormCreate
   object SpinEdit1: TSpinEdit
     Left = 272
     Height = 27

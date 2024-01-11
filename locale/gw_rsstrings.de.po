@@ -64,6 +64,10 @@ msgstr "Bitte gib einen Dateinamen für die Bashdatei ein;"
 msgid "Please enter a hint for the new button:"
 msgstr "Bitte gib einen Hint für den neuen Button ein:"
 
+#: gw_rsstrings.rs_enternewpos
+msgid "Enter a new position!"
+msgstr "Gib eine neue Position ein!"
+
 #: gw_rsstrings.rs_filealreadyexists
 msgid "File already exists!"
 msgstr "Datei existiert schon!"
@@ -107,6 +111,10 @@ msgstr "Erzeuge einen neuen Befehl"
 #: gw_rsstrings.rs_newcommandform
 msgid "New Command Dialog"
 msgstr "Neuer Befehl Dialog"
+
+#: gw_rsstrings.rs_newpos
+msgid "New Position:"
+msgstr "Neue Position:"
 
 #: gw_rsstrings.rs_nocaption
 msgid "No caption entered"
