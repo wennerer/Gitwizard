@@ -616,13 +616,6 @@ begin
  then showmessage('Ok') else showmessage('Error');
 end;
 
-procedure TFrame1.movebuttonClick(Sender: TObject);
-begin
-  showmessage('move');
-end;
-
-
-
 
 //here execute CommandButtons
 procedure TFrame1.CommandButtonClick(Sender: TObject);
@@ -740,11 +733,26 @@ begin
   begin
    CommandList.Delete((FSender as TCommandButton).Tag);
    AdjustTheButtons;
+   for lv := 0 to pred(CommandList.Count) do TCommandButton(CommandList.Items[lv]).Tag:=lv;
    WriteValues;
   end;
 end;
 
+procedure TFrame1.movebuttonClick(Sender: TObject);
+var lv : integer;
+begin
+  FSender := nil;
+ for lv := 0 to pred(CommandList.Count) do
+  begin
+   if TCommandButton(CommandList.Items[lv]).LastClick then FSender := TCommandButton(CommandList.Items[lv]);
+   TCommandButton(CommandList.Items[lv]).LastClick:= false;
+  end;
+ if FSender = nil then FSender := gitignore;
 
+ CommandList.Move((FSender as TCommandButton).Tag,0);
+ AdjustTheButtons;
+ for lv := 0 to pred(CommandList.Count) do TCommandButton(CommandList.Items[lv]).Tag:=lv;
+end;
 
 
 
