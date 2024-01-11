@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'move okay'
+git commit -a -m 'aComment'
