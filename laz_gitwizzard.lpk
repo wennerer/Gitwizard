@@ -37,6 +37,10 @@
         <Filename Value="gw_rsstrings.pas"/>
         <UnitName Value="gw_rsstrings"/>
       </Item>
+      <Item>
+        <Filename Value="move_button.pas"/>
+        <UnitName Value="move_button"/>
+      </Item>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

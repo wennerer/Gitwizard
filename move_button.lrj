@@ -1,0 +1,4 @@
+{"version":1,"strings":[
+{"hash":134725665,"name":"tmovebuttonform.caption","sourcebytes":[69,110,116,101,114,32,97,32,110,101,119,32,112,111,115,105,116,105,111,110,33],"value":"Enter a new position!"},
+{"hash":247706410,"name":"tmovebuttonform.statictext1.caption","sourcebytes":[78,101,119,32,80,111,115,105,116,105,111,110,58],"value":"New Position:"}
+]}

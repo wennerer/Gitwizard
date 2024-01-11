@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead, XMLWrite, XPath,
   process, Contnrs, gettext, StrUtils, newcommand, input_form,options_form,
-  Translations, LCLTranslator, DefaultTranslator, LMessages,gw_rsstrings;
+  Translations, LCLTranslator, DefaultTranslator, LMessages,gw_rsstrings, move_button;
 
 
 
@@ -739,7 +739,7 @@ begin
 end;
 
 procedure TFrame1.movebuttonClick(Sender: TObject);
-var lv : integer;
+var lv,i : integer;
 begin
   FSender := nil;
  for lv := 0 to pred(CommandList.Count) do
@@ -747,11 +747,24 @@ begin
    if TCommandButton(CommandList.Items[lv]).LastClick then FSender := TCommandButton(CommandList.Items[lv]);
    TCommandButton(CommandList.Items[lv]).LastClick:= false;
   end;
- if FSender = nil then FSender := gitignore;
+ if FSender = nil then exit;
 
- CommandList.Move((FSender as TCommandButton).Tag,0);
+ MoveButtonForm  := TMoveButtonForm.Create(self);
+ try
+  MoveButtonForm.SpinEdit1.MaxValue := pred(CommandList.Count);
+  MoveButtonForm.SpinEdit1.Value    := (FSender as TCommandButton).Tag;
+
+  MoveButtonForm.ShowModal;
+
+  i := MoveButtonForm.SpinEdit1.Value;
+ finally
+  MoveButtonForm.Free;
+ end;
+
+ CommandList.Move((FSender as TCommandButton).Tag,i);
  AdjustTheButtons;
  for lv := 0 to pred(CommandList.Count) do TCommandButton(CommandList.Items[lv]).Tag:=lv;
+ writeValues;
 end;
 
 

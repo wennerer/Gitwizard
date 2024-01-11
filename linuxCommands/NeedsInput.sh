@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'move zwischenspeichern'
+git commit -a -m 'move'
