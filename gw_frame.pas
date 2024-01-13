@@ -143,6 +143,40 @@ begin
   Result := Path;
 end;
 
+procedure DeleteAFolder(aFolder: string);
+var sl : TStringList;
+    lv : integer;
+begin
+ sl := TStringlist.Create;
+ try
+  FindAllFiles(sl,aFolder,'*',false);
+  for lv :=0 to pred(sl.Count) do
+   DeleteFile(sl[lv]);
+ finally
+  sl.Free;
+ end;
+end;
+
+procedure CopyAFolder(aSourceFolder,aDestFolder: string);
+var sl : TStringList;
+    lv : integer;
+    s  : string;
+begin
+ sl := TStringlist.Create;
+ try
+  FindAllFiles(sl,aSourceFolder,'*',false);
+  for lv :=0 to pred(sl.Count) do
+   begin
+    copyfile(sl[lv],aDestFolder+ExtractFileName(sl[lv]));
+    if not RunCommandInDir(aDestFolder,'chmod a+x '+aDestFolder+ExtractFileName(sl[lv]),s)
+     then showmessage(s);
+   end;
+ finally
+  sl.Free;
+ end;
+end;
+
+
 { TCommandButton }
 
 procedure TCommandButton.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
@@ -558,74 +592,65 @@ begin
 end;
 
 procedure TFrame1.SpeedButton_restorebackupClick(Sender: TObject);
-var path,pathtobash,s: string;
-    lv   : integer;
-    okay : boolean;
+var dest,source,pathtobashes: string;
 begin
  {$IFDEF WINDOWS}
-    path := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
-   {$ENDIF}
-   {$IFDEF Linux}
-    path := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
-   {$ENDIF}
-  if fileexists(path) then
-   begin
-    if not copyfile(Path,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml')
-    then okay := false;  showmessage(inttostr(CommandList.Count));
-   for lv := 0 to pred(CommandList.Count) do
-    begin
-     {$IFDEF WINDOWS}
-      path := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.bat';
-      pathtobash := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.bat';
-     {$ENDIF}
-     {$IFDEF Linux}
-      path := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.sh';
-      pathtobash := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.sh';
-     {$ENDIF}   showmessage(path);
-      if not copyfile(pathtobash,path) then okay := false;
-     {$IFDEF Linux}
-       RunCommandindir(PathToGitWizzard+PathDelim+'linuxCommands','chmod a+x '+PathToGitWizzard+'/linuxCommands/'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.sh',s);
-       showmessage(s);
-     {$ENDIF}
-    end;
-   if okay then showmessage('Okay') else showmessage(s);
+  source := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+ {$ENDIF}
+ {$IFDEF Linux}
+  source := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+ {$ENDIF}
+ {$IFDEF WINDOWS}
+  dest := PathToGitWizzard+PathDelim+'winCommands'+PathDelim;
+  pathtobashes := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
+ {$ENDIF}
+ {$IFDEF Linux}
+  dest := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim;
+  pathtobashes := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
+ {$ENDIF}
+ //delete commandbashfolder
+   DeleteAFolder(dest);
 
-   end;
+ //copy gw_commands.xml into backup folder
+   if not copyfile(source,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml')
+    then showmessage(rs_gw_commands);
+
+  //copy all commandfiles into backup folder
+   CopyAFolder(pathtobashes,dest);
 end;
 
 
 procedure TFrame1.SpeedButton_createbackupClick(Sender: TObject);
-var dest,pathtobash : string;
-    lv   : integer;
-    okay : boolean;
+var dest1,dest,pathtobashes : string;
 begin
  if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml') then
   begin
-   okay := true;
    {$IFDEF WINDOWS}
-    dest := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+    pathtobashes := PathToGitWizzard+PathDelim+'winCommands'+PathDelim;
+    dest := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
    {$ENDIF}
    {$IFDEF Linux}
-    dest := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+    pathtobashes := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim;
+    dest := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
    {$ENDIF}
-   if not copyfile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml',dest)
-    then okay := false;
-   for lv := 0 to pred(CommandList.Count) do
-    begin
-     {$IFDEF WINDOWS}
-      pathtobash := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.bat';
-      dest := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.bat';
-     {$ENDIF}
-     {$IFDEF Linux}
-      pathtobash := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.sh';
-      dest := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.sh';
-     {$ENDIF}
-      if not copyfile(pathtobash,dest) then okay := false;
-    end;
-   if okay then showmessage('Okay') else showmessage(rs_error);
-  end;
-end;
+  //delete old backup
+   DeleteAFolder(dest);
 
+
+   {$IFDEF WINDOWS}
+    dest1 := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+   {$ENDIF}
+   {$IFDEF Linux}
+    dest1 := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+   {$ENDIF}
+  //copy gw_commands.xml into backup folder
+   if not copyfile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml',dest1)
+    then showmessage(rs_gw_commands);
+
+  //copy all commandfiles into backup folder
+   CopyAFolder(pathtobashes,dest);
+  end;
+ end;
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx----Execute Commands----XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 procedure TFrame1.ExecuteCommand(aCommandBash:String;Com:array of TProcessString;

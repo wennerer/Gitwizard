@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'nach versuch1 backup'
+git commit -a -m 'nach Version 2 backup'
