@@ -36,6 +36,10 @@ msgstr "Befehlsdatei nicht gefunden!"
 msgid "Complete the command:"
 msgstr "Vervollständige den Befehl:"
 
+#: gw_rsstrings.rs_createbackup
+msgid "Create a Backup of Commands"
+msgstr "Erzeugt ein Backup von den Befehlen"
+
 #: gw_rsstrings.rs_defgitignore
 msgid "Edit default gitignore"
 msgstr "Standard gitignore bearbeiten"
@@ -58,7 +62,7 @@ msgstr "Bitte gib einen neuen Befehl ein:"
 
 #: gw_rsstrings.rs_enterafilename
 msgid "Please enter a filename for the new bash:"
-msgstr "Bitte gib einen Dateinamen für die Bashdatei ein;"
+msgstr "Bitte gib einen Dateinamen für die Bashdatei ein:"
 
 #: gw_rsstrings.rs_enterahint
 msgid "Please enter a hint for the new button:"
@@ -67,6 +71,10 @@ msgstr "Bitte gib einen Hint für den neuen Button ein:"
 #: gw_rsstrings.rs_enternewpos
 msgid "Enter a new position!"
 msgstr "Gib eine neue Position ein!"
+
+#: gw_rsstrings.rs_error
+msgid "Error"
+msgstr "Fehler"
 
 #: gw_rsstrings.rs_filealreadyexists
 msgid "File already exists!"
@@ -78,7 +86,7 @@ msgstr "Datei nicht gefunden!"
 
 #: gw_rsstrings.rs_gw_commands
 msgid "File nor found: gw_commands.xml!"
-msgstr "gw_commands.xml nicht gefunden"
+msgstr "gw_commands.xml nicht gefunden!"
 
 #: gw_rsstrings.rs_ignorenofound
 msgid "Default gitignore not found!"
@@ -133,8 +141,8 @@ msgid "No filename entered"
 msgstr "Keinen Datei eingegeben"
 
 #: gw_rsstrings.rs_opendir
-msgid "Open Directory"
-msgstr "Öffne Verzeichnis"
+msgid "Open set Directory"
+msgstr "Öffne gesetztes Verzeichnis"
 
 #: gw_rsstrings.rs_openfile
 msgid "Open File"
@@ -149,6 +157,10 @@ msgstr "Optionen"
 msgctxt "gw_rsstrings.rs_optionsform"
 msgid "Options"
 msgstr "Optionen"
+
+#: gw_rsstrings.rs_restorebackup
+msgid "Restore backup"
+msgstr "Backup wieder herstellen"
 
 #: gw_rsstrings.rs_selecteditor
 msgid "Select an editor:"

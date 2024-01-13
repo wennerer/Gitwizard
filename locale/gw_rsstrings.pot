@@ -25,6 +25,10 @@ msgstr ""
 msgid "Complete the command:"
 msgstr ""
 
+#: gw_rsstrings.rs_createbackup
+msgid "Create a Backup of Commands"
+msgstr ""
+
 #: gw_rsstrings.rs_defgitignore
 msgid "Edit default gitignore"
 msgstr ""
@@ -55,6 +59,10 @@ msgstr ""
 
 #: gw_rsstrings.rs_enternewpos
 msgid "Enter a new position!"
+msgstr ""
+
+#: gw_rsstrings.rs_error
+msgid "Error"
 msgstr ""
 
 #: gw_rsstrings.rs_filealreadyexists
@@ -122,7 +130,7 @@ msgid "No filename entered"
 msgstr ""
 
 #: gw_rsstrings.rs_opendir
-msgid "Open Directory"
+msgid "Open set Directory"
 msgstr ""
 
 #: gw_rsstrings.rs_openfile
@@ -137,6 +145,10 @@ msgstr ""
 #: gw_rsstrings.rs_optionsform
 msgctxt "gw_rsstrings.rs_optionsform"
 msgid "Options"
+msgstr ""
+
+#: gw_rsstrings.rs_restorebackup
+msgid "Restore backup"
 msgstr ""
 
 #: gw_rsstrings.rs_selecteditor

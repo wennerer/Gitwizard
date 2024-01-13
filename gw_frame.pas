@@ -47,6 +47,8 @@ type
     GitDirectoryDlg             : TSelectDirectoryDialog;
     PopupMenu_CommandButtons    : TPopupMenu;
     Separator_Shape1            : TShape;
+    SpeedButton_restorebackup: TSpeedButton;
+    SpeedButton_createbackup: TSpeedButton;
     SpeedButton_opendir         : TSpeedButton;
     SpeedButton_options         : TSpeedButton;
     SpeedButton_NewCommand      : TSpeedButton;
@@ -59,8 +61,10 @@ type
     procedure gitignoreClick(Sender: TObject);
     procedure movebuttonClick(Sender: TObject);
     procedure ReadValues;
+    procedure SpeedButton_createbackupClick(Sender: TObject);
     procedure SpeedButton_opendirClick(Sender: TObject);
     procedure SpeedButton_optionsClick(Sender: TObject);
+    procedure SpeedButton_restorebackupClick(Sender: TObject);
     procedure WriteValues;
     procedure deletecommandClick(Sender: TObject);
     procedure openfileClick(Sender: TObject);
@@ -192,6 +196,9 @@ begin
  SpeedButton_NewCommand.Hint                 := rs_newCommand;
  SpeedButton_opendir.Hint                    := rs_opendir;
  SpeedButton_options.Hint                    := rs_options;
+ SpeedButton_createbackup.Hint               := rs_createbackup;
+ SpeedButton_restorebackup.Hint              := rs_restorebackup;
+
  openfile.Caption                            := rs_openfile;
  deletecommand.Caption                       := rs_deletecommand;
  movebutton.Caption                          := rs_movebutton;
@@ -415,8 +422,8 @@ end;
 procedure TFrame1.WMShowWindow(var Message: TLMShowWindow);
 begin
  if not FFirst then exit;
- if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml') then ReadValues
- else showmessage(rs_gw_commands);
+ if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml') then ReadValues;
+ //else showmessage(rs_gw_commands);
  if PathToGitDirectory = '' then exit;
  Path_Panel.Caption := AdjustText(PathToGitDirectory,Path_Panel);
  Path_Panel.Hint:= PathToGitDirectory;
@@ -550,7 +557,74 @@ begin
   WriteValues;
 end;
 
+procedure TFrame1.SpeedButton_restorebackupClick(Sender: TObject);
+var path,pathtobash,s: string;
+    lv   : integer;
+    okay : boolean;
+begin
+ {$IFDEF WINDOWS}
+    path := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+   {$ENDIF}
+   {$IFDEF Linux}
+    path := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+   {$ENDIF}
+  if fileexists(path) then
+   begin
+    if not copyfile(Path,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml')
+    then okay := false;  showmessage(inttostr(CommandList.Count));
+   for lv := 0 to pred(CommandList.Count) do
+    begin
+     {$IFDEF WINDOWS}
+      path := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.bat';
+      pathtobash := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.bat';
+     {$ENDIF}
+     {$IFDEF Linux}
+      path := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.sh';
+      pathtobash := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.sh';
+     {$ENDIF}   showmessage(path);
+      if not copyfile(pathtobash,path) then okay := false;
+     {$IFDEF Linux}
+       RunCommandindir(PathToGitWizzard+PathDelim+'linuxCommands','chmod a+x '+PathToGitWizzard+'/linuxCommands/'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.sh',s);
+       showmessage(s);
+     {$ENDIF}
+    end;
+   if okay then showmessage('Okay') else showmessage(s);
 
+   end;
+end;
+
+
+procedure TFrame1.SpeedButton_createbackupClick(Sender: TObject);
+var dest,pathtobash : string;
+    lv   : integer;
+    okay : boolean;
+begin
+ if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml') then
+  begin
+   okay := true;
+   {$IFDEF WINDOWS}
+    dest := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+   {$ENDIF}
+   {$IFDEF Linux}
+    dest := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+   {$ENDIF}
+   if not copyfile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml',dest)
+    then okay := false;
+   for lv := 0 to pred(CommandList.Count) do
+    begin
+     {$IFDEF WINDOWS}
+      pathtobash := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.bat';
+      dest := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.bat';
+     {$ENDIF}
+     {$IFDEF Linux}
+      pathtobash := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.sh';
+      dest := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+TCommandButton(CommandList.Items[lv]).FileName+'.sh';
+     {$ENDIF}
+      if not copyfile(pathtobash,dest) then okay := false;
+    end;
+   if okay then showmessage('Okay') else showmessage(rs_error);
+  end;
+end;
 
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx----Execute Commands----XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 

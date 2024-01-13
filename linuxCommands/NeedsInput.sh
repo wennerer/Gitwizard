@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'aComment'
+git commit -a -m 'nach versuch1 backup'
