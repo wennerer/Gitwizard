@@ -1,0 +1,6 @@
+{"version":1,"strings":[
+{"hash":19306580,"name":"tinfoform.caption","sourcebytes":[73,110,102,111,32,71,105,116,87,105,122,122,97,114,100],"value":"Info GitWizzard"},
+{"hash":236382228,"name":"tinfoform.statictext1.caption","sourcebytes":[71,105,116,87,105,122,122,97,114,100],"value":"GitWizzard"},
+{"hash":80922172,"name":"tinfoform.statictext2.caption","sourcebytes":[104,116,116,112,58,47,47,119,119,119,46,103,110,117,46,111,114,103,47,99,111,112,121,108,101,102,116,47,103,112,108,46,104,116,109,108],"value":"http://www.gnu.org/copyleft/gpl.html"},
+{"hash":155801152,"name":"tinfoform.statictext3.caption","sourcebytes":[104,116,116,112,115,58,47,47,119,119,119,46,108,97,122,97,114,117,115,102,111,114,117,109,46,100,101,47,118,105,101,119,116,111,112,105,99,46,112,104,112],"value":"https://www.lazarusforum.de/viewtopic.php"}
+]}

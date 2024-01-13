@@ -9,7 +9,7 @@ interface
 
 uses
   gitwizzard, gw_frame, newcommand, input_form, options_form, gw_rsstrings, 
-  move_button, LazarusPackageIntf;
+  move_button, info_form, LazarusPackageIntf;
 
 implementation
 

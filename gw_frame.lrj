@@ -9,6 +9,7 @@
 {"hash":108725763,"name":"tframe1.speedbutton_options.hint","sourcebytes":[79,112,116,105,111,110,115],"value":"Options"},
 {"hash":156982851,"name":"tframe1.speedbutton_createbackup.hint","sourcebytes":[67,114,101,97,116,101,32,97,32,66,97,99,107,117,112,32,111,102,32,67,111,109,109,97,110,100,115],"value":"Create a Backup of Commands"},
 {"hash":170725168,"name":"tframe1.speedbutton_restorebackup.hint","sourcebytes":[82,101,115,116,111,114,101,32,98,97,99,107,117,112],"value":"Restore backup"},
+{"hash":328911,"name":"tframe1.speedbutton_info.hint","sourcebytes":[73,110,102,111],"value":"Info"},
 {"hash":39188457,"name":"tframe1.gitignore.hint","sourcebytes":[67,111,112,105,101,115,32,116,104,101,32,100,101,102,97,117,108,116,32,103,105,116,105,103,110,111,114,101,32,102,105,108,101,32,105,110,116,111,32,116,104,101,32,100,105,114,101,99,116,111,114,121],"value":"Copies the default gitignore file into the directory"},
 {"hash":54278389,"name":"tframe1.gitignore.caption","sourcebytes":[115,101,116,32,103,105,116,105,103,110,111,114,101],"value":"set gitignore"},
 {"hash":201628229,"name":"tframe1.openfile.caption","sourcebytes":[79,112,101,110,32,70,105,108,101],"value":"Open File"},

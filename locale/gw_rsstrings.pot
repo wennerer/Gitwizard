@@ -85,6 +85,28 @@ msgstr ""
 msgid "Default gitignore not found!"
 msgstr ""
 
+#: gw_rsstrings.rs_info
+msgid "Info"
+msgstr ""
+
+#: gw_rsstrings.rs_infoline1
+msgid "GitWizzard integrates the operation of git into the Lazarus IDE."
+msgstr ""
+
+#: gw_rsstrings.rs_infoline2
+msgid "Commands are called via scripts that can be created or changed by the user."
+msgstr ""
+
+#: gw_rsstrings.rs_infoline3
+msgctxt "gw_rsstrings.rs_infoline3"
+msgid "Lizenz: GNU General Public License (GNU GPL)"
+msgstr ""
+
+#: gw_rsstrings.rs_infoline4
+msgctxt "gw_rsstrings.rs_infoline4"
+msgid "All icons from Roland Hahn. Thank you very mutch!"
+msgstr ""
+
 #: gw_rsstrings.rs_inputform
 msgid "Complete the command dialog"
 msgstr ""

@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead, XMLWrite, XPath,
   process, Contnrs, gettext, StrUtils, newcommand, input_form,options_form,
-  Translations, LCLTranslator, DefaultTranslator, LMessages,gw_rsstrings, move_button;
+  Translations, LCLTranslator, DefaultTranslator, LMessages,gw_rsstrings, move_button,info_form;
 
 
 
@@ -47,6 +47,7 @@ type
     GitDirectoryDlg             : TSelectDirectoryDialog;
     PopupMenu_CommandButtons    : TPopupMenu;
     Separator_Shape1            : TShape;
+    SpeedButton_info: TSpeedButton;
     SpeedButton_restorebackup: TSpeedButton;
     SpeedButton_createbackup: TSpeedButton;
     SpeedButton_opendir         : TSpeedButton;
@@ -62,6 +63,7 @@ type
     procedure movebuttonClick(Sender: TObject);
     procedure ReadValues;
     procedure SpeedButton_createbackupClick(Sender: TObject);
+    procedure SpeedButton_infoClick(Sender: TObject);
     procedure SpeedButton_opendirClick(Sender: TObject);
     procedure SpeedButton_optionsClick(Sender: TObject);
     procedure SpeedButton_restorebackupClick(Sender: TObject);
@@ -232,6 +234,7 @@ begin
  SpeedButton_options.Hint                    := rs_options;
  SpeedButton_createbackup.Hint               := rs_createbackup;
  SpeedButton_restorebackup.Hint              := rs_restorebackup;
+ SpeedButton_info.Hint                       := rs_Info;
 
  openfile.Caption                            := rs_openfile;
  deletecommand.Caption                       := rs_deletecommand;
@@ -709,6 +712,29 @@ begin
    CopyAFolder(pathtobashes,dest);
   end;
  end;
+
+procedure TFrame1.SpeedButton_infoClick(Sender: TObject);
+begin
+ InfoForm := TInfoform.Create(self);
+  try
+   InfoForm.Memo1.Lines.Add(rs_InfoLine1);
+   InfoForm.Memo1.Lines.Add(rs_InfoLine2);
+   InfoForm.Memo1.Lines.Add(' ');
+   InfoForm.Memo1.Lines.Add(' ');
+   InfoForm.Memo1.Lines.Add(rs_InfoLine3);
+   InfoForm.Memo1.Lines.Add(' ');
+   InfoForm.Memo1.Lines.Add(' ');
+   InfoForm.Memo1.Lines.Add(' ');
+   InfoForm.Memo1.Lines.Add(' ');
+   InfoForm.Memo1.Lines.Add(rs_InfoLine4);
+
+
+   InfoForm.ShowModal;
+  finally
+   Optionsform.Free;
+  end;
+end;
+
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx----Execute Commands----XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 procedure TFrame1.ExecuteCommand(aCommandBash:String;Com:array of TProcessString;

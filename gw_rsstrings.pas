@@ -28,6 +28,7 @@ resourcestring
   rs_createnewbackup                  = 'Do you want to create a new backup? All old files in the backup folder are deleted!';
   rs_restorebackup                    = 'Restore backup';
   rs_restorebackuptext                = 'Would you like to load the data from the last backup? All old files in the command folder are deleted!';
+  rs_Info                             = 'Info';
   rs_openfile                         = 'Open File';
   rs_deletecommand                    = 'Delete command';
   rs_movebutton                       = 'Move Button';
@@ -55,6 +56,11 @@ resourcestring
 
   rs_NewPos                           = 'New Position:';
   rs_EnterNewPos                      = 'Enter a new position!';
+
+  rs_InfoLine1                        = 'GitWizzard integrates the operation of git into the Lazarus IDE.';
+  rs_InfoLine2                        = 'Commands are called via scripts that can be created or changed by the user.';
+  rs_InfoLine3                        = 'Lizenz: GNU General Public License (GNU GPL)';
+  rs_InfoLine4                        = 'All icons from Roland Hahn. Thank you very mutch!';
 
 implementation
 
