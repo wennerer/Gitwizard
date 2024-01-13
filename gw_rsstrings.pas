@@ -25,11 +25,15 @@ resourcestring
   rs_opendir                          = 'Open set Directory';
   rs_options                          = 'Options';
   rs_createbackup                     = 'Create a Backup of Commands';
+  rs_createnewbackup                  = 'Do you want to create a new backup? All old files in the backup folder are deleted!';
   rs_restorebackup                    = 'Restore backup';
+  rs_restorebackuptext                = 'Would you like to load the data from the last backup? All old files in the command folder are deleted!';
   rs_openfile                         = 'Open File';
   rs_deletecommand                    = 'Delete command';
   rs_movebutton                       = 'Move Button';
   rs_error                            = 'Error';
+  rs_yes                              = 'Yes';
+  rs_no                               = 'No';
 
   rs_newcommandform                   = 'New Command Dialog';
   rs_nocaption                        = 'No caption entered';

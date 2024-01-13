@@ -40,6 +40,10 @@ msgstr "Vervollständige den Befehl:"
 msgid "Create a Backup of Commands"
 msgstr "Erzeugt ein Backup von den Befehlen"
 
+#: gw_rsstrings.rs_createnewbackup
+msgid "Do you want to create a new backup? All old files in the backup folder are deleted!"
+msgstr "Möchtest du ein neues Backup erzeugen? Alle alten Dateien im Backup-Ordner werden gelöscht!"
+
 #: gw_rsstrings.rs_defgitignore
 msgid "Edit default gitignore"
 msgstr "Standard gitignore bearbeiten"
@@ -124,6 +128,10 @@ msgstr "Neuer Befehl Dialog"
 msgid "New Position:"
 msgstr "Neue Position:"
 
+#: gw_rsstrings.rs_no
+msgid "No"
+msgstr "Nein"
+
 #: gw_rsstrings.rs_nocaption
 msgid "No caption entered"
 msgstr "Keine Caption eingegeben"
@@ -162,6 +170,14 @@ msgstr "Optionen"
 msgid "Restore backup"
 msgstr "Backup wieder herstellen"
 
+#: gw_rsstrings.rs_restorebackuptext
+msgid "Would you like to load the data from the last backup? All old files in the command folder are deleted!"
+msgstr "Möchtest du die Daten vom letzten Backup laden? Alle Dateien im Command-Ordner werden gelöscht!"
+
 #: gw_rsstrings.rs_selecteditor
 msgid "Select an editor:"
 msgstr "Wähle einen Editor:"
+
+#: gw_rsstrings.rs_yes
+msgid "Yes"
+msgstr "Ja"

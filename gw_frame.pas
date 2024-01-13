@@ -593,7 +593,36 @@ end;
 
 procedure TFrame1.SpeedButton_restorebackupClick(Sender: TObject);
 var dest,source,pathtobashes: string;
-begin
+    TaskDialog1: TTaskDialog;
+    Button: TTaskDialogBaseButtonItem;
+ begin
+  TaskDialog1   := TTaskDialog.Create(nil);
+  try
+   TaskDialog1.Caption      := 'GitWizzard';
+   TaskDialog1.Title        := rs_restorebackup;
+   TaskDialog1.Text         := rs_restorebackuptext;
+   TaskDialog1.MainIcon     := tdiWarning;
+   //TaskDialog1.FooterText   := 'https://github.com/wennerer/Multis.git';
+   //TaskDialog1.FooterIcon   := tdiInformation;
+
+   TaskDialog1.CommonButtons:=[];
+   Button := TaskDialog1.Buttons.Add;
+   Button.Caption := rs_Yes;
+   Button.ModalResult := mrYes;
+   Button := TaskDialog1.Buttons.Add;
+   Button.Caption := rs_No;
+   Button.ModalResult := mrNo;
+
+   //From here it is executed when a button is pressed
+    if TaskDialog1.Execute then
+     if TaskDialog1.ModalResult = mrNo then exit;
+
+  finally
+   Button.Free;
+   TaskDialog1.Free;
+  end;
+
+
  {$IFDEF WINDOWS}
   source := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
  {$ENDIF}
@@ -622,7 +651,36 @@ end;
 
 procedure TFrame1.SpeedButton_createbackupClick(Sender: TObject);
 var dest1,dest,pathtobashes : string;
+    TaskDialog1: TTaskDialog;
+    Button: TTaskDialogBaseButtonItem;
 begin
+ TaskDialog1   := TTaskDialog.Create(nil);
+ try
+  TaskDialog1.Caption      := 'GitWizzard';
+  TaskDialog1.Title        := rs_createbackup;
+  TaskDialog1.Text         := rs_createnewbackup;
+  TaskDialog1.MainIcon     := tdiWarning;
+  //TaskDialog1.FooterText   := 'https://github.com/wennerer/Multis.git';
+  //TaskDialog1.FooterIcon   := tdiInformation;
+
+  TaskDialog1.CommonButtons:=[];
+  Button := TaskDialog1.Buttons.Add;
+  Button.Caption := rs_Yes;
+  Button.ModalResult := mrYes;
+  Button := TaskDialog1.Buttons.Add;
+  Button.Caption := rs_No;
+  Button.ModalResult := mrNo;
+
+  //From here it is executed when a button is pressed
+   if TaskDialog1.Execute then
+    if TaskDialog1.ModalResult = mrNo then exit;
+
+ finally
+  Button.Free;
+  TaskDialog1.Free;
+ end;
+
+
  if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml') then
   begin
    {$IFDEF WINDOWS}

@@ -29,6 +29,10 @@ msgstr ""
 msgid "Create a Backup of Commands"
 msgstr ""
 
+#: gw_rsstrings.rs_createnewbackup
+msgid "Do you want to create a new backup? All old files in the backup folder are deleted!"
+msgstr ""
+
 #: gw_rsstrings.rs_defgitignore
 msgid "Edit default gitignore"
 msgstr ""
@@ -113,6 +117,10 @@ msgstr ""
 msgid "New Position:"
 msgstr ""
 
+#: gw_rsstrings.rs_no
+msgid "No"
+msgstr ""
+
 #: gw_rsstrings.rs_nocaption
 msgid "No caption entered"
 msgstr ""
@@ -151,7 +159,15 @@ msgstr ""
 msgid "Restore backup"
 msgstr ""
 
+#: gw_rsstrings.rs_restorebackuptext
+msgid "Would you like to load the data from the last backup? All old files in the command folder are deleted!"
+msgstr ""
+
 #: gw_rsstrings.rs_selecteditor
 msgid "Select an editor:"
+msgstr ""
+
+#: gw_rsstrings.rs_yes
+msgid "Yes"
 msgstr ""
 
