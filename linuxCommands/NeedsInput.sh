@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Infoform'
+git commit -a -m 'einige Befehle erstellt'

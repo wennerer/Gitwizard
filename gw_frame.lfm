@@ -3,7 +3,10 @@ object Frame1: TFrame1
   Height = 695
   Top = 0
   Width = 330
+  HorzScrollBar.Page = 1
+  VertScrollBar.Page = 1
   Align = alClient
+  AutoScroll = True
   ClientHeight = 695
   ClientWidth = 330
   ParentBackground = False

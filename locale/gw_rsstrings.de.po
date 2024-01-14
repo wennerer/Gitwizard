@@ -89,7 +89,9 @@ msgid "File not found!"
 msgstr "Datei nicht gefunden!"
 
 #: gw_rsstrings.rs_gw_commands
-msgid "File nor found: gw_commands.xml!"
+#, fuzzy
+#| msgid "File nor found: gw_commands.xml!"
+msgid "File not found: gw_commands.xml!"
 msgstr "gw_commands.xml nicht gefunden!"
 
 #: gw_rsstrings.rs_ignorenofound
@@ -105,12 +107,12 @@ msgid "GitWizzard integrates the operation of git into the Lazarus IDE."
 msgstr "GitWizzard integriert die Bedienung von Git in die Lazarus IDE."
 
 #: gw_rsstrings.rs_infoline2
-msgid "Commands are called up using a script and can be created or changed by the user."
+msgid "Commands are called via scripts that can be created or changed by the user."
 msgstr "Befehle werden über Skripte aufgerufen, die vom Benutzer erstellt oder geändert werden können."
 
 #: gw_rsstrings.rs_infoline3
 msgctxt "gw_rsstrings.rs_infoline3"
-msgid "Lizenz: GNU General Public License (GNU GPL)"
+msgid "License: GNU General Public License (GNU GPL)"
 msgstr "Lizenz: GNU General Public License (GNU GPL)"
 
 #: gw_rsstrings.rs_infoline4
@@ -203,3 +205,4 @@ msgstr "Wähle einen Editor:"
 #: gw_rsstrings.rs_yes
 msgid "Yes"
 msgstr "Ja"
+

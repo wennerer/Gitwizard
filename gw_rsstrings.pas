@@ -16,7 +16,7 @@ resourcestring
   rs_filenotfound                     = 'File not found!';
   rs_Directorynotfound                = 'Directory not found!';
   rs_checkoptionsdialog               = 'Please check optionsdialog!';
-  rs_gw_commands                      = 'File nor found: gw_commands.xml!';
+  rs_gw_commands                      = 'File not found: gw_commands.xml!';
   rs_AnyDirHint                       = 'Set Any Directory';
   rs_LastSavedProject                 = 'Set Last Saved Project-Directory';
   rs_LastSavePackage                  = 'Set Last Saved Package-Directory';
@@ -59,7 +59,7 @@ resourcestring
 
   rs_InfoLine1                        = 'GitWizzard integrates the operation of git into the Lazarus IDE.';
   rs_InfoLine2                        = 'Commands are called via scripts that can be created or changed by the user.';
-  rs_InfoLine3                        = 'Lizenz: GNU General Public License (GNU GPL)';
+  rs_InfoLine3                        = 'License: GNU General Public License (GNU GPL)';
   rs_InfoLine4                        = 'All icons from Roland Hahn. Thank you very mutch!';
 
 implementation

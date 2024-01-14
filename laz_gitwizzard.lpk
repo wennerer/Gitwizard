@@ -12,54 +12,55 @@
     </CompilerOptions>
     <Description Value="GitWizzard integrates the operation of git into the Lazarus IDE. Commands are called up using a script and can be created or changed by the user."/>
     <License Value="GPL - see :   http://www.gnu.org/copyleft/gpl.html"/>
-    <Version Release="1"/>
-    <Files>
-      <Item>
+    <Version Release="1" Build="1"/>
+    <Files Count="8">
+      <Item1>
         <Filename Value="gitwizzard.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="gitwizzard"/>
-      </Item>
-      <Item>
+      </Item1>
+      <Item2>
         <Filename Value="gw_frame.pas"/>
         <UnitName Value="gw_frame"/>
-      </Item>
-      <Item>
+      </Item2>
+      <Item3>
         <Filename Value="newcommand.pas"/>
         <UnitName Value="newcommand"/>
-      </Item>
-      <Item>
+      </Item3>
+      <Item4>
         <Filename Value="input_form.pas"/>
         <UnitName Value="input_form"/>
-      </Item>
-      <Item>
+      </Item4>
+      <Item5>
         <Filename Value="options_form.pas"/>
         <UnitName Value="options_form"/>
-      </Item>
-      <Item>
+      </Item5>
+      <Item6>
         <Filename Value="gw_rsstrings.pas"/>
         <UnitName Value="gw_rsstrings"/>
-      </Item>
-      <Item>
+      </Item6>
+      <Item7>
         <Filename Value="move_button.pas"/>
         <UnitName Value="move_button"/>
-      </Item>
-      <Item>
+      </Item7>
+      <Item8>
         <Filename Value="info_form.pas"/>
         <UnitName Value="info_form"/>
-      </Item>
+      </Item8>
     </Files>
+    <CompatibilityMode Value="True"/>
     <i18n>
       <EnableI18N Value="True"/>
       <OutDir Value="locale"/>
       <EnableI18NForLFM Value="True"/>
     </i18n>
-    <RequiredPkgs>
-      <Item>
+    <RequiredPkgs Count="2">
+      <Item1>
         <PackageName Value="IDEIntf"/>
-      </Item>
-      <Item>
+      </Item1>
+      <Item2>
         <PackageName Value="FCL"/>
-      </Item>
+      </Item2>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

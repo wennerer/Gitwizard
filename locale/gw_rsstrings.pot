@@ -78,7 +78,7 @@ msgid "File not found!"
 msgstr ""
 
 #: gw_rsstrings.rs_gw_commands
-msgid "File nor found: gw_commands.xml!"
+msgid "File not found: gw_commands.xml!"
 msgstr ""
 
 #: gw_rsstrings.rs_ignorenofound
@@ -99,7 +99,7 @@ msgstr ""
 
 #: gw_rsstrings.rs_infoline3
 msgctxt "gw_rsstrings.rs_infoline3"
-msgid "Lizenz: GNU General Public License (GNU GPL)"
+msgid "License: GNU General Public License (GNU GPL)"
 msgstr ""
 
 #: gw_rsstrings.rs_infoline4
