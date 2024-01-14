@@ -80,6 +80,10 @@ msgstr "Gib eine neue Position ein!"
 msgid "Error"
 msgstr "Fehler"
 
+#: gw_rsstrings.rs_excecute
+msgid "Excecute"
+msgstr "Ausführen"
+
 #: gw_rsstrings.rs_filealreadyexists
 msgid "File already exists!"
 msgstr "Datei existiert schon!"
@@ -88,11 +92,13 @@ msgstr "Datei existiert schon!"
 msgid "File not found!"
 msgstr "Datei nicht gefunden!"
 
+#: gw_rsstrings.rs_forcommans
+msgid "Edit for single commands"
+msgstr "Eingabe für einzelne Befehle"
+
 #: gw_rsstrings.rs_gw_commands
-#, fuzzy
-#| msgid "File nor found: gw_commands.xml!"
 msgid "File not found: gw_commands.xml!"
-msgstr "gw_commands.xml nicht gefunden!"
+msgstr "Datei nicht gefunden: gw_commands.xml!"
 
 #: gw_rsstrings.rs_ignorenofound
 msgid "Default gitignore not found!"
@@ -100,7 +106,7 @@ msgstr "Standard gitignore nicht gefunden!"
 
 #: gw_rsstrings.rs_info
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: gw_rsstrings.rs_infoline1
 msgid "GitWizzard integrates the operation of git into the Lazarus IDE."
@@ -205,4 +211,3 @@ msgstr "Wähle einen Editor:"
 #: gw_rsstrings.rs_yes
 msgid "Yes"
 msgstr "Ja"
-

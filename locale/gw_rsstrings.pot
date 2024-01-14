@@ -69,12 +69,20 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
+#: gw_rsstrings.rs_excecute
+msgid "Excecute"
+msgstr ""
+
 #: gw_rsstrings.rs_filealreadyexists
 msgid "File already exists!"
 msgstr ""
 
 #: gw_rsstrings.rs_filenotfound
 msgid "File not found!"
+msgstr ""
+
+#: gw_rsstrings.rs_forcommans
+msgid "Edit for single commands"
 msgstr ""
 
 #: gw_rsstrings.rs_gw_commands

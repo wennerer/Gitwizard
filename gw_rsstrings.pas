@@ -35,6 +35,8 @@ resourcestring
   rs_error                            = 'Error';
   rs_yes                              = 'Yes';
   rs_no                               = 'No';
+  rs_forcommans                       = 'Edit for single commands';
+  rs_excecute                         = 'Excecute';
 
   rs_newcommandform                   = 'New Command Dialog';
   rs_nocaption                        = 'No caption entered';

@@ -13,7 +13,7 @@
     <Description Value="GitWizzard integrates the operation of git into the Lazarus IDE. Commands are called up using a script and can be created or changed by the user."/>
     <License Value="GPL - see :   http://www.gnu.org/copyleft/gpl.html"/>
     <Version Release="1" Build="1"/>
-    <Files Count="8">
+    <Files Count="10">
       <Item1>
         <Filename Value="gitwizzard.pas"/>
         <HasRegisterProc Value="True"/>
@@ -47,6 +47,14 @@
         <Filename Value="info_form.pas"/>
         <UnitName Value="info_form"/>
       </Item8>
+      <Item9>
+        <Filename Value="gw_speedbuttons.inc"/>
+        <Type Value="Include"/>
+      </Item9>
+      <Item10>
+        <Filename Value="gw_popups.inc"/>
+        <Type Value="Include"/>
+      </Item10>
     </Files>
     <CompatibilityMode Value="True"/>
     <i18n>
