@@ -18,7 +18,7 @@ type
 
   { TCommandButton }
 
-  TCommandButton = class(TButton)
+  TCommandButton = class(TSpeedButton)
 
   private
     FFileName  : string;
@@ -37,7 +37,6 @@ type
   { TFrame1 }
 
   TFrame1 = class(TFrame)
-    gitignore                   : TButton;
     ImageList1                  : TImageList;
     deletecommand               : TMenuItem;
     movebutton: TMenuItem;
@@ -46,7 +45,9 @@ type
     Input                       : TEdit;
     GitDirectoryDlg             : TSelectDirectoryDialog;
     PopupMenu_CommandButtons    : TPopupMenu;
+    ScrollBox1: TScrollBox;
     Separator_Shape1            : TShape;
+    gitignore: TSpeedButton;
     SpeedButton_info: TSpeedButton;
     SpeedButton_restorebackup: TSpeedButton;
     SpeedButton_createbackup: TSpeedButton;
@@ -335,7 +336,7 @@ var xml     :  TXMLDocument;
          if Node.NodeName = 'Commandbutton'+unicodestring(inttostr(k)) then
           begin
            CommandList.Add(TCommandButton.Create(self));
-           TCommandButton(CommandList.Last).Parent     := self;
+           TCommandButton(CommandList.Last).Parent     := ScrollBox1;
            TCommandButton(CommandList.Last).BorderSpacing.Around:= 2;
            i := CommandList.Count-2;
            if CommandList.Count = 1 then
@@ -343,8 +344,8 @@ var xml     :  TXMLDocument;
            else
             TCommandButton(CommandList.Last).AnchorSideTop.Control := TCommandButton(CommandList.Items[i]);
            TCommandButton(CommandList.Last).AnchorSideTop.Side     := asrBottom;
-           TCommandButton(CommandList.Last).AnchorSideLeft.Control := self;
-           TCommandButton(CommandList.Last).AnchorSideRight.Control:= self;
+           TCommandButton(CommandList.Last).AnchorSideLeft.Control := ScrollBox1;
+           TCommandButton(CommandList.Last).AnchorSideRight.Control:= ScrollBox1;
            TCommandButton(CommandList.Last).AnchorSideRight.Side   := asrBottom;
            TCommandButton(CommandList.Last).Anchors := [akLeft, akRight, akTop];
            TCommandButton(CommandList.Last).Tag                    := CommandList.Count-1;
@@ -449,8 +450,8 @@ begin
    else
     TCommandButton(CommandList.Items[lv]).AnchorSideTop.Control := TCommandButton(CommandList.Items[lv-1]);
     TCommandButton(CommandList.Items[lv]).AnchorSideTop.Side     := asrBottom;
-    TCommandButton(CommandList.Items[lv]).AnchorSideLeft.Control := self;
-    TCommandButton(CommandList.Items[lv]).AnchorSideRight.Control:= self;
+    TCommandButton(CommandList.Items[lv]).AnchorSideLeft.Control := ScrollBox1;
+    TCommandButton(CommandList.Items[lv]).AnchorSideRight.Control:= ScrollBox1;
     TCommandButton(CommandList.Items[lv]).AnchorSideRight.Side   := asrBottom;
     TCommandButton(CommandList.Items[lv]).Anchors := [akLeft, akRight, akTop];
   end;
@@ -546,7 +547,7 @@ begin
 
   aCommand := NewcommandDlg.Edit_newcommand.Text;
   CommandList.Add(TCommandButton.Create(self));
-  TCommandButton(CommandList.Last).Parent     := self;
+  TCommandButton(CommandList.Last).Parent     := ScrollBox1;
   TCommandButton(CommandList.Last).Caption    := NewcommandDlg.Edit_newcaption.Text;
   TCommandButton(CommandList.Last).FileName   := NewcommandDlg.Edit_newfilename.Text;
   TCommandButton(CommandList.Last).Hint       := NewcommandDlg.Edit_newhint.Text;
@@ -562,8 +563,8 @@ begin
  else
   TCommandButton(CommandList.Last).AnchorSideTop.Control := TCommandButton(CommandList.Items[i]);
  TCommandButton(CommandList.Last).AnchorSideTop.Side     := asrBottom;
- TCommandButton(CommandList.Last).AnchorSideLeft.Control := self;
- TCommandButton(CommandList.Last).AnchorSideRight.Control:= self;
+ TCommandButton(CommandList.Last).AnchorSideLeft.Control := ScrollBox1;
+ TCommandButton(CommandList.Last).AnchorSideRight.Control:= ScrollBox1;
  TCommandButton(CommandList.Last).AnchorSideRight.Side   := asrBottom;
  TCommandButton(CommandList.Last).Anchors := [akLeft, akRight, akTop];
  TCommandButton(CommandList.Last).Tag                    := CommandList.Count-1;

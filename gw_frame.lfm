@@ -6,7 +6,6 @@ object Frame1: TFrame1
   HorzScrollBar.Page = 1
   VertScrollBar.Page = 1
   Align = alClient
-  AutoScroll = True
   ClientHeight = 695
   ClientWidth = 330
   ParentBackground = False
@@ -212,25 +211,42 @@ object Frame1: TFrame1
     Brush.Color = clMenuBar
     Pen.Color = clMenuBar
   end
-  object gitignore: TButton
+  object ScrollBox1: TScrollBox
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Separator_Shape1
     AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    Left = 2
-    Height = 25
-    Hint = 'Copies the default gitignore file into the directory'
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 609
     Top = 86
-    Width = 326
-    Anchors = [akTop, akLeft, akRight]
-    BorderSpacing.Around = 2
-    Caption = 'set gitignore'
-    OnClick = gitignoreClick
-    ParentShowHint = False
-    PopupMenu = PopupMenu_CommandButtons
-    ShowHint = True
+    Width = 330
+    HorzScrollBar.Page = 84
+    VertScrollBar.Page = 26
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    ClientHeight = 607
+    ClientWidth = 328
     TabOrder = 3
+    object gitignore: TSpeedButton
+      AnchorSideLeft.Control = ScrollBox1
+      AnchorSideTop.Control = ScrollBox1
+      AnchorSideRight.Control = ScrollBox1
+      AnchorSideRight.Side = asrBottom
+      Left = 2
+      Height = 22
+      Hint = 'Copies the default gitignore file into the directory'
+      Top = 2
+      Width = 324
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Around = 2
+      Caption = 'set gitignore'
+      OnClick = gitignoreClick
+      ShowHint = True
+      ParentShowHint = False
+      PopupMenu = PopupMenu_CommandButtons
+    end
   end
   object ImageList1: TImageList
     Scaled = True
