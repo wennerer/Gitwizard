@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'inc dateien erstellt'
+git commit -a -m 'linux bashes'

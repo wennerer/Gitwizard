@@ -154,6 +154,8 @@ var dest,source,pathtobashes: string;
 
   //copy all commandfiles into backup folder
    CopyAFolder(pathtobashes,dest);
+   sleep(200);
+   readvalues;
 end;
 
 
