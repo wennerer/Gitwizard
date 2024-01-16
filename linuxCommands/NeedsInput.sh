@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'linux bashes'
+git commit -a -m 'win Befehle'
