@@ -14,10 +14,7 @@ uses
 
 
 type
-
-  { CommandButton }
-
-  { TCommandButton }
+ { TCommandButton }
 
   TCommandButton = class(TSpeedButton)
 
@@ -63,6 +60,7 @@ type
     ToolBar1                      : TToolBar;
     procedure Checkgitignore;
     procedure Checkgitinit;
+    procedure FrameResize(Sender: TObject);
     procedure gitignoreClick(Sender: TObject);
     procedure InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure movebuttonClick(Sender: TObject);
@@ -96,7 +94,7 @@ type
     procedure SetPathToGitDirectory(aPath: string);
     procedure AdjustTheButtons;
   protected
-    procedure WMShowWindow(var Message: TLMShowWindow); message LM_SHOWWINDOW;
+
   public
     constructor Create(AOwner: TComponent); override;
     destructor  Destroy; override;
@@ -175,8 +173,10 @@ begin
   for lv :=0 to pred(sl.Count) do
    begin
     copyfile(sl[lv],aDestFolder+ExtractFileName(sl[lv]));
-    if not RunCommandInDir(aDestFolder,'chmod a+x '+aDestFolder+ExtractFileName(sl[lv]),s)
-     then showmessage(s);
+    {$IFDEF Linux}
+     if not RunCommandInDir(aDestFolder,'chmod a+x '+aDestFolder+ExtractFileName(sl[lv]),s)
+      then showmessage(s);
+    {$ENDIF}
    end;
  finally
   sl.Free;
@@ -240,6 +240,8 @@ begin
  openfile.Caption                            := rs_openfile;
  deletecommand.Caption                       := rs_deletecommand;
  movebutton.Caption                          := rs_movebutton;
+
+ 
 end;
 
 
@@ -443,19 +445,6 @@ begin
   end;
 end;
 
-procedure TFrame1.WMShowWindow(var Message: TLMShowWindow);
-begin
- if not FFirst then exit;
- if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml') then ReadValues;
- if PathToGitDirectory = '' then exit;
- Path_Panel.Caption := AdjustText(PathToGitDirectory,Path_Panel);
- Path_Panel.Hint:= PathToGitDirectory;
- FFirst := false;
- Checkgitignore;
- Checkgitinit;
-end;
-
-
 procedure TFrame1.SaveABashfile(aFileName,aCommand:string);
 var strList          : TStringList;
 begin
@@ -554,9 +543,6 @@ begin
      s := TCommandButton(CommandList.Items[lv]).Caption;
      i := Pos('init',s);
      if i <> 0 then TCommandButton(CommandList.Items[lv]).ImageIndex:=14;
-     //if TCommandButton(CommandList.Items[lv]).Caption = 'git init' then
-      //TCommandButton(CommandList.Items[lv]).ImageIndex:=14
-
     end;//count
   end //exists
  else
@@ -566,9 +552,20 @@ begin
      s := TCommandButton(CommandList.Items[lv]).Caption;
      i := Pos('init',s);
      if i <> 0 then TCommandButton(CommandList.Items[lv]).ImageIndex:=-1;
-   //TCommandButton(CommandList.Items[lv]).ImageIndex:= -1;
     end;
   end;
+end;
+
+procedure TFrame1.FrameResize(Sender: TObject);
+begin
+ if not FFirst then exit;
+ if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml') then ReadValues;
+ if PathToGitDirectory = '' then exit;
+ Path_Panel.Caption := AdjustText(PathToGitDirectory,Path_Panel);
+ Path_Panel.Hint:= PathToGitDirectory;
+ FFirst := false;
+ Checkgitignore;
+ Checkgitinit;
 end;
 
 procedure TFrame1.gitignoreClick(Sender: TObject);
@@ -607,13 +604,14 @@ begin
    try
     {$IFDEF WINDOWS}
       strList.LoadFromFile(PathToGitWizzard+'\winCommands\'+(Sender as TCommandButton).FileName+'.bat');
-
+      InputForm.Edit_Complete.Text := strList[0];
     {$ENDIF}
     {$IFDEF Linux}
      strList.LoadFromFile(PathToGitWizzard+'/linuxCommands/'+(Sender as TCommandButton).FileName+'.sh');
+     InputForm.Edit_Complete.Text := strList[1];
     {$ENDIF}
 
-    InputForm.Edit_Complete.Text := strList[1];
+
     InputForm.ShowModal;
 
     SaveABashfile('NeedsInput',InputForm.Edit_Complete.Text);

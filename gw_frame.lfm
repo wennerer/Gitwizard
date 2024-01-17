@@ -8,6 +8,7 @@ object Frame1: TFrame1
   Align = alClient
   ClientHeight = 695
   ClientWidth = 330
+  OnResize = FrameResize
   ParentBackground = False
   TabOrder = 0
   DesignLeft = 1520

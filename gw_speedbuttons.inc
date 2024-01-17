@@ -5,7 +5,6 @@
 
 procedure TFrame1.SpeedButton_LastSavedProjectClick(Sender: TObject);
 var PathToEnviro : string;
-    //sarchstring  : string;
 begin
  PathToEnviro := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'environmentoptions.xml';
  PathToGitDirectory := ReadPathToDir(PathToEnviro,'/CONFIG/EnvironmentOptions/AutoSave/@*');
@@ -14,7 +13,6 @@ end;
 
 procedure TFrame1.SpeedButton_LastSavedPackageClick(Sender: TObject);
 var PathToEnviro : string;
-    //sarchstring  : string;
 begin
  PathToEnviro := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'environmentoptions.xml';
  PathToGitDirectory := ReadPathToDir(PathToEnviro,'/CONFIG/EnvironmentOptions/AutoSave/LastOpenPackages/@*');
@@ -110,7 +108,7 @@ var dest,source,pathtobashes: string;
    TaskDialog1.Title        := rs_restorebackup;
    TaskDialog1.Text         := rs_restorebackuptext;
    TaskDialog1.MainIcon     := tdiWarning;
-   //TaskDialog1.FooterText   := 'https://github.com/wennerer/Multis.git';
+   //TaskDialog1.FooterText   := 'https://github.com/...';
    //TaskDialog1.FooterIcon   := tdiInformation;
 
    TaskDialog1.CommonButtons:=[];
@@ -145,15 +143,18 @@ var dest,source,pathtobashes: string;
   dest := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim;
   pathtobashes := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
  {$ENDIF}
+ //delete gw_commands.xml
+   deletefile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml');
  //delete commandbashfolder
    DeleteAFolder(dest);
-
- //copy gw_commands.xml into backup folder
+   sleep(200);
+ //copy gw_commands.xml into config folder
    if not copyfile(source,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml')
     then showmessage(rs_gw_commands);
 
-  //copy all commandfiles into backup folder
+  //copy all commandfiles into commands folder
    CopyAFolder(pathtobashes,dest);
+   CommandList.Clear;
    sleep(200);
    readvalues;
 end;
@@ -170,7 +171,7 @@ begin
   TaskDialog1.Title        := rs_createbackup;
   TaskDialog1.Text         := rs_createnewbackup;
   TaskDialog1.MainIcon     := tdiWarning;
-  //TaskDialog1.FooterText   := 'https://github.com/wennerer/Multis.git';
+  //TaskDialog1.FooterText   := 'https://github.com/....';
   //TaskDialog1.FooterIcon   := tdiInformation;
 
   TaskDialog1.CommonButtons:=[];
