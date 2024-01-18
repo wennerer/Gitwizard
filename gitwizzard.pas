@@ -94,6 +94,7 @@ begin
   Caption := 'GitWizzard';
   Color := clWindow;
 
+
   MainFrame := TFrame1.Create(self);
   MainFrame.Parent := self;
 

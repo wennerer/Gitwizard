@@ -27,9 +27,7 @@ begin
    begin
     setlength(sa,1);
     sa[0] := aPath+(FSender as TCommandButton).FileName+'.bat';
-    showmessage(FEditor);
     if not RunCommand(FEditor,sa,s,[],swoNone) then showmessage(s);
-    showmessage(s);
    end;
 
  {$ENDIF}

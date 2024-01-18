@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'win angepasst,clear'
+git commit -a -m 'showmessage entfernt'

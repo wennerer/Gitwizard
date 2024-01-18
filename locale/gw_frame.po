@@ -1,0 +1,39 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: gw_frame.rs_checkoptionsdialog
+msgid "Please check optionsdialog"
+msgstr ""
+
+#: gw_frame.rs_comerror
+msgid "The command is incorrect!"
+msgstr ""
+
+#: gw_frame.rs_comnotfound
+msgid "Command-File not found!"
+msgstr ""
+
+#: gw_frame.rs_directorynotfound
+msgid "Directory not found"
+msgstr ""
+
+#: gw_frame.rs_filealreadyexists
+msgid "File already exists"
+msgstr ""
+
+#: gw_frame.rs_filenotfound
+msgid "File not found"
+msgstr ""
+
+#: gw_frame.rs_gw_commands
+msgid "File nor found: gw_commands.xml"
+msgstr ""
+
+#: gw_frame.rs_ignorenofound
+msgid "Default gitignore not found!"
+msgstr ""
+
+#: gw_frame.rs_nodirectoryselected
+msgid "No directory selected!"
+msgstr ""
+

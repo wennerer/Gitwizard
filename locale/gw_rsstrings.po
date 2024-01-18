@@ -1,214 +1,201 @@
 msgid ""
-msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Language-Team: \n"
-"MIME-Version: 1.0\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
-"Last-Translator: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: de_DE\n"
+msgstr "Content-Type: text/plain; charset=UTF-8"
 
 #: gw_rsstrings.rs_anydirhint
 msgid "Set Any Directory"
-msgstr "Wähle ein Verzeichnis"
+msgstr ""
 
 #: gw_rsstrings.rs_cancel
 msgid "Cancel"
-msgstr "Abbrechen"
+msgstr ""
 
 #: gw_rsstrings.rs_checkoptionsdialog
 msgid "Please check optionsdialog!"
-msgstr "Bitte schaue in den Options_Dialog!"
+msgstr ""
 
 #: gw_rsstrings.rs_comerror
 msgid "The command is incorrect!"
-msgstr "Der Befehl ist nicht korrekt!"
+msgstr ""
 
 #: gw_rsstrings.rs_comnotfound
 msgid "Command-File not found!"
-msgstr "Befehlsdatei nicht gefunden!"
+msgstr ""
 
 #: gw_rsstrings.rs_copletecommand
 msgid "Complete the command:"
-msgstr "Vervollständige den Befehl:"
+msgstr ""
 
 #: gw_rsstrings.rs_createbackup
 msgid "Create a Backup of Commands"
-msgstr "Erzeugt ein Backup von den Befehlen"
+msgstr ""
 
 #: gw_rsstrings.rs_createnewbackup
 msgid "Do you want to create a new backup? All old files in the backup folder are deleted!"
-msgstr "Möchtest du ein neues Backup erzeugen? Alle alten Dateien im Backup-Ordner werden gelöscht!"
+msgstr ""
 
 #: gw_rsstrings.rs_defgitignore
 msgid "Edit default gitignore"
-msgstr "Standard gitignore bearbeiten"
+msgstr ""
 
 #: gw_rsstrings.rs_deletecommand
 msgid "Delete command"
-msgstr "Lösche den Befehl"
+msgstr ""
 
 #: gw_rsstrings.rs_directorynotfound
 msgid "Directory not found!"
-msgstr "Verzeichnis nicht gefunden!"
+msgstr ""
 
 #: gw_rsstrings.rs_enteracaption
 msgid "Please enter a caption for the new button:"
-msgstr "Bitte gib eine Caption für den neuen Button ein:"
+msgstr ""
 
 #: gw_rsstrings.rs_enteracommand
 msgid "Please enter a new command:"
-msgstr "Bitte gib einen neuen Befehl ein:"
+msgstr ""
 
 #: gw_rsstrings.rs_enterafilename
 msgid "Please enter a filename for the new bash:"
-msgstr "Bitte gib einen Dateinamen für die Bashdatei ein:"
+msgstr ""
 
 #: gw_rsstrings.rs_enterahint
 msgid "Please enter a hint for the new button:"
-msgstr "Bitte gib einen Hint für den neuen Button ein:"
+msgstr ""
 
 #: gw_rsstrings.rs_enternewpos
 msgid "Enter a new position!"
-msgstr "Gib eine neue Position ein!"
+msgstr ""
 
 #: gw_rsstrings.rs_error
 msgid "Error"
-msgstr "Fehler"
+msgstr ""
 
 #: gw_rsstrings.rs_excecute
 msgid "Excecute"
-msgstr "Ausführen"
+msgstr ""
 
 #: gw_rsstrings.rs_filealreadyexists
 msgid "File already exists!"
-msgstr "Datei existiert schon!"
+msgstr ""
 
 #: gw_rsstrings.rs_filenotfound
 msgid "File not found!"
-msgstr "Datei nicht gefunden!"
+msgstr ""
 
 #: gw_rsstrings.rs_forcommans
 msgid "Edit for single commands"
-msgstr "Eingabe für einzelne Befehle"
+msgstr ""
 
 #: gw_rsstrings.rs_gw_commands
 msgid "File not found: gw_commands.xml!"
-msgstr "Datei nicht gefunden: gw_commands.xml!"
+msgstr ""
 
 #: gw_rsstrings.rs_ignorenofound
 msgid "Default gitignore not found!"
-msgstr "Standard gitignore nicht gefunden!"
+msgstr ""
 
 #: gw_rsstrings.rs_info
 msgid "Info"
-msgstr "Info"
+msgstr ""
 
 #: gw_rsstrings.rs_infoline1
 msgid "GitWizzard integrates the operation of git into the Lazarus IDE."
-msgstr "GitWizzard integriert die Bedienung von Git in die Lazarus IDE."
+msgstr ""
 
 #: gw_rsstrings.rs_infoline2
 msgid "Commands are called via scripts that can be created or changed by the user."
-msgstr "Befehle werden über Skripte aufgerufen, die vom Benutzer erstellt oder geändert werden können."
+msgstr ""
 
 #: gw_rsstrings.rs_infoline3
-msgctxt "gw_rsstrings.rs_infoline3"
 msgid "License: GNU General Public License (GNU GPL)"
-msgstr "Lizenz: GNU General Public License (GNU GPL)"
+msgstr ""
 
 #: gw_rsstrings.rs_infoline4
-msgctxt "gw_rsstrings.rs_infoline4"
 msgid "All icons from Roland Hahn. Thank you very mutch!"
-msgstr "Alle Icons sind von Roland Hahn. Herzlichen Dank!"
+msgstr ""
 
 #: gw_rsstrings.rs_inputform
 msgid "Complete the command dialog"
-msgstr "Vervollständige den Befehl Dialog"
+msgstr ""
 
 #: gw_rsstrings.rs_lastsavedproject
 msgid "Set Last Saved Project-Directory"
-msgstr "Setzt das letzte gespeicherte Project-Verzeichnis"
+msgstr ""
 
 #: gw_rsstrings.rs_lastsavepackage
 msgid "Set Last Saved Package-Directory"
-msgstr "Setzt das letzte gespeicherte Package-Verzeichnis"
+msgstr ""
 
 #: gw_rsstrings.rs_movebutton
 msgid "Move Button"
-msgstr "Verschiebe den Button"
+msgstr ""
 
 #: gw_rsstrings.rs_needinput
 msgid "The command requires an input"
-msgstr "Der Befehl benötigt eine Eingabe"
+msgstr ""
 
 #: gw_rsstrings.rs_newcommand
 msgid "Create a new command"
-msgstr "Erzeuge einen neuen Befehl"
+msgstr ""
 
 #: gw_rsstrings.rs_newcommandform
 msgid "New Command Dialog"
-msgstr "Neuer Befehl Dialog"
+msgstr ""
 
 #: gw_rsstrings.rs_newpos
 msgid "New Position:"
-msgstr "Neue Position:"
+msgstr ""
 
 #: gw_rsstrings.rs_no
 msgid "No"
-msgstr "Nein"
+msgstr ""
 
 #: gw_rsstrings.rs_nocaption
 msgid "No caption entered"
-msgstr "Keine Caption eingegeben"
+msgstr ""
 
 #: gw_rsstrings.rs_nocommand
 msgid "No command entered"
-msgstr "Keinen Befehl eingegeben"
+msgstr ""
 
 #: gw_rsstrings.rs_nodirectoryselected
 msgid "No directory selected!"
-msgstr "Kein Verzeichnis ausgewählt!"
+msgstr ""
 
 #: gw_rsstrings.rs_nofilename
 msgid "No filename entered"
-msgstr "Keinen Datei eingegeben"
+msgstr ""
 
 #: gw_rsstrings.rs_opendir
 msgid "Open set Directory"
-msgstr "Öffne gesetztes Verzeichnis"
+msgstr ""
 
 #: gw_rsstrings.rs_openfile
 msgid "Open File"
-msgstr "Öffne die Datei"
+msgstr ""
 
 #: gw_rsstrings.rs_options
 msgctxt "gw_rsstrings.rs_options"
 msgid "Options"
-msgstr "Optionen"
+msgstr ""
 
 #: gw_rsstrings.rs_optionsform
 msgctxt "gw_rsstrings.rs_optionsform"
 msgid "Options"
-msgstr "Optionen"
+msgstr ""
 
 #: gw_rsstrings.rs_restorebackup
 msgid "Restore backup"
-msgstr "Backup wieder herstellen"
+msgstr ""
 
 #: gw_rsstrings.rs_restorebackuptext
 msgid "Would you like to load the data from the last backup? All old files in the command folder are deleted!"
-msgstr "Möchtest du die Daten vom letzten Backup laden? Alle Dateien im Command-Ordner werden gelöscht!"
+msgstr ""
 
 #: gw_rsstrings.rs_selecteditor
 msgid "Select an editor:"
-msgstr "Wähle einen Editor:"
+msgstr ""
 
 #: gw_rsstrings.rs_yes
 msgid "Yes"
-msgstr "Ja"
+msgstr ""
 
