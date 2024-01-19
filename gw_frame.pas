@@ -1,3 +1,5 @@
+{This is a part of GitWizard}
+
 unit gw_frame;
 
 {$mode objfpc}{$H+}
@@ -84,7 +86,7 @@ type
     FSender                : TObject;
     FEditor                : string;
     PathToGitDirectory     : string; //The path to the directory that is to be versioned using git
-    PathToGitWizzard       : string; //The path to the directory where the gitwizzard package is located
+    PathToGitWizard        : string; //The path to the directory where the gitwizard package is located
     Lang                   : string;
     FFirst                 : boolean;
     procedure CommandButtonClick(Sender: TObject);
@@ -204,24 +206,24 @@ begin
  inherited Create(AOwner);
  CommandList := TObjectList.Create(True);
  PathToEnviro := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'packagefiles.xml';
- PathToGitWizzard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizzard"]]/Filename/@*');
+ PathToGitWizard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizard"]]/Filename/@*');
 
  FFirst := true;
 
  GetLanguageIDs(s{%H-},lang{%H-});
  SetDefaultlang(lang);
 
- localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'gw_rsstrings.%s.po';
+ localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'gw_rsstrings.%s.po';
  Translations.TranslateUnitResourceStrings('gw_rsstrings', Format(localedir, [lang]));
- localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'gw_frame.%s.po';
+ localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'gw_frame.%s.po';
  Translations.TranslateUnitResourceStrings('gw_frame', Format(localedir, [lang]));
- localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'newcommand.%s.po';
+ localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'newcommand.%s.po';
  Translations.TranslateUnitResourceStrings('newcommand', Format(localedir, [lang]));
- localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'input_form.%s.po';
+ localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'input_form.%s.po';
  Translations.TranslateUnitResourceStrings('input_form', Format(localedir, [lang]));
- localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'options_form.%s.po';
+ localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'options_form.%s.po';
  Translations.TranslateUnitResourceStrings('options_form', Format(localedir, [lang]));
- localedir := PathToGitWizzard+Pathdelim+'locale'+PathDelim+'move_button.%s.po';
+ localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'move_button.%s.po';
  Translations.TranslateUnitResourceStrings('move_button', Format(localedir, [lang]));
 
  Input.Hint                                  := rs_forcommans;
@@ -452,12 +454,12 @@ begin
  try
   {$IFDEF WINDOWS}
    strList.Add(aCommand);
-   strList.SaveToFile(PathToGitWizzard+'\winCommands\'+aFileName+'.bat');
+   strList.SaveToFile(PathToGitWizard+'\winCommands\'+aFileName+'.bat');
   {$ENDIF}
   {$IFDEF Linux}
    strList.Add('#!/bin/bash');
    strList.Add(aCommand);
-   strList.SaveToFile(PathToGitWizzard+'/linuxCommands/'+aFileName+'.sh');
+   strList.SaveToFile(PathToGitWizard+'/linuxCommands/'+aFileName+'.sh');
   {$ENDIF}
  finally
   strList.Free;
@@ -468,8 +470,8 @@ begin
  strList  := TStringlist.Create;
  try
   strList.Add('#!/bin/bash');
-  strList.Add('chmod a+x '+PathToGitWizzard+'/linuxCommands/'+aFileName+'.sh');
-  strList.SaveToFile(PathToGitWizzard+'/linuxCommands/makeexecutable.sh');
+  strList.Add('chmod a+x '+PathToGitWizard+'/linuxCommands/'+aFileName+'.sh');
+  strList.SaveToFile(PathToGitWizard+'/linuxCommands/makeexecutable.sh');
  finally
   strList.Free;
  end;
@@ -490,10 +492,10 @@ begin
   end;
 
  {$IFDEF WINDOWS}
-    pathtobash := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+ aCommandBash+'.bat';
+    pathtobash := PathToGitWizard+PathDelim+'winCommands'+PathDelim+ aCommandBash+'.bat';
  {$ENDIF}
  {$IFDEF Linux}
-    pathtobash := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+ aCommandBash+'.sh';
+    pathtobash := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+ aCommandBash+'.sh';
  {$ENDIF}
  if not fileexists(pathtobash) then
   begin
@@ -512,12 +514,12 @@ begin
  try
  {$IFDEF WINDOWS}
   strList.Add(Input.Text);
-  strList.SaveToFile(PathToGitWizzard+'\winCommands\singlecommand.bat');
+  strList.SaveToFile(PathToGitWizard+'\winCommands\singlecommand.bat');
  {$ENDIF}
  {$IFDEF Linux}
   strList.Add('#!/bin/bash');
   strList.Add(Input.Text);
-  strList.SaveToFile(PathToGitWizzard+'/linuxCommands/singlecommand.sh');
+  strList.SaveToFile(PathToGitWizard+'/linuxCommands/singlecommand.sh');
   {$ENDIF}
  finally
   strList.Free;
@@ -559,13 +561,14 @@ end;
 procedure TFrame1.FrameResize(Sender: TObject);
 begin
  if not FFirst then exit;
+ FFirst := false;
  if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml') then ReadValues;
  if PathToGitDirectory = '' then exit;
  Path_Panel.Caption := AdjustText(PathToGitDirectory,Path_Panel);
  Path_Panel.Hint:= PathToGitDirectory;
- FFirst := false;
  Checkgitignore;
  Checkgitinit;
+ BringToFront;
 end;
 
 procedure TFrame1.gitignoreClick(Sender: TObject);
@@ -580,7 +583,7 @@ begin
    showmessage(rs_Filealreadyexists);
    exit;
   end;
- if CopyFile(PathToGitWizzard+PathDelim+'defaultgitignore'+PathDelim+'.gitignore',
+ if CopyFile(PathToGitWizard+PathDelim+'defaultgitignore'+PathDelim+'.gitignore',
              PathToGitDirectory+PathDelim+'.gitignore')
  then showmessage('Ok') else showmessage('Error');
  Checkgitignore;
@@ -603,11 +606,11 @@ begin
    strList    := TStringlist.Create;
    try
     {$IFDEF WINDOWS}
-      strList.LoadFromFile(PathToGitWizzard+'\winCommands\'+(Sender as TCommandButton).FileName+'.bat');
+      strList.LoadFromFile(PathToGitWizard+'\winCommands\'+(Sender as TCommandButton).FileName+'.bat');
       InputForm.Edit_Complete.Text := strList[0];
     {$ENDIF}
     {$IFDEF Linux}
-     strList.LoadFromFile(PathToGitWizzard+'/linuxCommands/'+(Sender as TCommandButton).FileName+'.sh');
+     strList.LoadFromFile(PathToGitWizard+'/linuxCommands/'+(Sender as TCommandButton).FileName+'.sh');
      InputForm.Edit_Complete.Text := strList[1];
     {$ENDIF}
 

@@ -1,4 +1,4 @@
-{ <GitWizzard>
+{ <Gitwizard>
 
   Copyright (C) <13.01.2024> <Bernd Hübner (wennerer)>
 
@@ -18,7 +18,7 @@
 
 
 
-unit gitwizzard;
+unit gitwizard;
 
 {$mode objfpc}{$H+}
 
@@ -29,7 +29,7 @@ uses
   Dialogs, Graphics, gw_frame;
 
 resourcestring
-  mnuShowGitWizzard = 'GitWizzard';
+  mnuShowGitwizard = 'Gitwizard';
 
 type
 
@@ -78,11 +78,11 @@ begin
   //Erzeugt den Menüeintrag mit Shortcut:
   Key := IDEShortCut(VK_M,[ssCtrl],VK_UNKNOWN,[]);
   Cat := IDECommandList.FindIDECommand(ecFind).Category;
-  CmdMyTool := RegisterIDECommand(Cat,mnuShowGitWizzard,mnuShowGitWizzard, Key, nil,@OnCmdClick);
-  Cmd := RegisterIDEMenuCommand(itmCustomTools,mnuShowGitWizzard,mnuShowGitWizzard, nil, nil, CmdMyTool,'magicwand_16');
+  CmdMyTool := RegisterIDECommand(Cat,mnuShowGitwizard,mnuShowGitwizard, Key, nil,@OnCmdClick);
+  Cmd := RegisterIDEMenuCommand(itmCustomTools,mnuShowGitwizard,mnuShowGitwizard, nil, nil, CmdMyTool,'magicwand_16');
 
   //Ohne Shortcut
-  //RegisterIDEMenuCommand(itmCustomTools, mnuShowGitWizzard,mnuShowGitWizzard,nil,@OnCmdClick,nil);
+  //RegisterIDEMenuCommand(itmCustomTools, mnuShowGitwizard,mnuShowGitwizard,nil,@OnCmdClick,nil);
 
 end;
 
@@ -91,9 +91,8 @@ constructor TGW_MainForm.CreateNew(AOwner: TComponent; Num: Integer);
 begin
   inherited CreateNew(AOwner, Num);
   Name := 'GW_MainForm';
-  Caption := 'GitWizzard';
+  Caption := 'Gitwizard';
   Color := clWindow;
-
 
   MainFrame := TFrame1.Create(self);
   MainFrame.Parent := self;

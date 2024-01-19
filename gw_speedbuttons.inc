@@ -1,4 +1,4 @@
-{%gw_frame --- this is a part of GitWizzard}
+{%gw_frame --- this is a part of GitWizard}
 
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX---SpeedButtons---XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -12,10 +12,16 @@ begin
 end;
 
 procedure TFrame1.SpeedButton_LastSavedPackageClick(Sender: TObject);
-var PathToEnviro : string;
+var PathToEnviro,s : string;
 begin
  PathToEnviro := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'environmentoptions.xml';
- PathToGitDirectory := ReadPathToDir(PathToEnviro,'/CONFIG/EnvironmentOptions/AutoSave/LastOpenPackages/@*');
+ s := ReadPathToDir(PathToEnviro,'/CONFIG/EnvironmentOptions/AutoSave/LastOpenPackages/@*');
+ if pos('lpk',s) <> 0 then
+  begin
+   showmessage(rs_moreopen);
+   exit;
+  end;
+ PathToGitDirectory := s;
  SetPathToGitDirectory(PathToGitDirectory);
 end;
 
@@ -28,7 +34,7 @@ end;
 
 procedure TFrame1.SpeedButton_defgitignoreClick(Sender: TObject);
 begin
- if not OpenDocument(PathToGitWizzard+PathDelim+'defaultgitignore'+PathDelim+'.gitignore')
+ if not OpenDocument(PathToGitWizard+PathDelim+'defaultgitignore'+PathDelim+'.gitignore')
      then showmessage(rs_ignorenofound);
 end;
 
@@ -104,7 +110,7 @@ var dest,source,pathtobashes: string;
  begin
   TaskDialog1   := TTaskDialog.Create(nil);
   try
-   TaskDialog1.Caption      := 'GitWizzard';
+   TaskDialog1.Caption      := 'GitWizard';
    TaskDialog1.Title        := rs_restorebackup;
    TaskDialog1.Text         := rs_restorebackuptext;
    TaskDialog1.MainIcon     := tdiWarning;
@@ -130,18 +136,18 @@ var dest,source,pathtobashes: string;
 
 
  {$IFDEF WINDOWS}
-  source := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+  source := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
  {$ENDIF}
  {$IFDEF Linux}
-  source := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+  source := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
  {$ENDIF}
  {$IFDEF WINDOWS}
-  dest := PathToGitWizzard+PathDelim+'winCommands'+PathDelim;
-  pathtobashes := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
+  dest := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
+  pathtobashes := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
  {$ENDIF}
  {$IFDEF Linux}
-  dest := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim;
-  pathtobashes := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
+  dest := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
+  pathtobashes := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
  {$ENDIF}
  //delete gw_commands.xml
    deletefile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml');
@@ -167,7 +173,7 @@ var dest1,dest,pathtobashes : string;
 begin
  TaskDialog1   := TTaskDialog.Create(nil);
  try
-  TaskDialog1.Caption      := 'GitWizzard';
+  TaskDialog1.Caption      := 'GitWizard';
   TaskDialog1.Title        := rs_createbackup;
   TaskDialog1.Text         := rs_createnewbackup;
   TaskDialog1.MainIcon     := tdiWarning;
@@ -195,22 +201,22 @@ begin
  if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml') then
   begin
    {$IFDEF WINDOWS}
-    pathtobashes := PathToGitWizzard+PathDelim+'winCommands'+PathDelim;
-    dest := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
+    pathtobashes := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
+    dest := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
    {$ENDIF}
    {$IFDEF Linux}
-    pathtobashes := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim;
-    dest := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
+    pathtobashes := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
+    dest := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
    {$ENDIF}
   //delete old backup
    DeleteAFolder(dest);
 
   sleep(200);
    {$IFDEF WINDOWS}
-    dest1 := PathToGitWizzard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+    dest1 := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
    {$ENDIF}
    {$IFDEF Linux}
-    dest1 := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+    dest1 := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
    {$ENDIF}
   //copy gw_commands.xml into backup folder
    if not copyfile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml',dest1)

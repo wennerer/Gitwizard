@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="5">
-    <Name Value="laz_gitwizzard"/>
+    <Name Value="laz_gitwizard"/>
     <Type Value="RunAndDesignTime"/>
     <Author Value="Bernd Hübner (wennerer)"/>
     <CompilerOptions>
@@ -10,14 +10,14 @@
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Description Value="GitWizzard integrates the operation of git into the Lazarus IDE. Commands are called up using a script and can be created or changed by the user."/>
+    <Description Value="Gitwizard integrates the operation of git into the Lazarus IDE. Commands are called up using a script and can be created or changed by the user."/>
     <License Value="GPL - see :   http://www.gnu.org/copyleft/gpl.html"/>
     <Version Release="1" Build="1"/>
     <Files Count="10">
       <Item1>
-        <Filename Value="gitwizzard.pas"/>
+        <Filename Value="gitwizard.pas"/>
         <HasRegisterProc Value="True"/>
-        <UnitName Value="gitwizzard"/>
+        <UnitName Value="gitwizard"/>
       </Item1>
       <Item2>
         <Filename Value="gw_frame.pas"/>

@@ -1,4 +1,4 @@
-{%gw_frame --- this is a part of GitWizzard}
+{%gw_frame --- this is a part of GitWizard}
 
 
 //The Popup
@@ -22,7 +22,7 @@ begin
   end;
 
  {$IFDEF WINDOWS}
-  aPath := PathToGitWizzard+PathDelim+'winCommands'+PathDelim;
+  aPath := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
   if FSender is TCommandButton then
    begin
     setlength(sa,1);
@@ -32,7 +32,7 @@ begin
 
  {$ENDIF}
  {$IFDEF Linux}
- aPath := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim;
+ aPath := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
   if FSender is TCommandButton then
    begin
     setlength(sa,1);
@@ -59,13 +59,13 @@ begin
  if FSender = nil then FSender := gitignore;
 
  {$IFDEF WINDOWS}
-  aPath := PathToGitWizzard+PathDelim+'winCommands'+PathDelim;
+  aPath := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
   if FSender is TCommandButton then
    if deletefile(aPath+(FSender as TCommandButton).FileName+'.bat') then showmessage('Okay')
    else showmessage(rs_filenotfound);
  {$ENDIF}
  {$IFDEF Linux}
-  aPath := PathToGitWizzard+PathDelim+'linuxCommands'+PathDelim;
+  aPath := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
   if FSender is TCommandButton then
    if deletefile(aPath+(FSender as TCommandButton).FileName+'.sh') then showmessage('Okay')
    else showmessage(rs_filenotfound);

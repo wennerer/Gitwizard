@@ -109,8 +109,8 @@ msgid "Info"
 msgstr "Info"
 
 #: gw_rsstrings.rs_infoline1
-msgid "GitWizzard integrates the operation of git into the Lazarus IDE."
-msgstr "GitWizzard integriert die Bedienung von Git in die Lazarus IDE."
+msgid "GitWizard integrates the operation of git into the Lazarus IDE."
+msgstr "GitWizard integriert die Bedienung von Git in die Lazarus IDE."
 
 #: gw_rsstrings.rs_infoline2
 msgid "Commands are called via scripts that can be created or changed by the user."
@@ -135,8 +135,12 @@ msgid "Set Last Saved Project-Directory"
 msgstr "Setzt das letzte gespeicherte Project-Verzeichnis"
 
 #: gw_rsstrings.rs_lastsavepackage
-msgid "Set Last Saved Package-Directory"
-msgstr "Setzt das letzte gespeicherte Package-Verzeichnis"
+msgid "Set open Package-Directory"
+msgstr "Setzt das geöffnete Package-Verzeichnis"
+
+#: gw_rsstrings.rs_moreopen
+msgid "There are several packages open!"
+msgstr "Es sind mehrere Packages geöffnet!"
 
 #: gw_rsstrings.rs_movebutton
 msgid "Move Button"
@@ -211,4 +215,3 @@ msgstr "Wähle einen Editor:"
 #: gw_rsstrings.rs_yes
 msgid "Yes"
 msgstr "Ja"
-

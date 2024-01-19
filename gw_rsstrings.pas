@@ -19,7 +19,7 @@ resourcestring
   rs_gw_commands                      = 'File not found: gw_commands.xml!';
   rs_AnyDirHint                       = 'Set Any Directory';
   rs_LastSavedProject                 = 'Set Last Saved Project-Directory';
-  rs_LastSavePackage                  = 'Set Last Saved Package-Directory';
+  rs_LastSavePackage                  = 'Set open Package-Directory';
   rs_defgitignore                     = 'Edit default gitignore';
   rs_newCommand                       = 'Create a new command';
   rs_opendir                          = 'Open set Directory';
@@ -37,6 +37,7 @@ resourcestring
   rs_no                               = 'No';
   rs_forcommans                       = 'Edit for single commands';
   rs_excecute                         = 'Excecute';
+  rs_moreopen                         = 'There are several packages open!';
 
   rs_newcommandform                   = 'New Command Dialog';
   rs_nocaption                        = 'No caption entered';
@@ -59,7 +60,7 @@ resourcestring
   rs_NewPos                           = 'New Position:';
   rs_EnterNewPos                      = 'Enter a new position!';
 
-  rs_InfoLine1                        = 'GitWizzard integrates the operation of git into the Lazarus IDE.';
+  rs_InfoLine1                        = 'GitWizard integrates the operation of git into the Lazarus IDE.';
   rs_InfoLine2                        = 'Commands are called via scripts that can be created or changed by the user.';
   rs_InfoLine3                        = 'License: GNU General Public License (GNU GPL)';
   rs_InfoLine4                        = 'All icons from Roland Hahn. Thank you very mutch!';
