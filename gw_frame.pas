@@ -506,25 +506,24 @@ begin
    exit;
   end;
  s:= '';
- if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then showmessage(s)
-  else showmessage(rs_comerror);
- (*if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then
+ //if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then showmessage(s)
+  //else showmessage(rs_comerror);
+ if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then
   begin
    outputform   := TOutPutForm.Create(self);
    sl := TStringList.Create;
    try
-    //outputform.Parent := self;
+
     sl.Text:=s;
-    if sl.Count = 0 then exit;
-    for lv:= 0 to sl.Count-2 do
+    if sl.Count = 0 then sl.Add('Okay');
+    for lv:= 0 to sl.Count-1 do
      outputform.SynEdit1.Lines.Add(sl[lv]);
     outputform.Show;
    finally
     sl.Free;
-    //outputform.Free;
    end;
   end //runcomm
- else showmessage(rs_comerror); *)
+ else showmessage(rs_comerror);
 end;
 
 procedure TFrame1.SpeedButton_SingleInputClick(Sender: TObject);
