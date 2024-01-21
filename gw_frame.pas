@@ -176,7 +176,7 @@ begin
    begin
     copyfile(sl[lv],aDestFolder+ExtractFileName(sl[lv]));
     {$IFDEF Linux}
-     if not RunCommandInDir(aDestFolder,'chmod a+x '+aDestFolder+ExtractFileName(sl[lv]),s)
+     if not RunCommandInDir(aDestFolder,'','chmod a+x '+aDestFolder+ExtractFileName(sl[lv]),s,[poStderrToOutput],swoNone)
       then showmessage(s);
     {$ENDIF}
    end;
@@ -503,7 +503,7 @@ begin
    exit;
   end;
  s:= '';
- if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,Options,swOptions) then showmessage(s)
+ if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then showmessage(s)
  else showmessage(rs_comerror);
 end;
 

@@ -1,2 +1,2 @@
 #!/bin/bash
-git addd
+git init
