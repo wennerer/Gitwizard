@@ -11,7 +11,7 @@ uses
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead,
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
   options_form, Translations, LCLTranslator, DefaultTranslator, LMessages,
-  LCLType, gw_rsstrings, move_button, info_form;
+  LCLType, gw_rsstrings, move_button, info_form, output_form;
 
 
 
@@ -250,6 +250,7 @@ end;
 destructor TFrame1.Destroy;
 begin
  FreeAndNil(CommandList);
+ if assigned(outputform) then outputform.Free;
  inherited Destroy;
 end;
 
@@ -484,6 +485,8 @@ end;
 procedure TFrame1.ExecuteCommand(aCommandBash:String;Com:array of TProcessString;
                                    Options:TProcessOptions=[];swOptions:TShowWindowOptions=swoNone);
 var pathtobash,s : string;
+    sl : TStringList;
+    lv : integer;
 begin
   if PathToGitDirectory = '' then
   begin
@@ -503,7 +506,24 @@ begin
    exit;
   end;
  s:= '';
- if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then showmessage(s)
+ //if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then showmessage(s)
+ //else showmessage(rs_comerror);
+ if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then
+  begin
+   outputform   := TOutPutForm.Create(self);
+   sl := TStringList.Create;
+   try
+    //outputform.Parent := self;
+    sl.Text:=s;
+    if sl.Count = 0 then exit;
+    for lv:= 0 to sl.Count-2 do
+     outputform.SynEdit1.Lines.Add(sl[lv]);
+    outputform.Show;
+   finally
+    sl.Free;
+    //outputform.Free;
+   end;
+  end //runcomm
  else showmessage(rs_comerror);
 end;
 

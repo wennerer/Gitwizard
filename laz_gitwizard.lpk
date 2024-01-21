@@ -13,7 +13,7 @@
     <Description Value="Gitwizard integrates the operation of git into the Lazarus IDE. Commands are called up using a script and can be created or changed by the user."/>
     <License Value="GPL - see :   http://www.gnu.org/copyleft/gpl.html"/>
     <Version Release="1" Build="1"/>
-    <Files Count="10">
+    <Files Count="11">
       <Item1>
         <Filename Value="gitwizard.pas"/>
         <HasRegisterProc Value="True"/>
@@ -55,6 +55,10 @@
         <Filename Value="gw_popups.inc"/>
         <Type Value="Include"/>
       </Item10>
+      <Item11>
+        <Filename Value="output_form.pas"/>
+        <UnitName Value="output_form"/>
+      </Item11>
     </Files>
     <CompatibilityMode Value="True"/>
     <i18n>
@@ -62,13 +66,16 @@
       <OutDir Value="locale"/>
       <EnableI18NForLFM Value="True"/>
     </i18n>
-    <RequiredPkgs Count="2">
+    <RequiredPkgs Count="3">
       <Item1>
-        <PackageName Value="IDEIntf"/>
+        <PackageName Value="SynEdit"/>
       </Item1>
       <Item2>
-        <PackageName Value="FCL"/>
+        <PackageName Value="IDEIntf"/>
       </Item2>
+      <Item3>
+        <PackageName Value="FCL"/>
+      </Item3>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
