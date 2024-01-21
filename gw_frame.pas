@@ -515,10 +515,12 @@ begin
    try
 
     sl.Text:=s;
-    if sl.Count = 0 then sl.Add('Okay');
-    for lv:= 0 to sl.Count-1 do
-     outputform.SynEdit1.Lines.Add(sl[lv]);
-    outputform.Show;
+    if sl.Count <> 0 then
+     begin
+      for lv:= 0 to sl.Count-1 do
+      outputform.SynEdit1.Lines.Add(sl[lv]);
+      outputform.Show;
+     end;
    finally
     sl.Free;
    end;
