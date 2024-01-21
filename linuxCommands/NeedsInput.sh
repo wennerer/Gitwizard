@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'synedit1'
+git commit -a -m 'test'
