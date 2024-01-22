@@ -176,7 +176,7 @@ begin
    begin
     copyfile(sl[lv],aDestFolder+ExtractFileName(sl[lv]));
     {$IFDEF Linux}
-     if not RunCommandInDir(aDestFolder,'','chmod a+x '+aDestFolder+ExtractFileName(sl[lv]),s,[poStderrToOutput],swoNone)
+     if not RunCommandInDir(aDestFolder,'chmod a+x '+aDestFolder+ExtractFileName(sl[lv]),s)
       then showmessage(s);
     {$ENDIF}
    end;
@@ -516,7 +516,7 @@ begin
    outputform   := TOutPutForm.Create(self);
    sl := TStringList.Create;
    try
-    if pos('\',s) <> 0 then showmessage('da');
+    //if pos('\',s) <> 0 then showmessage('Escape Sequenz da');
     sl.Text:=s;
     if sl.Count <> 0 then
      begin
