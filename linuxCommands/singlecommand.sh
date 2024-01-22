@@ -1,2 +1,2 @@
 #!/bin/bash
-git show
+git status

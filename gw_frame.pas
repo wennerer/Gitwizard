@@ -484,9 +484,11 @@ end;
 
 procedure TFrame1.ExecuteCommand(aCommandBash:String;Com:array of TProcessString;
                                    Options:TProcessOptions=[];swOptions:TShowWindowOptions=swoNone);
-var pathtobash,s : string;
-    sl : TStringList;
-    lv : integer;
+var pathtobash : string;
+    s : ansistring;
+    sl           : TStringList;
+    lv           : integer;
+
 begin
   if PathToGitDirectory = '' then
   begin
@@ -506,6 +508,7 @@ begin
    exit;
   end;
  s:= '';
+
  //if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then showmessage(s)
   //else showmessage(rs_comerror);
  if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then
@@ -513,18 +516,18 @@ begin
    outputform   := TOutPutForm.Create(self);
    sl := TStringList.Create;
    try
-
+    if pos('\',s) <> 0 then showmessage('da');
     sl.Text:=s;
     if sl.Count <> 0 then
      begin
       for lv:= 0 to sl.Count-1 do
       outputform.SynEdit1.Lines.Add(sl[lv]);
       outputform.Show;
-     end;
+     end else showmessage('Okay');
    finally
     sl.Free;
    end;
-  end //runcomm
+  end //run
  else showmessage(rs_comerror);
 end;
 
