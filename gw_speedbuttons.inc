@@ -52,7 +52,7 @@ begin
 
   aCommand := NewcommandDlg.Edit_newcommand.Text;
   CommandList.Add(TCommandButton.Create(self));
-  TCommandButton(CommandList.Last).Parent     := ScrollBox1;
+  TCommandButton(CommandList.Last).Parent     := TabSheet_favorites;
   TCommandButton(CommandList.Last).Caption    := NewcommandDlg.Edit_newcaption.Text;
   TCommandButton(CommandList.Last).FileName   := NewcommandDlg.Edit_newfilename.Text;
   TCommandButton(CommandList.Last).Hint       := NewcommandDlg.Edit_newhint.Text;
@@ -68,8 +68,8 @@ begin
  else
   TCommandButton(CommandList.Last).AnchorSideTop.Control := TCommandButton(CommandList.Items[i]);
  TCommandButton(CommandList.Last).AnchorSideTop.Side     := asrBottom;
- TCommandButton(CommandList.Last).AnchorSideLeft.Control := ScrollBox1;
- TCommandButton(CommandList.Last).AnchorSideRight.Control:= ScrollBox1;
+ TCommandButton(CommandList.Last).AnchorSideLeft.Control := TabSheet_favorites;
+ TCommandButton(CommandList.Last).AnchorSideRight.Control:= TabSheet_favorites;
  TCommandButton(CommandList.Last).AnchorSideRight.Side   := asrBottom;
  TCommandButton(CommandList.Last).Anchors := [akLeft, akRight, akTop];
  TCommandButton(CommandList.Last).Tag                    := CommandList.Count-1;
@@ -247,6 +247,28 @@ begin
   finally
    Optionsform.Free;
   end;
+end;
+
+procedure TFrame1.SpeedButton_newtabClick(Sender: TObject);
+begin
+ NewTabForm := TNewTabForm.Create(self);
+ try
+  setlength(TabSheets,length(TabSheets)+1);
+  TabSheets[length(TabSheets)+1]              := TTabSheet.Create(self);
+  TabSheets[length(TabSheets)+1].Parent       := PageControl1;
+
+
+  NewTabForm.ShowModal;
+
+  TabSheets[length(TabSheets)+1].Caption      := NewTabForm.Edit1.Caption;
+  if FTabCaptions = 'no' then
+   FTabCaptions   := NewTabForm.Edit1.Caption
+  else
+   FTabCaptions   := FTabCaptions+';'+NewTabForm.Edit1.Caption
+ finally
+  NewTabForm.Free;
+ end;
+ WriteValues;
 end;
 
 

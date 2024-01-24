@@ -73,6 +73,10 @@ msgstr ""
 msgid "Excecute"
 msgstr ""
 
+#: gw_rsstrings.rs_favorites
+msgid "Favorites"
+msgstr ""
+
 #: gw_rsstrings.rs_filealreadyexists
 msgid "File already exists!"
 msgstr ""
@@ -149,6 +153,10 @@ msgstr ""
 
 #: gw_rsstrings.rs_newpos
 msgid "New Position:"
+msgstr ""
+
+#: gw_rsstrings.rs_newtab
+msgid "Creates a new tab"
 msgstr ""
 
 #: gw_rsstrings.rs_no

@@ -11,7 +11,7 @@ uses
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead,
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
   options_form, Translations, LCLTranslator, DefaultTranslator, LMessages,
-  LCLType, gw_rsstrings, move_button, info_form, output_form;
+  LCLType, gw_rsstrings, move_button, info_form, output_form, newtab;
 
 
 
@@ -39,18 +39,20 @@ type
   TFrame1 = class(TFrame)
     ImageList1                  : TImageList;
     deletecommand               : TMenuItem;
-    movebutton: TMenuItem;
+    movebutton                  : TMenuItem;
     openfile                    : TMenuItem;
+    PageControl1                : TPageControl;
     Path_Panel                  : TPanel;
     Input                       : TEdit;
     GitDirectoryDlg             : TSelectDirectoryDialog;
     PopupMenu_CommandButtons    : TPopupMenu;
-    ScrollBox1: TScrollBox;
+    ScrollBox1                  : TScrollBox;
     Separator_Shape1            : TShape;
-    gitignore: TSpeedButton;
-    SpeedButton_info: TSpeedButton;
-    SpeedButton_restorebackup: TSpeedButton;
-    SpeedButton_createbackup: TSpeedButton;
+    gitignore                   : TSpeedButton;
+    SpeedButton_newtab          : TSpeedButton;
+    SpeedButton_info            : TSpeedButton;
+    SpeedButton_restorebackup   : TSpeedButton;
+    SpeedButton_createbackup    : TSpeedButton;
     SpeedButton_opendir         : TSpeedButton;
     SpeedButton_options         : TSpeedButton;
     SpeedButton_NewCommand      : TSpeedButton;
@@ -59,7 +61,8 @@ type
     SpeedButton_LastSavedPackage: TSpeedButton;
     SpeedButton_AnyDir          : TSpeedButton;
     SpeedButton_LastSavedProject: TSpeedButton;
-    ToolBar1                      : TToolBar;
+    TabSheet_favorites          : TTabSheet;
+    ToolBar1                    : TToolBar;
     procedure Checkgitignore;
     procedure Checkgitinit;
     procedure FrameResize(Sender: TObject);
@@ -69,6 +72,7 @@ type
     procedure ReadValues;
     procedure SpeedButton_createbackupClick(Sender: TObject);
     procedure SpeedButton_infoClick(Sender: TObject);
+    procedure SpeedButton_newtabClick(Sender: TObject);
     procedure SpeedButton_opendirClick(Sender: TObject);
     procedure SpeedButton_optionsClick(Sender: TObject);
     procedure SpeedButton_restorebackupClick(Sender: TObject);
@@ -89,12 +93,15 @@ type
     PathToGitWizard        : string; //The path to the directory where the gitwizard package is located
     Lang                   : string;
     FFirst                 : boolean;
+    TabSheets              : array of TTabSheet;
+    FTabCaptions           : string;
     procedure CommandButtonClick(Sender: TObject);
     procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; Options: TProcessOptions=[];
                              swOptions: TShowWindowOptions=swoNone);
     procedure SaveABashfile(aFileName, aCommand: string);
     procedure SetPathToGitDirectory(aPath: string);
     procedure AdjustTheButtons;
+    procedure CreateTabs;
   protected
 
   public
@@ -238,12 +245,13 @@ begin
  SpeedButton_createbackup.Hint               := rs_createbackup;
  SpeedButton_restorebackup.Hint              := rs_restorebackup;
  SpeedButton_info.Hint                       := rs_Info;
+ SpeedButton_newtab.Hint                     := rs_newtab;
 
  openfile.Caption                            := rs_openfile;
  deletecommand.Caption                       := rs_deletecommand;
  movebutton.Caption                          := rs_movebutton;
-
- 
+ TabSheet_favorites.Caption                  := rs_favorites;
+ FTabCaptions                                := 'no';
 end;
 
 
@@ -256,7 +264,8 @@ end;
 
 procedure TFrame1.WriteValues;
 var Doc               : TXMLDocument;
-    RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,OptionsNode,LastNode,aText: TDOMNode;
+    RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,OptionsNode,
+    LastNode,TabNode,aText: TDOMNode;
     lv : integer;
     s  : string;
 begin
@@ -274,6 +283,10 @@ begin
     LastNode := Doc.CreateElement('Last');
     TDOMElement(LastNode).SetAttribute('Last',unicodestring(PathToGitDirectory));
     RootNode.Appendchild(LastNode);
+
+    TabNode := Doc.CreateElement('Tabsheet');
+    TDOMElement(TabNode).SetAttribute('TabCaptions',unicodestring(FTabCaptions));
+    RootNode.Appendchild(TabNode);
 
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_options.xml');
   finally
@@ -337,7 +350,7 @@ var xml     :  TXMLDocument;
          if Node.NodeName = 'Commandbutton'+unicodestring(inttostr(k)) then
           begin
            CommandList.Add(TCommandButton.Create(self));
-           TCommandButton(CommandList.Last).Parent     := ScrollBox1;
+           TCommandButton(CommandList.Last).Parent     := TabSheet_favorites;
            TCommandButton(CommandList.Last).BorderSpacing.Around:= 2;
            i := CommandList.Count-2;
            if CommandList.Count = 1 then
@@ -345,8 +358,8 @@ var xml     :  TXMLDocument;
            else
             TCommandButton(CommandList.Last).AnchorSideTop.Control := TCommandButton(CommandList.Items[i]);
            TCommandButton(CommandList.Last).AnchorSideTop.Side     := asrBottom;
-           TCommandButton(CommandList.Last).AnchorSideLeft.Control := ScrollBox1;
-           TCommandButton(CommandList.Last).AnchorSideRight.Control:= ScrollBox1;
+           TCommandButton(CommandList.Last).AnchorSideLeft.Control := TabSheet_favorites;
+           TCommandButton(CommandList.Last).AnchorSideRight.Control:= TabSheet_favorites;
            TCommandButton(CommandList.Last).AnchorSideRight.Side   := asrBottom;
            TCommandButton(CommandList.Last).Anchors := [akLeft, akRight, akTop];
            TCommandButton(CommandList.Last).Tag                    := CommandList.Count-1;
@@ -396,13 +409,18 @@ begin
      PathToGitDirectory := string(TDOMNode(APtr).NodeValue);
     XPathResult.Free;
 
+     XPathResult := EvaluateXPathExpression('/Options/Tabsheet/@*', Xml.DocumentElement);
+    For APtr in XPathResult.AsNodeSet do
+     FTabCaptions := string(TDOMNode(APtr).NodeValue);
+    XPathResult.Free;
+
     Xml.Free;
   end;
 end;
 
 procedure TFrame1.SetPathToGitDirectory(aPath : string);
 var Doc               : TXMLDocument;
-    RootNode,OptionsNode,LastNode: TDOMNode;
+    RootNode,OptionsNode,LastNode,TabNode: TDOMNode;
 begin
  if PathToGitDirectory = '' then exit;
  Path_Panel.Caption := AdjustText(aPath,Path_Panel);
@@ -423,6 +441,10 @@ begin
     LastNode := Doc.CreateElement('Last');
     TDOMElement(LastNode).SetAttribute('Last',unicodestring(PathToGitDirectory));
     RootNode.Appendchild(LastNode);
+
+    TabNode := Doc.CreateElement('Tabsheet');
+    TDOMElement(TabNode).SetAttribute('TabCaptions',unicodestring(FTabCaptions));
+    RootNode.Appendchild(TabNode);
 
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_options.xml');
   finally
@@ -446,6 +468,30 @@ begin
     TCommandButton(CommandList.Items[lv]).AnchorSideRight.Side   := asrBottom;
     TCommandButton(CommandList.Items[lv]).Anchors := [akLeft, akRight, akTop];
   end;
+end;
+
+procedure TFrame1.CreateTabs;
+var sl : TStringlist;
+    lv : integer;
+begin
+ if FTabCaptions = 'no' then exit;
+
+ sl := TStringlist.Create;
+ try
+  sl.Delimiter:=';';
+  sl.DelimitedText:= FTabCaptions;
+  for lv := 0 to pred(sl.Count) do
+   begin
+    setlength(TabSheets,sl.Count);
+    TabSheets[lv]              := TTabSheet.Create(self);
+    TabSheets[lv].Parent       := PageControl1;
+    TabSheets[lv].Caption      := sl[lv];
+   end;
+ finally
+  sl.Free;
+ end;
+
+
 end;
 
 procedure TFrame1.SaveABashfile(aFileName,aCommand:string);
@@ -592,6 +638,7 @@ begin
  Path_Panel.Hint:= PathToGitDirectory;
  Checkgitignore;
  Checkgitinit;
+ CreateTabs;
  BringToFront;
 end;
 

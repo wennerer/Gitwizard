@@ -38,6 +38,8 @@ resourcestring
   rs_forcommans                       = 'Edit for single commands';
   rs_excecute                         = 'Excecute';
   rs_moreopen                         = 'There are several packages open!';
+  rs_favorites                        = 'Favorites';
+  rs_newtab                           = 'Creates a new tab';
 
   rs_newcommandform                   = 'New Command Dialog';
   rs_nocaption                        = 'No caption entered';

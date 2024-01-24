@@ -114,3 +114,4 @@ begin
  for lv := 0 to pred(CommandList.Count) do TCommandButton(CommandList.Items[lv]).Tag:=lv;
  writeValues;
 end;
+
