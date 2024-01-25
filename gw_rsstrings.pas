@@ -32,6 +32,7 @@ resourcestring
   rs_openfile                         = 'Open File';
   rs_deletecommand                    = 'Delete command';
   rs_movebutton                       = 'Move Button';
+  rs_movetotab                        = 'Move to another tab';
   rs_error                            = 'Error';
   rs_yes                              = 'Yes';
   rs_no                               = 'No';

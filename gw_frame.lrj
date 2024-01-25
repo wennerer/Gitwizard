@@ -18,5 +18,6 @@
 {"hash":54278389,"name":"tframe1.gitignore.caption","sourcebytes":[115,101,116,32,103,105,116,105,103,110,111,114,101],"value":"set gitignore"},
 {"hash":201628229,"name":"tframe1.openfile.caption","sourcebytes":[79,112,101,110,32,70,105,108,101],"value":"Open File"},
 {"hash":110138788,"name":"tframe1.deletecommand.caption","sourcebytes":[68,101,108,101,116,101,32,67,111,109,109,97,110,100],"value":"Delete Command"},
-{"hash":183189838,"name":"tframe1.movebutton.caption","sourcebytes":[77,111,118,101,32,116,104,101,32,98,117,116,116,111,110],"value":"Move the button"}
+{"hash":183189838,"name":"tframe1.movebutton.caption","sourcebytes":[77,111,118,101,32,116,104,101,32,98,117,116,116,111,110],"value":"Move the button"},
+{"hash":197670098,"name":"tframe1.movetotab.caption","sourcebytes":[77,111,118,101,32,116,111,32,97,110,111,116,104,101,114,32,116,97,98],"value":"Move to another tab"}
 ]}

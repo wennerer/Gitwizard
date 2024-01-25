@@ -115,3 +115,18 @@ begin
  writeValues;
 end;
 
+procedure TFrame1.movetotabClick(Sender: TObject);
+var lv : integer;
+begin
+ FSender := nil;
+ for lv := 0 to pred(CommandList.Count) do
+  begin
+   if TCommandButton(CommandList.Items[lv]).LastClick then FSender := TCommandButton(CommandList.Items[lv]);
+   TCommandButton(CommandList.Items[lv]).LastClick:= false;
+  end;
+ if FSender = nil then exit;
+ //showmessage((FSender as TCommandButton).FileName);
+ (FSender as TCommandButton).Parent := TabSheets[0];
+ AdjustTheButtons;
+end;
+

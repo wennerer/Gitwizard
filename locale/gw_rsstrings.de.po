@@ -150,6 +150,10 @@ msgstr "Es sind mehrere Packages geöffnet!"
 msgid "Move Button"
 msgstr "Verschiebe den Button"
 
+#: gw_rsstrings.rs_movetotab
+msgid "Move to another tab"
+msgstr "Verschiebe zu einem anderen Tab"
+
 #: gw_rsstrings.rs_needinput
 msgid "The command requires an input"
 msgstr "Der Befehl benötigt eine Eingabe"

@@ -139,6 +139,10 @@ msgstr ""
 msgid "Move Button"
 msgstr ""
 
+#: gw_rsstrings.rs_movetotab
+msgid "Move to another tab"
+msgstr ""
+
 #: gw_rsstrings.rs_needinput
 msgid "The command requires an input"
 msgstr ""

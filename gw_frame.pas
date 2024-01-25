@@ -24,10 +24,12 @@ type
     FFileName  : string;
     FLastClick: boolean;
     FNeedsInput: boolean;
+    FTabParent: integer;
   public
    property FileName   : string  read FFileName   write FFileName;
    property NeedsInput : boolean read FNeedsInput write FNeedsInput;
-   property LastClick : boolean read FLastClick write FLastClick;
+   property LastClick  : boolean read FLastClick write FLastClick;
+   property TabParent  : integer read FTabParent write FTabParent;
    procedure MouseDown({%H-}Button: TMouseButton;{%H-}Shift: TShiftState; X, Y: Integer);override;
   end;
 
@@ -39,6 +41,7 @@ type
   TFrame1 = class(TFrame)
     ImageList1                  : TImageList;
     deletecommand               : TMenuItem;
+    movetotab: TMenuItem;
     movebutton                  : TMenuItem;
     openfile                    : TMenuItem;
     PageControl1                : TPageControl;
@@ -69,6 +72,7 @@ type
     procedure gitignoreClick(Sender: TObject);
     procedure InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure movebuttonClick(Sender: TObject);
+    procedure movetotabClick(Sender: TObject);
     procedure ReadValues;
     procedure SpeedButton_createbackupClick(Sender: TObject);
     procedure SpeedButton_infoClick(Sender: TObject);
@@ -250,6 +254,7 @@ begin
  openfile.Caption                            := rs_openfile;
  deletecommand.Caption                       := rs_deletecommand;
  movebutton.Caption                          := rs_movebutton;
+ movetotab.Caption                           := rs_movetotab;
  TabSheet_favorites.Caption                  := rs_favorites;
  FTabCaptions                                := 'no';
 end;
@@ -454,20 +459,34 @@ end;
 
 procedure TFrame1.AdjustTheButtons;
 var lv : integer;
+    LastCommandButton : TCommandButton;
 begin
+ LastCommandButton := TCommandButton.Create(self);
+
  for lv:=0 to pred(CommandList.Count) do
   begin
    TCommandButton(CommandList.Items[lv]).Anchors:=[];
    if lv = 0 then
     TCommandButton(CommandList.Items[lv]).AnchorSideTop.Control := gitignore
    else
-    TCommandButton(CommandList.Items[lv]).AnchorSideTop.Control := TCommandButton(CommandList.Items[lv-1]);
-    TCommandButton(CommandList.Items[lv]).AnchorSideTop.Side     := asrBottom;
-    TCommandButton(CommandList.Items[lv]).AnchorSideLeft.Control := ScrollBox1;
-    TCommandButton(CommandList.Items[lv]).AnchorSideRight.Control:= ScrollBox1;
-    TCommandButton(CommandList.Items[lv]).AnchorSideRight.Side   := asrBottom;
-    TCommandButton(CommandList.Items[lv]).Anchors := [akLeft, akRight, akTop];
-  end;
+    if TCommandButton(CommandList.Items[lv]).Parent = TabSheet_favorites then
+    begin
+     //TCommandButton(CommandList.Items[lv]).AnchorSideTop.Control := TCommandButton(CommandList.Items[lv-1]);
+     if assigned (LastCommandButton) then
+      TCommandButton(CommandList.Items[lv]).AnchorSideTop.Control := LastCommandButton;
+     TCommandButton(CommandList.Items[lv]).AnchorSideTop.Side     := asrBottom;
+     TCommandButton(CommandList.Items[lv]).AnchorSideLeft.Control := ScrollBox1;
+     TCommandButton(CommandList.Items[lv]).AnchorSideRight.Control:= ScrollBox1;
+     TCommandButton(CommandList.Items[lv]).AnchorSideRight.Side   := asrBottom;
+     TCommandButton(CommandList.Items[lv]).Anchors := [akLeft, akRight, akTop];
+     LastCommandButton := TCommandButton(CommandList.Items[lv]);
+    end;
+   if TCommandButton(CommandList.Items[lv]).Parent = TabSheets[0] then
+    begin
+     TCommandButton(CommandList.Items[lv]).Align:= alTop;
+    end;
+  end;//pred(CommandList.Count)
+ LastCommandButton.Free;
 end;
 
 procedure TFrame1.CreateTabs;
