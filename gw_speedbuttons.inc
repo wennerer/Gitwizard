@@ -263,17 +263,18 @@ begin
  try
 
  if NewTabForm.ShowModal = mrCancel then exit;
-
+  //showmessage(inttostr(length(TabSheets)));
   FActiveTab          := length(TabSheets)+1;
+
   setlength(TabSheets,length(TabSheets)+1);
   TabSheets[length(TabSheets)+1]              := TTabSheet.Create(self);
   TabSheets[length(TabSheets)+1].Parent       := PageControl1;
   TabSheets[length(TabSheets)+1].Caption      := NewTabForm.Edit1.Caption;
   //for options.xml
   FTabCaptions   := FTabCaptions+';'+NewTabForm.Edit1.Caption;
-  setlength(CommandList,length(TabSheets)+1);
-  CommandList[length(TabSheets)+1]      := TObjectList.Create(True);
-
+  setlength(CommandList,1);
+  CommandList[length(TabSheets)-1]      := TObjectList.Create(True);
+  //showmessage(inttostr(length(TabSheets)));
  finally
   NewTabForm.Free;
  end;

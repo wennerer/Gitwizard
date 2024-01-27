@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'mit mehrstelliger Zahl Tabsheet'
+git commit -a -m 'Speicherzugriffsfehler weg'

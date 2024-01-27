@@ -282,7 +282,7 @@ end;
 procedure TFrame1.WriteValues;
 var Doc               : TXMLDocument;
     RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,OptionsNode,
-    LastNode,TabNode,ParentNode,aText: TDOMNode;
+    LastNode,TabNode(*,ParentNode*),aText: TDOMNode;
     lv,i : integer;
     s  : string;
 begin
@@ -347,10 +347,10 @@ begin
        NeedsInputNode.AppendChild(aText);
        ButtonNode.AppendChild(NeedsInputNode);
 
-       ParentNode   := Doc.CreateElement('Parent');
+       (*ParentNode   := Doc.CreateElement('Parent');
        aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList[i].Items[lv]).Parent.Name));
        ParentNode.AppendChild(aText);
-       ButtonNode.AppendChild(ParentNode);
+       ButtonNode.AppendChild(ParentNode);*)
      end;
     end;//length(Tabsheet)
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml');
@@ -385,26 +385,8 @@ var xml                 :  TXMLDocument;
          except
           On E : EConvertError do showmessage('Error by ReadValues');
          end;
-
-
-
-
-
-         //showmessage(s);
-         //Position := Pos('_',s)+1;
-         //showmessage(inttostr(Position));
-         //s := copy(s,Position,1);
-
-         //showmessage(s);
-
-         //cl := strtoint(s);
-
-         //if Node.NodeName = 'Commandbutton'+unicodestring(inttostr(k)) then
-         //if Pos('Tabsheet_',Node.NodeName) <> 0 then
-          //begin
            CommandList[cl].Add(TCommandButton.Create(self));
            TCommandButton(CommandList[cl].Last).Parent     := TabSheets[cl];
-           //TCommandButton(CommandList[cl].Last).Align:= alTop;
            TCommandButton(CommandList[cl].Last).BorderSpacing.Around:= 2;
            i := CommandList[cl].Count-2;
            if CommandList[cl].Count = 1 then

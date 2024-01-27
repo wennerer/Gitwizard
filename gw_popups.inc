@@ -5,14 +5,18 @@
 procedure TFrame1.openfileClick(Sender: TObject);
 var aPath,s : string;
     sa      : array of string;
-    lv      : integer;
+    lv,i    : integer;
 begin
  FSender := nil;
+
+ //for i := 0 to
  for lv := 0 to pred(CommandList[0].Count) do
   begin
    if TCommandButton(CommandList[0].Items[lv]).LastClick then FSender := TCommandButton(CommandList[0].Items[lv]);
    TCommandButton(CommandList[0].Items[lv]).LastClick:= false;
   end;
+
+
  if FSender = nil then FSender := gitignore;
 
  if not fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml') then
