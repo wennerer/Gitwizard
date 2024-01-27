@@ -17,7 +17,7 @@ type
     Edit1: TEdit;
     Image1: TImage;
     StaticText1: TStaticText;
-    procedure Button1Click(Sender: TObject);
+
   private
 
   public
@@ -33,10 +33,6 @@ implementation
 
 { TNewTabForm }
 
-procedure TNewTabForm.Button1Click(Sender: TObject);
-begin
-  close;
-end;
 
 end.
 

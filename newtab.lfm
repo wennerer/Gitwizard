@@ -6,6 +6,7 @@ object NewTabForm: TNewTabForm
   Caption = 'Create a NewTab'
   ClientHeight = 240
   ClientWidth = 320
+  LCLVersion = '2.2.6.0'
   object StaticText1: TStaticText
     Left = 104
     Height = 21
@@ -120,7 +121,8 @@ object NewTabForm: TNewTabForm
     Top = 168
     Width = 122
     Caption = 'Okay'
-    OnClick = Button1Click
+    Default = True
+    ModalResult = 1
     TabOrder = 2
   end
   object Button2: TButton
@@ -130,6 +132,7 @@ object NewTabForm: TNewTabForm
     Width = 120
     Cancel = True
     Caption = 'Cancel'
+    ModalResult = 2
     TabOrder = 3
   end
 end

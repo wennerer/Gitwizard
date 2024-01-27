@@ -25,7 +25,6 @@ type
     StaticText2: TStaticText;
     StaticText3: TStaticText;
     StaticText4: TStaticText;
-    procedure CancelClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure OkayClick(Sender: TObject);
   private
@@ -71,13 +70,9 @@ begin
    showmessage(rs_nocommand);
    exit;
   end;
- close;
+ ModalResult := mrOk;
 end;
 
-procedure TNewcommandDlg.CancelClick(Sender: TObject);
-begin
- close;
-end;
 
 end.
 

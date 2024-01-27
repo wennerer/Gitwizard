@@ -64,7 +64,6 @@ type
     SpeedButton_LastSavedPackage: TSpeedButton;
     SpeedButton_AnyDir          : TSpeedButton;
     SpeedButton_LastSavedProject: TSpeedButton;
-    TabSheet_favorites          : TTabSheet;
     ToolBar1                    : TToolBar;
     procedure Checkgitignore;
     procedure Checkgitinit;
@@ -73,6 +72,7 @@ type
     procedure InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure movebuttonClick(Sender: TObject);
     procedure movetotabClick(Sender: TObject);
+    procedure PageControl1Change(Sender: TObject);
     procedure ReadValues;
     procedure SpeedButton_createbackupClick(Sender: TObject);
     procedure SpeedButton_infoClick(Sender: TObject);
@@ -90,7 +90,7 @@ type
     procedure SpeedButton_NewCommandClick(Sender: TObject);
     procedure SpeedButton_SingleInputClick(Sender: TObject);
   private
-    CommandList            : TObjectList;
+    CommandList            : array of TObjectList;
     FSender                : TObject;
     FEditor                : string;
     PathToGitDirectory     : string; //The path to the directory that is to be versioned using git
@@ -99,6 +99,7 @@ type
     FFirst                 : boolean;
     TabSheets              : array of TTabSheet;
     FTabCaptions           : string;
+    FActiveTab             : integer;
     procedure CommandButtonClick(Sender: TObject);
     procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; Options: TProcessOptions=[];
                              swOptions: TShowWindowOptions=swoNone);
@@ -215,8 +216,15 @@ var PathToEnviro     : string;
     localedir,s      : string;
 begin
  inherited Create(AOwner);
- CommandList := TObjectList.Create(True);
- PathToEnviro := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'packagefiles.xml';
+ setlength(CommandList,1);
+ CommandList[0]      := TObjectList.Create(True);
+ setlength(TabSheets,1);
+ TabSheets[0]        := TTabSheet.Create(self);
+ TabSheets[0].Parent := PageControl1;
+ FActiveTab          := 0;
+ gitignore.Parent    := TabSheets[0];
+ gitignore.Align     := alTop;
+ PathToEnviro    := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'packagefiles.xml';
  PathToGitWizard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizard"]]/Filename/@*');
 
  FFirst := true;
@@ -255,14 +263,18 @@ begin
  deletecommand.Caption                       := rs_deletecommand;
  movebutton.Caption                          := rs_movebutton;
  movetotab.Caption                           := rs_movetotab;
- TabSheet_favorites.Caption                  := rs_favorites;
- FTabCaptions                                := 'no';
+ TabSheets[0].Caption                        := rs_favorites;
+ FTabCaptions                                := rs_favorites;
 end;
 
 
 destructor TFrame1.Destroy;
+var lv : integer;
 begin
- FreeAndNil(CommandList);
+ for lv :=0 to length(CommandList) do
+  FreeAndNil(CommandList[lv]);
+ for lv :=0 to length(TabSheets) do
+  FreeAndNil(TabSheets[lv]);
  if assigned(outputform) then outputform.Free;
  inherited Destroy;
 end;
@@ -270,8 +282,8 @@ end;
 procedure TFrame1.WriteValues;
 var Doc               : TXMLDocument;
     RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,OptionsNode,
-    LastNode,TabNode,aText: TDOMNode;
-    lv : integer;
+    LastNode,TabNode,ParentNode,aText: TDOMNode;
+    lv,i : integer;
     s  : string;
 begin
  try
@@ -298,94 +310,117 @@ begin
     Doc.Free;
   end;
 
+  if CommandList[0].Count = 0 then exit;
 
+  Doc := TXMLDocument.Create;
 
- if CommandList.Count = 0 then exit;
+  RootNode := Doc.CreateElement('CommandButtons');
+  Doc.Appendchild(RootNode);
+  RootNode:= Doc.DocumentElement;
+
   try
-    Doc := TXMLDocument.Create;
+   for i := 0 to pred(length(TabSheets)) do
+    begin
+     for lv:= 0 to pred(CommandList[i].Count) do
+      begin
+       ButtonNode   := Doc.CreateElement('Tabsheet_'+unicodestring(inttostr(i))+'Commandbutton'+unicodestring(inttostr(lv)));
+       RootNode.AppendChild(ButtonNode);
 
-    RootNode := Doc.CreateElement('Commandbuttons');
-    Doc.Appendchild(RootNode);
-    RootNode:= Doc.DocumentElement;
-
-    for lv:= 0 to pred(CommandList.Count) do
-     begin
-     ButtonNode   := Doc.CreateElement('Commandbutton'+unicodestring(inttostr(lv)));
-     RootNode.AppendChild(ButtonNode);
-
-      CaptionNode   := Doc.CreateElement('Caption');
-       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList.Items[lv]).Caption));
+       CaptionNode   := Doc.CreateElement('Caption');
+       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList[i].Items[lv]).Caption));
        CaptionNode.AppendChild(aText);
-      ButtonNode.AppendChild(CaptionNode);
+       ButtonNode.AppendChild(CaptionNode);
 
-      FilenameNode   := Doc.CreateElement('Filename');
-       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList.Items[lv]).FileName));
+       FilenameNode   := Doc.CreateElement('Filename');
+       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList[i].Items[lv]).FileName));
        FilenameNode.AppendChild(aText);
-      ButtonNode.AppendChild(FilenameNode);
+       ButtonNode.AppendChild(FilenameNode);
 
-      HintNode   := Doc.CreateElement('Hint');
-       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList.Items[lv]).Hint));
+       HintNode   := Doc.CreateElement('Hint');
+       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList[i].Items[lv]).Hint));
        HintNode.AppendChild(aText);
-      ButtonNode.AppendChild(HintNode);
+       ButtonNode.AppendChild(HintNode);
 
-      if TCommandButton(CommandList.Items[lv]).NeedsInput then s:='true' else s:='false';
-      NeedsInputNode   := Doc.CreateElement('NeedsInput');
+       if TCommandButton(CommandList[i].Items[lv]).NeedsInput then s:='true' else s:='false';
+       NeedsInputNode   := Doc.CreateElement('NeedsInput');
        aText   := Doc.CreateTextNode(Unicodestring(s));
        NeedsInputNode.AppendChild(aText);
-      ButtonNode.AppendChild(NeedsInputNode);
+       ButtonNode.AppendChild(NeedsInputNode);
+
+       ParentNode   := Doc.CreateElement('Parent');
+       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList[i].Items[lv]).Parent.Name));
+       ParentNode.AppendChild(aText);
+       ButtonNode.AppendChild(ParentNode);
      end;
+    end;//length(Tabsheet)
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml');
   finally
     Doc.Free;
   end;
+
 end;
 
 procedure TFrame1.ReadValues;
-var xml     :  TXMLDocument;
-    k,i,j   : integer;
-    bol     : string;
-    XPathResult: TXPathVariable;
-    APtr:Pointer;
+var xml                 :  TXMLDocument;
+    k,i,j,Position,cl   : integer;
+    bol,s               : string;
+    XPathResult         : TXPathVariable;
+    APtr                :Pointer;
+
   procedure ParseXML(Node : TDomNode);
   begin
    while (Assigned(Node)) do
     begin
       if (Node.NodeName <> '')  then
        begin
-         if Node.NodeName = 'Commandbutton'+unicodestring(inttostr(k)) then
-          begin
-           CommandList.Add(TCommandButton.Create(self));
-           TCommandButton(CommandList.Last).Parent     := TabSheet_favorites;
-           TCommandButton(CommandList.Last).BorderSpacing.Around:= 2;
-           i := CommandList.Count-2;
-           if CommandList.Count = 1 then
-            TCommandButton(CommandList.Last).AnchorSideTop.Control := gitignore
+        if Pos('Tabsheet_',Node.NodeName) <> 0 then
+         begin
+         s := Node.NodeName;
+         //showmessage(s);
+         Position := Pos('_',s)+1;
+         //showmessage(inttostr(Position));
+         s := copy(s,Position,1);
+
+         //showmessage(s);
+
+         cl := strtoint(s);
+
+         //if Node.NodeName = 'Commandbutton'+unicodestring(inttostr(k)) then
+         //if Pos('Tabsheet_',Node.NodeName) <> 0 then
+          //begin
+           CommandList[cl].Add(TCommandButton.Create(self));
+           TCommandButton(CommandList[cl].Last).Parent     := TabSheets[cl];
+           //TCommandButton(CommandList[cl].Last).Align:= alTop;
+           TCommandButton(CommandList[cl].Last).BorderSpacing.Around:= 2;
+           i := CommandList[cl].Count-2;
+           if CommandList[cl].Count = 1 then
+            TCommandButton(CommandList[cl].Last).AnchorSideTop.Control := gitignore
            else
-            TCommandButton(CommandList.Last).AnchorSideTop.Control := TCommandButton(CommandList.Items[i]);
-           TCommandButton(CommandList.Last).AnchorSideTop.Side     := asrBottom;
-           TCommandButton(CommandList.Last).AnchorSideLeft.Control := TabSheet_favorites;
-           TCommandButton(CommandList.Last).AnchorSideRight.Control:= TabSheet_favorites;
-           TCommandButton(CommandList.Last).AnchorSideRight.Side   := asrBottom;
-           TCommandButton(CommandList.Last).Anchors := [akLeft, akRight, akTop];
-           TCommandButton(CommandList.Last).Tag                    := CommandList.Count-1;
-           TCommandButton(CommandList.Last).ShowHint               := true;
-           TCommandButton(CommandList.Last).OnClick                := @CommandButtonClick;
-           TCommandButton(CommandList.Last).PopupMenu              := PopupMenu_CommandButtons;
-           TCommandButton(CommandList.Last).LastClick              := false;
-           TCommandButton(CommandList.Last).Images                 := ImageList1;
-           TCommandButton(CommandList.Last).Layout                 := blGlyphRight;
+            TCommandButton(CommandList[cl].Last).AnchorSideTop.Control := TCommandButton(CommandList[cl].Items[i]);
+           TCommandButton(CommandList[cl].Last).AnchorSideTop.Side     := asrBottom;
+           TCommandButton(CommandList[cl].Last).AnchorSideLeft.Control := TabSheets[cl];
+           TCommandButton(CommandList[cl].Last).AnchorSideRight.Control:= TabSheets[cl];
+           TCommandButton(CommandList[cl].Last).AnchorSideRight.Side   := asrBottom;
+           TCommandButton(CommandList[cl].Last).Anchors := [akLeft, akRight, akTop];
+           TCommandButton(CommandList[cl].Last).Tag                    := CommandList[cl].Count-1;
+           TCommandButton(CommandList[cl].Last).ShowHint               := true;
+           TCommandButton(CommandList[cl].Last).OnClick                := @CommandButtonClick;
+           TCommandButton(CommandList[cl].Last).PopupMenu              := PopupMenu_CommandButtons;
+           TCommandButton(CommandList[cl].Last).LastClick              := false;
+           TCommandButton(CommandList[cl].Last).Images                 := ImageList1;
+           TCommandButton(CommandList[cl].Last).Layout                 := blGlyphRight;
            inc(k);
           end;
          if Node.NodeName = '#text' then
           begin
-           if j = 0 then TCommandButton(CommandList.Last).Caption := string(Node.NodeValue);
-           if j = 1 then TCommandButton(CommandList.Last).FileName := string(Node.NodeValue);
-           if j = 2 then TCommandButton(CommandList.Last).Hint := string(Node.NodeValue);
+           if j = 0 then TCommandButton(CommandList[cl].Last).Caption := string(Node.NodeValue);
+           if j = 1 then TCommandButton(CommandList[cl].Last).FileName := string(Node.NodeValue);
+           if j = 2 then TCommandButton(CommandList[cl].Last).Hint := string(Node.NodeValue);
            if j = 3 then
             begin
              bol := string(Node.NodeValue);
-             if bol = 'true' then TCommandButton(CommandList.Last).NeedsInput := true
-             else TCommandButton(CommandList.Last).NeedsInput := false;
+             if bol = 'true' then TCommandButton(CommandList[cl].Last).NeedsInput := true
+             else TCommandButton(CommandList[cl].Last).NeedsInput := false;
             end;//bol
            inc(j);
            if j=4 then j:=0;
@@ -459,53 +494,41 @@ end;
 
 procedure TFrame1.AdjustTheButtons;
 var lv : integer;
-    LastCommandButton : TCommandButton;
 begin
- LastCommandButton := TCommandButton.Create(self);
-
- for lv:=0 to pred(CommandList.Count) do
+ for lv:=0 to pred(CommandList[0].Count) do
   begin
-   TCommandButton(CommandList.Items[lv]).Anchors:=[];
+   TCommandButton(CommandList[0].Items[lv]).Anchors:=[];
    if lv = 0 then
-    TCommandButton(CommandList.Items[lv]).AnchorSideTop.Control := gitignore
+    TCommandButton(CommandList[0].Items[lv]).AnchorSideTop.Control := gitignore
    else
-    if TCommandButton(CommandList.Items[lv]).Parent = TabSheet_favorites then
+    if TCommandButton(CommandList[0].Items[lv]).Parent = TabSheets[0] then
     begin
-     //TCommandButton(CommandList.Items[lv]).AnchorSideTop.Control := TCommandButton(CommandList.Items[lv-1]);
-     if assigned (LastCommandButton) then
-      TCommandButton(CommandList.Items[lv]).AnchorSideTop.Control := LastCommandButton;
-     TCommandButton(CommandList.Items[lv]).AnchorSideTop.Side     := asrBottom;
-     TCommandButton(CommandList.Items[lv]).AnchorSideLeft.Control := ScrollBox1;
-     TCommandButton(CommandList.Items[lv]).AnchorSideRight.Control:= ScrollBox1;
-     TCommandButton(CommandList.Items[lv]).AnchorSideRight.Side   := asrBottom;
-     TCommandButton(CommandList.Items[lv]).Anchors := [akLeft, akRight, akTop];
-     LastCommandButton := TCommandButton(CommandList.Items[lv]);
+     TCommandButton(CommandList[0].Items[lv]).AnchorSideTop.Control := TCommandButton(CommandList[0].Items[lv-1]);
+
     end;
-   if TCommandButton(CommandList.Items[lv]).Parent = TabSheets[0] then
-    begin
-     TCommandButton(CommandList.Items[lv]).Align:= alTop;
-    end;
-  end;//pred(CommandList.Count)
- LastCommandButton.Free;
+
+  end;//pred(CommandList[0].Count)
+
 end;
 
 procedure TFrame1.CreateTabs;
 var sl : TStringlist;
     lv : integer;
 begin
- if FTabCaptions = 'no' then exit;
-
  sl := TStringlist.Create;
  try
   sl.Delimiter:=';';
   sl.DelimitedText:= FTabCaptions;
-  for lv := 0 to pred(sl.Count) do
+  for lv := 1 to pred(sl.Count) do
    begin
     setlength(TabSheets,sl.Count);
     TabSheets[lv]              := TTabSheet.Create(self);
     TabSheets[lv].Parent       := PageControl1;
     TabSheets[lv].Caption      := sl[lv];
+    setlength(CommandList,sl.Count);
+    CommandList[lv]      := TObjectList.Create(True);
    end;
+
  finally
   sl.Free;
  end;
@@ -629,35 +652,48 @@ begin
  //Checks whether git has already been initialised
  if DirectoryExists(PathToGitDirectory+PathDelim+'.git') then
   begin
-   for lv:=0 to pred(CommandList.Count) do
+   for lv:=0 to pred(CommandList[0].Count) do
     begin
-     s := TCommandButton(CommandList.Items[lv]).Caption;
+     s := TCommandButton(CommandList[0].Items[lv]).Caption;
      i := Pos('init',s);
-     if i <> 0 then TCommandButton(CommandList.Items[lv]).ImageIndex:=14;
+     if i <> 0 then TCommandButton(CommandList[0].Items[lv]).ImageIndex:=14;
     end;//count
   end //exists
  else
   begin
-   for lv:=0 to pred(CommandList.Count) do
+   for lv:=0 to pred(CommandList[0].Count) do
     begin
-     s := TCommandButton(CommandList.Items[lv]).Caption;
+     s := TCommandButton(CommandList[0].Items[lv]).Caption;
      i := Pos('init',s);
-     if i <> 0 then TCommandButton(CommandList.Items[lv]).ImageIndex:=-1;
+     if i <> 0 then TCommandButton(CommandList[0].Items[lv]).ImageIndex:=-1;
     end;
   end;
 end;
 
 procedure TFrame1.FrameResize(Sender: TObject);
+var xml     :  TXMLDocument;
+    XPathResult: TXPathVariable;
+    APtr:Pointer;
 begin
  if not FFirst then exit;
  FFirst := false;
+//CreateTabs needs FTabCaptions
+ if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml') then
+   begin
+    ReadXMLFile(Xml,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml');
+    XPathResult := EvaluateXPathExpression('/Options/Tabsheet/@*', Xml.DocumentElement);
+    For APtr in XPathResult.AsNodeSet do
+     FTabCaptions := string(TDOMNode(APtr).NodeValue);
+    XPathResult.Free;
+    Xml.Free;
+  end;
+ CreateTabs;
  if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml') then ReadValues;
  if PathToGitDirectory = '' then exit;
  Path_Panel.Caption := AdjustText(PathToGitDirectory,Path_Panel);
  Path_Panel.Hint:= PathToGitDirectory;
  Checkgitignore;
  Checkgitinit;
- CreateTabs;
  BringToFront;
 end;
 
@@ -719,6 +755,12 @@ begin
 
  ExecuteCommand((Sender as TCommandButton).FileName,[],[],swoNone);
  Checkgitinit;
+end;
+
+
+procedure TFrame1.PageControl1Change(Sender: TObject);
+begin
+ if sender is TPagecontrol then FActiveTab := PageControl1.TabIndex;
 end;
 
 {$Include gw_speedbuttons.inc}

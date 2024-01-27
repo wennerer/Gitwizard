@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'vor zusätzlicher objectlist'
+git commit -a -m 'Befehl anlegen geht'

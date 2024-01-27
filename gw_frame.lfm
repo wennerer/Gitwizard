@@ -242,44 +242,38 @@ object Frame1: TFrame1
     Height = 610
     Top = 85
     Width = 330
-    HorzScrollBar.Page = 114
-    VertScrollBar.Page = 56
+    HorzScrollBar.Page = 200
+    VertScrollBar.Page = 226
     Anchors = [akTop, akLeft, akRight, akBottom]
     ClientHeight = 608
     ClientWidth = 328
     TabOrder = 3
     object PageControl1: TPageControl
       Left = 0
-      Height = 608
-      Top = 0
+      Height = 582
+      Top = 26
       Width = 328
-      ActivePage = TabSheet_favorites
       Align = alClient
       MultiLine = True
-      TabIndex = 0
       TabOrder = 0
+      OnChange = PageControl1Change
       Options = [nboMultiLine]
-      object TabSheet_favorites: TTabSheet
-        Caption = 'Favorites'
-        ClientHeight = 575
-        ClientWidth = 318
-        object gitignore: TSpeedButton
-          Left = 2
-          Height = 22
-          Hint = 'Copies the default gitignore file into the directory'
-          Top = 2
-          Width = 314
-          Align = alTop
-          BorderSpacing.Around = 2
-          Caption = 'set gitignore'
-          Images = ImageList1
-          Layout = blGlyphRight
-          OnClick = gitignoreClick
-          ShowHint = True
-          ParentShowHint = False
-          PopupMenu = PopupMenu_CommandButtons
-        end
-      end
+    end
+    object gitignore: TSpeedButton
+      Left = 2
+      Height = 22
+      Hint = 'Copies the default gitignore file into the directory'
+      Top = 2
+      Width = 324
+      Align = alTop
+      BorderSpacing.Around = 2
+      Caption = 'set gitignore'
+      Images = ImageList1
+      Layout = blGlyphRight
+      OnClick = gitignoreClick
+      ShowHint = True
+      ParentShowHint = False
+      PopupMenu = PopupMenu_CommandButtons
     end
   end
   object ImageList1: TImageList

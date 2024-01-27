@@ -46,40 +46,48 @@ begin
  try
   NewcommandDlg.ShowModal;
 
+  if NewcommandDlg.ModalResult = mrCancel then exit;
+
   if NewcommandDlg.Edit_newcaption.Text  = '' then exit;
   if NewcommandDlg.Edit_newfilename.Text = '' then exit;
   if NewcommandDlg.Edit_newcommand.Text  = '' then exit;
 
   aCommand := NewcommandDlg.Edit_newcommand.Text;
-  CommandList.Add(TCommandButton.Create(self));
-  TCommandButton(CommandList.Last).Parent     := TabSheet_favorites;
-  TCommandButton(CommandList.Last).Caption    := NewcommandDlg.Edit_newcaption.Text;
-  TCommandButton(CommandList.Last).FileName   := NewcommandDlg.Edit_newfilename.Text;
-  TCommandButton(CommandList.Last).Hint       := NewcommandDlg.Edit_newhint.Text;
-  TCommandButton(CommandList.Last).NeedsInput := NewcommandDlg.NeedsInput.Checked;
+  CommandList[FActiveTab].Add(TCommandButton.Create(self));
+  TCommandButton(CommandList[FActiveTab].Last).Parent     := TabSheets[FActiveTab];
+  TCommandButton(CommandList[FActiveTab].Last).Caption    := NewcommandDlg.Edit_newcaption.Text;
+  TCommandButton(CommandList[FActiveTab].Last).FileName   := NewcommandDlg.Edit_newfilename.Text;
+  TCommandButton(CommandList[FActiveTab].Last).Hint       := NewcommandDlg.Edit_newhint.Text;
+  TCommandButton(CommandList[FActiveTab].Last).NeedsInput := NewcommandDlg.NeedsInput.Checked;
  finally
   NewcommandDlg.Free;
  end;
 
- TCommandButton(CommandList.Last).BorderSpacing.Around:= 2;
- i := CommandList.Count-2;
- if CommandList.Count = 1 then
-  TCommandButton(CommandList.Last).AnchorSideTop.Control := gitignore
+ TCommandButton(CommandList[FActiveTab].Last).BorderSpacing.Around:= 2;
+ i := CommandList[FActiveTab].Count-2;
+ if CommandList[FActiveTab].Count = 1 then
+  begin
+   if FActiveTab = 0 then
+    TCommandButton(CommandList[FActiveTab].Last).AnchorSideTop.Control := gitignore
+   else
+    TCommandButton(CommandList[FActiveTab].Last).Align:= alTop;
+  end
  else
-  TCommandButton(CommandList.Last).AnchorSideTop.Control := TCommandButton(CommandList.Items[i]);
- TCommandButton(CommandList.Last).AnchorSideTop.Side     := asrBottom;
- TCommandButton(CommandList.Last).AnchorSideLeft.Control := TabSheet_favorites;
- TCommandButton(CommandList.Last).AnchorSideRight.Control:= TabSheet_favorites;
- TCommandButton(CommandList.Last).AnchorSideRight.Side   := asrBottom;
- TCommandButton(CommandList.Last).Anchors := [akLeft, akRight, akTop];
- TCommandButton(CommandList.Last).Tag                    := CommandList.Count-1;
- TCommandButton(CommandList.Last).ShowHint               := true;
- TCommandButton(CommandList.Last).OnClick                := @CommandButtonClick;
- TCommandButton(CommandList.Last).PopupMenu              := PopupMenu_CommandButtons;
- TCommandButton(CommandList.Last).LastClick              := false;
- TCommandButton(CommandList.Last).Images                 := ImageList1;
- TCommandButton(CommandList.Last).Layout                 := blGlyphRight;
- SaveABashfile(TCommandButton(CommandList.Last).FileName,aCommand);
+  TCommandButton(CommandList[FActiveTab].Last).AnchorSideTop.Control := TCommandButton(CommandList[FActiveTab].Items[i]);
+
+ TCommandButton(CommandList[FActiveTab].Last).AnchorSideTop.Side     := asrBottom;
+ TCommandButton(CommandList[FActiveTab].Last).AnchorSideLeft.Control := TabSheets[FActiveTab];
+ TCommandButton(CommandList[FActiveTab].Last).AnchorSideRight.Control:= TabSheets[FActiveTab];
+ TCommandButton(CommandList[FActiveTab].Last).AnchorSideRight.Side   := asrBottom;
+ TCommandButton(CommandList[FActiveTab].Last).Anchors := [akLeft, akRight, akTop];
+ TCommandButton(CommandList[FActiveTab].Last).Tag                    := CommandList[FActiveTab].Count-1;
+ TCommandButton(CommandList[FActiveTab].Last).ShowHint               := true;
+ TCommandButton(CommandList[FActiveTab].Last).OnClick                := @CommandButtonClick;
+ TCommandButton(CommandList[FActiveTab].Last).PopupMenu              := PopupMenu_CommandButtons;
+ TCommandButton(CommandList[FActiveTab].Last).LastClick              := false;
+ TCommandButton(CommandList[FActiveTab].Last).Images                 := ImageList1;
+ TCommandButton(CommandList[FActiveTab].Last).Layout                 := blGlyphRight;
+ SaveABashfile(TCommandButton(CommandList[FActiveTab].Last).FileName,aCommand);
  WriteValues;
  Checkgitinit;
 end;
@@ -160,7 +168,7 @@ var dest,source,pathtobashes: string;
 
   //copy all commandfiles into commands folder
    CopyAFolder(pathtobashes,dest);
-   CommandList.Clear;
+   CommandList[0].Clear;
    sleep(200);
    readvalues;
 end;
@@ -253,18 +261,19 @@ procedure TFrame1.SpeedButton_newtabClick(Sender: TObject);
 begin
  NewTabForm := TNewTabForm.Create(self);
  try
+
+ if NewTabForm.ShowModal = mrCancel then exit;
+
+  FActiveTab          := length(TabSheets)+1;
   setlength(TabSheets,length(TabSheets)+1);
   TabSheets[length(TabSheets)+1]              := TTabSheet.Create(self);
   TabSheets[length(TabSheets)+1].Parent       := PageControl1;
-
-
-  NewTabForm.ShowModal;
-
   TabSheets[length(TabSheets)+1].Caption      := NewTabForm.Edit1.Caption;
-  if FTabCaptions = 'no' then
-   FTabCaptions   := NewTabForm.Edit1.Caption
-  else
-   FTabCaptions   := FTabCaptions+';'+NewTabForm.Edit1.Caption
+  //for options.xml
+  FTabCaptions   := FTabCaptions+';'+NewTabForm.Edit1.Caption;
+  setlength(CommandList,length(TabSheets)+1);
+  CommandList[length(TabSheets)+1]      := TObjectList.Create(True);
+
  finally
   NewTabForm.Free;
  end;

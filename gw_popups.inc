@@ -8,10 +8,10 @@ var aPath,s : string;
     lv      : integer;
 begin
  FSender := nil;
- for lv := 0 to pred(CommandList.Count) do
+ for lv := 0 to pred(CommandList[0].Count) do
   begin
-   if TCommandButton(CommandList.Items[lv]).LastClick then FSender := TCommandButton(CommandList.Items[lv]);
-   TCommandButton(CommandList.Items[lv]).LastClick:= false;
+   if TCommandButton(CommandList[0].Items[lv]).LastClick then FSender := TCommandButton(CommandList[0].Items[lv]);
+   TCommandButton(CommandList[0].Items[lv]).LastClick:= false;
   end;
  if FSender = nil then FSender := gitignore;
 
@@ -51,10 +51,10 @@ var aPath : string;
     lv    : integer;
 begin
  FSender := nil;
- for lv := 0 to pred(CommandList.Count) do
+ for lv := 0 to pred(CommandList[0].Count) do
   begin
-   if TCommandButton(CommandList.Items[lv]).LastClick then FSender := TCommandButton(CommandList.Items[lv]);
-   TCommandButton(CommandList.Items[lv]).LastClick:= false;
+   if TCommandButton(CommandList[0].Items[lv]).LastClick then FSender := TCommandButton(CommandList[0].Items[lv]);
+   TCommandButton(CommandList[0].Items[lv]).LastClick:= false;
   end;
  if FSender = nil then FSender := gitignore;
 
@@ -78,9 +78,9 @@ begin
 
  if FSender <> gitignore then
   begin
-   CommandList.Delete((FSender as TCommandButton).Tag);
+   CommandList[0].Delete((FSender as TCommandButton).Tag);
    AdjustTheButtons;
-   for lv := 0 to pred(CommandList.Count) do TCommandButton(CommandList.Items[lv]).Tag:=lv;
+   for lv := 0 to pred(CommandList[0].Count) do TCommandButton(CommandList[0].Items[lv]).Tag:=lv;
    WriteValues;
   end;
  Checkgitinit;
@@ -90,16 +90,16 @@ procedure TFrame1.movebuttonClick(Sender: TObject);
 var lv,i : integer;
 begin
   FSender := nil;
- for lv := 0 to pred(CommandList.Count) do
+ for lv := 0 to pred(CommandList[0].Count) do
   begin
-   if TCommandButton(CommandList.Items[lv]).LastClick then FSender := TCommandButton(CommandList.Items[lv]);
-   TCommandButton(CommandList.Items[lv]).LastClick:= false;
+   if TCommandButton(CommandList[0].Items[lv]).LastClick then FSender := TCommandButton(CommandList[0].Items[lv]);
+   TCommandButton(CommandList[0].Items[lv]).LastClick:= false;
   end;
  if FSender = nil then exit;
 
  MoveButtonForm  := TMoveButtonForm.Create(self);
  try
-  MoveButtonForm.SpinEdit1.MaxValue := pred(CommandList.Count);
+  MoveButtonForm.SpinEdit1.MaxValue := pred(CommandList[0].Count);
   MoveButtonForm.SpinEdit1.Value    := (FSender as TCommandButton).Tag;
 
   MoveButtonForm.ShowModal;
@@ -109,9 +109,9 @@ begin
   MoveButtonForm.Free;
  end;
 
- CommandList.Move((FSender as TCommandButton).Tag,i);
+ CommandList[0].Move((FSender as TCommandButton).Tag,i);
  AdjustTheButtons;
- for lv := 0 to pred(CommandList.Count) do TCommandButton(CommandList.Items[lv]).Tag:=lv;
+ for lv := 0 to pred(CommandList[0].Count) do TCommandButton(CommandList[0].Items[lv]).Tag:=lv;
  writeValues;
 end;
 
@@ -119,14 +119,15 @@ procedure TFrame1.movetotabClick(Sender: TObject);
 var lv : integer;
 begin
  FSender := nil;
- for lv := 0 to pred(CommandList.Count) do
+ for lv := 0 to pred(CommandList[0].Count) do
   begin
-   if TCommandButton(CommandList.Items[lv]).LastClick then FSender := TCommandButton(CommandList.Items[lv]);
-   TCommandButton(CommandList.Items[lv]).LastClick:= false;
+   if TCommandButton(CommandList[0].Items[lv]).LastClick then FSender := TCommandButton(CommandList[0].Items[lv]);
+   TCommandButton(CommandList[0].Items[lv]).LastClick:= false;
   end;
  if FSender = nil then exit;
  //showmessage((FSender as TCommandButton).FileName);
  (FSender as TCommandButton).Parent := TabSheets[0];
- AdjustTheButtons;
+ //AdjustTheButtons;
 end;
+
 

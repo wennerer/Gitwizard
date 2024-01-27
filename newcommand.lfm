@@ -141,6 +141,7 @@ object NewcommandDlg: TNewcommandDlg
     Top = 527
     Width = 112
     Caption = 'Okay'
+    ModalResult = 1
     OnClick = OkayClick
     TabOrder = 5
   end
@@ -150,7 +151,7 @@ object NewcommandDlg: TNewcommandDlg
     Top = 527
     Width = 112
     Caption = 'Cancel'
-    OnClick = CancelClick
+    ModalResult = 2
     TabOrder = 6
   end
   object StaticText3: TStaticText
