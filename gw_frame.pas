@@ -489,18 +489,26 @@ begin
 end;
 
 procedure TFrame1.AdjustTheButtons;
-var lv : integer;
+var lv,i : integer;
 begin
- for lv:=0 to pred(CommandList[0].Count) do
+ for i := 0 to pred(length(TabSheets)) do
+ for lv:=0 to pred(CommandList[i].Count) do
   begin
-   TCommandButton(CommandList[0].Items[lv]).Anchors:=[];
+   TCommandButton(CommandList[i].Items[lv]).Anchors:=[];
    if lv = 0 then
-    TCommandButton(CommandList[0].Items[lv]).AnchorSideTop.Control := gitignore
-   else
-    if TCommandButton(CommandList[0].Items[lv]).Parent = TabSheets[0] then
     begin
-     TCommandButton(CommandList[0].Items[lv]).AnchorSideTop.Control := TCommandButton(CommandList[0].Items[lv-1]);
-
+     if i = 0  then  TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Control := gitignore;
+     if i <> 0 then  TCommandButton(CommandList[i].Items[lv]).Align:= alTop;
+    end
+   else
+    //if TCommandButton(CommandList[i].Items[lv]).Parent = TabSheets[i] then
+    begin
+     TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Control := TCommandButton(CommandList[i].Items[lv-1]);
+     TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Side     := asrBottom;
+     TCommandButton(CommandList[i].Items[lv]).AnchorSideLeft.Control := TabSheets[i];
+     TCommandButton(CommandList[i].Items[lv]).AnchorSideRight.Control:= TabSheets[i];
+     TCommandButton(CommandList[i].Items[lv]).AnchorSideRight.Side   := asrBottom;
+     TCommandButton(CommandList[i].Items[lv]).Anchors := [akLeft, akRight, akTop];
     end;
 
   end;//pred(CommandList[0].Count)

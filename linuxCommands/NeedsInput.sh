@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Speicherzugriffsfehler weg'
+git commit -a -m 'löschen geht'

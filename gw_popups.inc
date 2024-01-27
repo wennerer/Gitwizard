@@ -9,12 +9,12 @@ var aPath,s : string;
 begin
  FSender := nil;
 
- //for i := 0 to
- for lv := 0 to pred(CommandList[0].Count) do
-  begin
-   if TCommandButton(CommandList[0].Items[lv]).LastClick then FSender := TCommandButton(CommandList[0].Items[lv]);
-   TCommandButton(CommandList[0].Items[lv]).LastClick:= false;
-  end;
+ for i := 0 to pred(length(TabSheets)) do
+  for lv := 0 to pred(CommandList[i].Count) do
+   begin
+    if TCommandButton(CommandList[i].Items[lv]).LastClick then FSender := TCommandButton(CommandList[i].Items[lv]);
+    TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
+   end;
 
 
  if FSender = nil then FSender := gitignore;
@@ -51,15 +51,21 @@ end;
 
 
 procedure TFrame1.deletecommandClick(Sender: TObject);
-var aPath : string;
-    lv    : integer;
+var aPath        : string;
+    lv,i,aTag,j  : integer;
 begin
  FSender := nil;
- for lv := 0 to pred(CommandList[0].Count) do
-  begin
-   if TCommandButton(CommandList[0].Items[lv]).LastClick then FSender := TCommandButton(CommandList[0].Items[lv]);
-   TCommandButton(CommandList[0].Items[lv]).LastClick:= false;
-  end;
+ for i := 0 to pred(length(TabSheets)) do
+  for lv := 0 to pred(CommandList[i].Count) do
+   begin
+    if TCommandButton(CommandList[i].Items[lv]).LastClick then
+     begin
+      FSender := TCommandButton(CommandList[i].Items[lv]);
+      aTag    := TCommandButton(CommandList[i].Items[lv]).Tag;
+      j       := i;
+     end;
+    TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
+   end;
  if FSender = nil then FSender := gitignore;
 
  {$IFDEF WINDOWS}
@@ -82,9 +88,9 @@ begin
 
  if FSender <> gitignore then
   begin
-   CommandList[0].Delete((FSender as TCommandButton).Tag);
+   CommandList[j].Delete(aTag);//((FSender as TCommandButton).Tag);
    AdjustTheButtons;
-   for lv := 0 to pred(CommandList[0].Count) do TCommandButton(CommandList[0].Items[lv]).Tag:=lv;
+   for lv := 0 to pred(CommandList[j].Count) do TCommandButton(CommandList[j].Items[lv]).Tag:=lv;
    WriteValues;
   end;
  Checkgitinit;
