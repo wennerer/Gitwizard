@@ -323,7 +323,7 @@ begin
     begin
      for lv:= 0 to pred(CommandList[i].Count) do
       begin
-       ButtonNode   := Doc.CreateElement('Tabsheet_'+unicodestring(inttostr(i))+'Commandbutton'+unicodestring(inttostr(lv)));
+       ButtonNode   := Doc.CreateElement('Tabsheet_'+unicodestring(inttostr(i))+'_Commandbutton'+unicodestring(inttostr(lv)));
        RootNode.AppendChild(ButtonNode);
 
        CaptionNode   := Doc.CreateElement('Caption');
@@ -362,7 +362,7 @@ end;
 
 procedure TFrame1.ReadValues;
 var xml                 :  TXMLDocument;
-    k,i,j,Position,cl   : integer;
+    k,i,i1,i2,j,Position,cl   : integer;
     bol,s               : string;
     XPathResult         : TXPathVariable;
     APtr                :Pointer;
@@ -375,15 +375,29 @@ var xml                 :  TXMLDocument;
        begin
         if Pos('Tabsheet_',Node.NodeName) <> 0 then
          begin
-         s := Node.NodeName;
+         s := unicodestring(Node.NodeName);
+         i1 := pos('_',s)+1;
+         i2 := PosEx('_',s,i1);
+         i2 := i2-i1;
+         s:= copy(s,i1,i2);
+         Try
+          cl := strtoint(s);
+         except
+          On E : EConvertError do showmessage('Error by ReadValues');
+         end;
+
+
+
+
+
          //showmessage(s);
-         Position := Pos('_',s)+1;
+         //Position := Pos('_',s)+1;
          //showmessage(inttostr(Position));
-         s := copy(s,Position,1);
+         //s := copy(s,Position,1);
 
          //showmessage(s);
 
-         cl := strtoint(s);
+         //cl := strtoint(s);
 
          //if Node.NodeName = 'Commandbutton'+unicodestring(inttostr(k)) then
          //if Pos('Tabsheet_',Node.NodeName) <> 0 then
