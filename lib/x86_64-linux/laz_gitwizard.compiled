@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="/home/bernd/Programme/Stable_11_23/fpc/bin/x86_64-linux/fpc.sh" Date="1699686856"/>
+  <Params Value=" -MObjFPC -Scghi -Cg -O1 -g -gl -l -vewnhibq -Fu/home/bernd/Programme/Stable_11_23/lazarus/packager/units/x86_64-linux -Fu/home/bernd/Programme/Stable_11_23/lazarus/components/lazutils/lib/x86_64-linux -Fu/home/bernd/Programme/Stable_11_23/lazarus/components/buildintf/units/x86_64-linux -Fu/home/bernd/Programme/Stable_11_23/lazarus/components/freetype/lib/x86_64-linux -Fu/home/bernd/Programme/Stable_11_23/lazarus/lcl/units/x86_64-linux -Fu/home/bernd/Programme/Stable_11_23/lazarus/lcl/units/x86_64-linux/gtk2 -Fu/home/bernd/Programme/Stable_11_23/lazarus/components/lazcontrols/lib/x86_64-linux/gtk2 -Fu/home/bernd/Programme/Stable_11_23/lazarus/components/synedit/units/x86_64-linux/gtk2 -Fu/home/bernd/Programme/Stable_11_23/lazarus/components/ideintf/units/x86_64-linux/gtk2 -Fu/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizard/ -FU/home/bernd/Sprachen/Lazarus/64_bit/GitWizzard/GitWizard/lib/x86_64-linux/ -dLCL -dLCLgtk2 laz_gitwizard.pas"/>
+</CONFIG>

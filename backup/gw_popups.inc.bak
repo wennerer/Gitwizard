@@ -107,7 +107,7 @@ begin
      begin
       FSender := TCommandButton(CommandList[i].Items[lv]);
       aTag    := TCommandButton(CommandList[i].Items[lv]).Tag;
-      j       := i;
+      j       := i;   showmessage(inttostr(i));
      end;
     TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
    end;

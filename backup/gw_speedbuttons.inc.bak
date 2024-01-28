@@ -1,0 +1,284 @@
+{%gw_frame --- this is a part of GitWizard}
+
+
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX---SpeedButtons---XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+procedure TFrame1.SpeedButton_LastSavedProjectClick(Sender: TObject);
+var PathToEnviro : string;
+begin
+ PathToEnviro := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'environmentoptions.xml';
+ PathToGitDirectory := ReadPathToDir(PathToEnviro,'/CONFIG/EnvironmentOptions/AutoSave/@*');
+ SetPathToGitDirectory(PathToGitDirectory);
+end;
+
+procedure TFrame1.SpeedButton_LastSavedPackageClick(Sender: TObject);
+var PathToEnviro,s : string;
+begin
+ PathToEnviro := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'environmentoptions.xml';
+ s := ReadPathToDir(PathToEnviro,'/CONFIG/EnvironmentOptions/AutoSave/LastOpenPackages/@*');
+ if pos('lpk',s) <> 0 then
+  begin
+   showmessage(rs_moreopen);
+   exit;
+  end;
+ PathToGitDirectory := s;
+ SetPathToGitDirectory(PathToGitDirectory);
+end;
+
+procedure TFrame1.SpeedButton_AnyDirClick(Sender: TObject);
+begin
+ if GitDirectoryDlg.Execute then
+  PathToGitDirectory := GitDirectoryDlg.FileName;
+ SetPathToGitDirectory(PathToGitDirectory);
+end;
+
+procedure TFrame1.SpeedButton_defgitignoreClick(Sender: TObject);
+begin
+ if not OpenDocument(PathToGitWizard+PathDelim+'defaultgitignore'+PathDelim+'.gitignore')
+     then showmessage(rs_ignorenofound);
+end;
+
+procedure TFrame1.SpeedButton_NewCommandClick(Sender: TObject);
+var i        : integer;
+    aCommand : string;
+begin
+ NewcommandDlg := TNewcommandDlg.Create(self);
+ try
+  NewcommandDlg.ShowModal;
+
+  if NewcommandDlg.ModalResult = mrCancel then exit;
+
+  if NewcommandDlg.Edit_newcaption.Text  = '' then exit;
+  if NewcommandDlg.Edit_newfilename.Text = '' then exit;
+  if NewcommandDlg.Edit_newcommand.Text  = '' then exit;
+
+  aCommand := NewcommandDlg.Edit_newcommand.Text;
+  CommandList[FActiveTab].Add(TCommandButton.Create(self));
+  TCommandButton(CommandList[FActiveTab].Last).Parent     := TabSheets[FActiveTab];
+  TCommandButton(CommandList[FActiveTab].Last).Caption    := NewcommandDlg.Edit_newcaption.Text;
+  TCommandButton(CommandList[FActiveTab].Last).FileName   := NewcommandDlg.Edit_newfilename.Text;
+  TCommandButton(CommandList[FActiveTab].Last).Hint       := NewcommandDlg.Edit_newhint.Text;
+  TCommandButton(CommandList[FActiveTab].Last).NeedsInput := NewcommandDlg.NeedsInput.Checked;
+ finally
+  NewcommandDlg.Free;
+ end;
+
+ TCommandButton(CommandList[FActiveTab].Last).BorderSpacing.Around:= 2;
+ i := CommandList[FActiveTab].Count-2;
+ if CommandList[FActiveTab].Count = 1 then
+  begin
+   if FActiveTab = 0 then
+    TCommandButton(CommandList[FActiveTab].Last).AnchorSideTop.Control := gitignore
+   else
+    TCommandButton(CommandList[FActiveTab].Last).Align:= alTop;
+  end
+ else
+  TCommandButton(CommandList[FActiveTab].Last).AnchorSideTop.Control := TCommandButton(CommandList[FActiveTab].Items[i]);
+
+ TCommandButton(CommandList[FActiveTab].Last).AnchorSideTop.Side     := asrBottom;
+ TCommandButton(CommandList[FActiveTab].Last).AnchorSideLeft.Control := TabSheets[FActiveTab];
+ TCommandButton(CommandList[FActiveTab].Last).AnchorSideRight.Control:= TabSheets[FActiveTab];
+ TCommandButton(CommandList[FActiveTab].Last).AnchorSideRight.Side   := asrBottom;
+ TCommandButton(CommandList[FActiveTab].Last).Anchors := [akLeft, akRight, akTop];
+ TCommandButton(CommandList[FActiveTab].Last).Tag                    := CommandList[FActiveTab].Count-1;
+ TCommandButton(CommandList[FActiveTab].Last).ShowHint               := true;
+ TCommandButton(CommandList[FActiveTab].Last).OnClick                := @CommandButtonClick;
+ TCommandButton(CommandList[FActiveTab].Last).PopupMenu              := PopupMenu_CommandButtons;
+ TCommandButton(CommandList[FActiveTab].Last).LastClick              := false;
+ TCommandButton(CommandList[FActiveTab].Last).Images                 := ImageList1;
+ TCommandButton(CommandList[FActiveTab].Last).Layout                 := blGlyphRight;
+ SaveABashfile(TCommandButton(CommandList[FActiveTab].Last).FileName,aCommand);
+ WriteValues;
+ Checkgitinit;
+end;
+
+procedure TFrame1.SpeedButton_opendirClick(Sender: TObject);
+begin
+ if not OpenDocument(PathToGitDirectory) then showmessage(rs_Directorynotfound);
+end;
+
+procedure TFrame1.SpeedButton_optionsClick(Sender: TObject);
+begin
+  Optionsform := TOptionsform.Create(self);
+  try
+   Optionsform.Edit_Editor.Text := FEditor;
+   Optionsform.ShowModal;
+
+   FEditor := Optionsform.Edit_Editor.Text;
+  finally
+   Optionsform.Free;
+  end;
+  WriteValues;
+end;
+
+procedure TFrame1.SpeedButton_restorebackupClick(Sender: TObject);
+var dest,source,pathtobashes: string;
+    TaskDialog1: TTaskDialog;
+    Button: TTaskDialogBaseButtonItem;
+ begin
+  TaskDialog1   := TTaskDialog.Create(nil);
+  try
+   TaskDialog1.Caption      := 'GitWizard';
+   TaskDialog1.Title        := rs_restorebackup;
+   TaskDialog1.Text         := rs_restorebackuptext;
+   TaskDialog1.MainIcon     := tdiWarning;
+   //TaskDialog1.FooterText   := 'https://github.com/...';
+   //TaskDialog1.FooterIcon   := tdiInformation;
+
+   TaskDialog1.CommonButtons:=[];
+   Button := TaskDialog1.Buttons.Add;
+   Button.Caption := rs_Yes;
+   Button.ModalResult := mrYes;
+   Button := TaskDialog1.Buttons.Add;
+   Button.Caption := rs_No;
+   Button.ModalResult := mrNo;
+
+   //From here it is executed when a button is pressed
+    if TaskDialog1.Execute then
+     if TaskDialog1.ModalResult = mrNo then exit;
+
+  finally
+   Button.Free;
+   TaskDialog1.Free;
+  end;
+
+
+ {$IFDEF WINDOWS}
+  source := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+ {$ENDIF}
+ {$IFDEF Linux}
+  source := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+ {$ENDIF}
+ {$IFDEF WINDOWS}
+  dest := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
+  pathtobashes := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
+ {$ENDIF}
+ {$IFDEF Linux}
+  dest := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
+  pathtobashes := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
+ {$ENDIF}
+ //delete gw_commands.xml
+   deletefile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml');
+ //delete commandbashfolder
+   DeleteAFolder(dest);
+   sleep(200);
+ //copy gw_commands.xml into config folder
+   if not copyfile(source,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml')
+    then showmessage(rs_gw_commands);
+
+  //copy all commandfiles into commands folder
+   CopyAFolder(pathtobashes,dest);
+   CommandList[0].Clear;
+   sleep(200);
+   readvalues;
+end;
+
+
+procedure TFrame1.SpeedButton_createbackupClick(Sender: TObject);
+var dest1,dest,pathtobashes : string;
+    TaskDialog1: TTaskDialog;
+    Button: TTaskDialogBaseButtonItem;
+begin
+ TaskDialog1   := TTaskDialog.Create(nil);
+ try
+  TaskDialog1.Caption      := 'GitWizard';
+  TaskDialog1.Title        := rs_createbackup;
+  TaskDialog1.Text         := rs_createnewbackup;
+  TaskDialog1.MainIcon     := tdiWarning;
+  //TaskDialog1.FooterText   := 'https://github.com/....';
+  //TaskDialog1.FooterIcon   := tdiInformation;
+
+  TaskDialog1.CommonButtons:=[];
+  Button := TaskDialog1.Buttons.Add;
+  Button.Caption := rs_Yes;
+  Button.ModalResult := mrYes;
+  Button := TaskDialog1.Buttons.Add;
+  Button.Caption := rs_No;
+  Button.ModalResult := mrNo;
+
+  //From here it is executed when a button is pressed
+   if TaskDialog1.Execute then
+    if TaskDialog1.ModalResult = mrNo then exit;
+
+ finally
+  Button.Free;
+  TaskDialog1.Free;
+ end;
+
+
+ if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml') then
+  begin
+   {$IFDEF WINDOWS}
+    pathtobashes := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
+    dest := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
+   {$ENDIF}
+   {$IFDEF Linux}
+    pathtobashes := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
+    dest := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
+   {$ENDIF}
+  //delete old backup
+   DeleteAFolder(dest);
+
+  sleep(200);
+   {$IFDEF WINDOWS}
+    dest1 := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+   {$ENDIF}
+   {$IFDEF Linux}
+    dest1 := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+   {$ENDIF}
+  //copy gw_commands.xml into backup folder
+   if not copyfile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml',dest1)
+    then showmessage(rs_gw_commands);
+
+  //copy all commandfiles into backup folder
+   CopyAFolder(pathtobashes,dest);
+  end;
+ end;
+
+procedure TFrame1.SpeedButton_infoClick(Sender: TObject);
+begin
+ InfoForm := TInfoform.Create(self);
+  try
+   InfoForm.Memo1.Lines.Add(rs_InfoLine1);
+   InfoForm.Memo1.Lines.Add(rs_InfoLine2);
+   InfoForm.Memo1.Lines.Add(' ');
+   InfoForm.Memo1.Lines.Add(' ');
+   InfoForm.Memo1.Lines.Add(rs_InfoLine3);
+   InfoForm.Memo1.Lines.Add(' ');
+   InfoForm.Memo1.Lines.Add(' ');
+   InfoForm.Memo1.Lines.Add(' ');
+   InfoForm.Memo1.Lines.Add(' ');
+   InfoForm.Memo1.Lines.Add(rs_InfoLine4);
+
+
+   InfoForm.ShowModal;
+  finally
+   Optionsform.Free;
+  end;
+end;
+
+procedure TFrame1.SpeedButton_newtabClick(Sender: TObject);
+begin
+ NewTabForm := TNewTabForm.Create(self);
+ try
+
+ if NewTabForm.ShowModal = mrCancel then exit;
+  //showmessage(inttostr(length(TabSheets)));
+  FActiveTab          := length(TabSheets);
+  showmessage(inttostr(FActiveTab));
+  setlength(TabSheets,length(TabSheets)+1);
+  TabSheets[FActiveTab]              := TTabSheet.Create(self);
+  TabSheets[FActiveTab].Parent       := PageControl1;
+  TabSheets[FActiveTab].Caption      := NewTabForm.Edit1.Caption;
+  //for options.xml
+  FTabCaptions   := FTabCaptions+';'+NewTabForm.Edit1.Caption;
+  setlength(CommandList,1);
+  CommandList[length(TabSheets)-1]      := TObjectList.Create(True);
+  //showmessage(inttostr(length(TabSheets)));
+ finally
+  NewTabForm.Free;
+ end;
+ WriteValues;
+end;
+
+
