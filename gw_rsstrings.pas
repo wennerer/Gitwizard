@@ -1,3 +1,4 @@
+{This is a part of GitWizard}
 unit gw_rsstrings;
 
 {$mode objfpc}{$H+}
@@ -67,6 +68,9 @@ resourcestring
   rs_InfoLine2                        = 'Commands are called via scripts that can be created or changed by the user.';
   rs_InfoLine3                        = 'License: GNU General Public License (GNU GPL)';
   rs_InfoLine4                        = 'All icons from Roland Hahn. Thank you very mutch!';
+
+  rs_movetoatab                       = 'Move a button to a new tabsheet';
+  rs_selectanewtab                    = 'Select a new tabsheet:';
 
 implementation
 

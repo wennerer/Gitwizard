@@ -11,7 +11,7 @@ uses
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead,
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
   options_form, Translations, LCLTranslator, DefaultTranslator, LMessages,
-  LCLType, gw_rsstrings, move_button, info_form, output_form, newtab;
+  LCLType, gw_rsstrings, move_button, info_form, output_form, newtab, move_toatab;
 
 
 
@@ -24,12 +24,10 @@ type
     FFileName  : string;
     FLastClick: boolean;
     FNeedsInput: boolean;
-    FTabParent: integer;
   public
    property FileName   : string  read FFileName   write FFileName;
    property NeedsInput : boolean read FNeedsInput write FNeedsInput;
    property LastClick  : boolean read FLastClick write FLastClick;
-   property TabParent  : integer read FTabParent write FTabParent;
    procedure MouseDown({%H-}Button: TMouseButton;{%H-}Shift: TShiftState; X, Y: Integer);override;
   end;
 
@@ -41,7 +39,7 @@ type
   TFrame1 = class(TFrame)
     ImageList1                  : TImageList;
     deletecommand               : TMenuItem;
-    movetotab: TMenuItem;
+    movetotab                   : TMenuItem;
     movebutton                  : TMenuItem;
     openfile                    : TMenuItem;
     PageControl1                : TPageControl;
@@ -282,7 +280,7 @@ end;
 procedure TFrame1.WriteValues;
 var Doc               : TXMLDocument;
     RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,OptionsNode,
-    LastNode,TabNode(*,ParentNode*),aText: TDOMNode;
+    LastNode,TabNode,aText: TDOMNode;
     lv,i : integer;
     s  : string;
 begin
@@ -347,10 +345,6 @@ begin
        NeedsInputNode.AppendChild(aText);
        ButtonNode.AppendChild(NeedsInputNode);
 
-       (*ParentNode   := Doc.CreateElement('Parent');
-       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList[i].Items[lv]).Parent.Name));
-       ParentNode.AppendChild(aText);
-       ButtonNode.AppendChild(ParentNode);*)
      end;
     end;//length(Tabsheet)
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml');
@@ -362,7 +356,7 @@ end;
 
 procedure TFrame1.ReadValues;
 var xml                 :  TXMLDocument;
-    k,i,i1,i2,j,Position,cl   : integer;
+    k,i,i1,i2,j,cl      : integer;
     bol,s               : string;
     XPathResult         : TXPathVariable;
     APtr                :Pointer;
@@ -375,7 +369,7 @@ var xml                 :  TXMLDocument;
        begin
         if Pos('Tabsheet_',Node.NodeName) <> 0 then
          begin
-         s := unicodestring(Node.NodeName);
+         s := Node.NodeName;
          i1 := pos('_',s)+1;
          i2 := PosEx('_',s,i1);
          i2 := i2-i1;
@@ -498,7 +492,7 @@ begin
    if lv = 0 then
     begin
      if i = 0  then  TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Control := gitignore;
-     if i <> 0 then  TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Control := TabSheets[i]; //TCommandButton(CommandList[i].Items[lv]).Align:= alTop;
+     if i <> 0 then  TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Control := TabSheets[i];
      TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Side     := asrTop;
      TCommandButton(CommandList[i].Items[lv]).AnchorSideLeft.Control := TabSheets[i];
      TCommandButton(CommandList[i].Items[lv]).AnchorSideRight.Control:= TabSheets[i];
@@ -506,7 +500,6 @@ begin
      TCommandButton(CommandList[i].Items[lv]).Anchors := [akLeft, akRight, akTop];
     end
    else
-    //if TCommandButton(CommandList[i].Items[lv]).Parent = TabSheets[i] then
     begin
      TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Control := TCommandButton(CommandList[i].Items[lv-1]);
      TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Side     := asrBottom;
@@ -606,14 +599,11 @@ begin
   end;
  s:= '';
 
- //if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then showmessage(s)
-  //else showmessage(rs_comerror);
  if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then
   begin
    outputform   := TOutPutForm.Create(self);
    sl := TStringList.Create;
    try
-    //if pos('\',s) <> 0 then showmessage('Escape Sequenz da');
     sl.Text:=s;
     if sl.Count <> 0 then
      begin

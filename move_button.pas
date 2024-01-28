@@ -1,3 +1,4 @@
+{This is a part of GitWizard}
 unit move_button;
 
 {$mode objfpc}{$H+}

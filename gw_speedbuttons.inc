@@ -262,10 +262,8 @@ begin
  NewTabForm := TNewTabForm.Create(self);
  try
 
- if NewTabForm.ShowModal = mrCancel then exit;
-  //showmessage(inttostr(length(TabSheets)));
+  if NewTabForm.ShowModal = mrCancel then exit;
   FActiveTab          := length(TabSheets);
-  //showmessage(inttostr(FActiveTab));
   setlength(TabSheets,length(TabSheets)+1);
   TabSheets[FActiveTab]              := TTabSheet.Create(self);
   TabSheets[FActiveTab].Parent       := PageControl1;
@@ -274,7 +272,6 @@ begin
   FTabCaptions   := FTabCaptions+';'+NewTabForm.Edit1.Caption;
   setlength(CommandList,1);
   CommandList[length(TabSheets)-1]      := TObjectList.Create(True);
-  //showmessage(inttostr(length(TabSheets)));
  finally
   NewTabForm.Free;
  end;

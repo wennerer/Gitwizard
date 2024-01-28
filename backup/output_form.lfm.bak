@@ -1,8 +1,0 @@
-object OutPutForm: TOutPutForm
-  Left = 433
-  Height = 240
-  Top = 250
-  Width = 320
-  Caption = 'OutPutForm'
-  LCLVersion = '2.2.6.0'
-end

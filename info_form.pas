@@ -1,3 +1,4 @@
+{This is a part of GitWizard}
 unit info_form;
 
 {$mode objfpc}{$H+}

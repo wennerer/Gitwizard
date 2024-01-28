@@ -6,6 +6,7 @@ object InfoForm: TInfoForm
   Caption = 'Info GitWizzard'
   ClientHeight = 500
   ClientWidth = 500
+  LCLVersion = '2.2.6.0'
   object StaticText1: TStaticText
     Left = 160
     Height = 65
