@@ -151,6 +151,10 @@ msgstr ""
 msgid "The command requires an input"
 msgstr ""
 
+#: gw_rsstrings.rs_newcaption
+msgid "Enter a new caption for the button:"
+msgstr ""
+
 #: gw_rsstrings.rs_newcommand
 msgid "Create a new command"
 msgstr ""
@@ -159,8 +163,16 @@ msgstr ""
 msgid "New Command Dialog"
 msgstr ""
 
+#: gw_rsstrings.rs_newhint
+msgid "Enter a new hint for the button:"
+msgstr ""
+
 #: gw_rsstrings.rs_newpos
 msgid "New Position:"
+msgstr ""
+
+#: gw_rsstrings.rs_newproperties
+msgid "New Properties"
 msgstr ""
 
 #: gw_rsstrings.rs_newtab

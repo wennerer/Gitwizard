@@ -13,7 +13,7 @@
     <Description Value="Gitwizard integrates the operation of git into the Lazarus IDE. Commands are called up using a script and can be created or changed by the user."/>
     <License Value="GPL - see :   http://www.gnu.org/copyleft/gpl.html"/>
     <Version Release="1" Build="1"/>
-    <Files Count="13">
+    <Files Count="14">
       <Item1>
         <Filename Value="gitwizard.pas"/>
         <HasRegisterProc Value="True"/>
@@ -67,6 +67,10 @@
         <Filename Value="move_toatab.pas"/>
         <UnitName Value="move_toatab"/>
       </Item13>
+      <Item14>
+        <Filename Value="new_properties.pas"/>
+        <UnitName Value="new_properties"/>
+      </Item14>
     </Files>
     <CompatibilityMode Value="True"/>
     <i18n>

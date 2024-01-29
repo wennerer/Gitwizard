@@ -162,6 +162,10 @@ msgstr "Verschiebe zu einem anderen Tab"
 msgid "The command requires an input"
 msgstr "Der Befehl benötigt eine Eingabe"
 
+#: gw_rsstrings.rs_newcaption
+msgid "Enter a new caption for the button:"
+msgstr "Gib eine neue Caption für den Button ein:"
+
 #: gw_rsstrings.rs_newcommand
 msgid "Create a new command"
 msgstr "Erzeuge einen neuen Befehl"
@@ -170,9 +174,17 @@ msgstr "Erzeuge einen neuen Befehl"
 msgid "New Command Dialog"
 msgstr "Neuer Befehl Dialog"
 
+#: gw_rsstrings.rs_newhint
+msgid "Enter a new hint for the button:"
+msgstr "Gib einen neuen Hint für den Button ein:"
+
 #: gw_rsstrings.rs_newpos
 msgid "New Position:"
 msgstr "Neue Position:"
+
+#: gw_rsstrings.rs_newproperties
+msgid "New Properties"
+msgstr "Neue Eigenschaften"
 
 #: gw_rsstrings.rs_newtab
 msgid "Creates a new tab"

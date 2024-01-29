@@ -72,6 +72,10 @@ resourcestring
   rs_movetoatab                       = 'Move a button to a new tabsheet';
   rs_selectanewtab                    = 'Select a new tabsheet:';
 
+  rs_newproperties                    = 'New Properties';
+  rs_newcaption                       = 'Enter a new caption for the button:';
+  rs_newhint                          = 'Enter a new hint for the button:';
+
 implementation
 
 end.

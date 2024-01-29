@@ -167,13 +167,6 @@ begin
   TCommandButton(CommandList[k].Last).FileName   := TCommandButton(CommandList[j].Items[aTag]).FileName;
   TCommandButton(CommandList[k].Last).Hint       := TCommandButton(CommandList[j].Items[aTag]).Hint;
   TCommandButton(CommandList[k].Last).NeedsInput := TCommandButton(CommandList[j].Items[aTag]).NeedsInput;
-  //TCommandButton(CommandList[k].Last).BorderSpacing.Around:= 2;
-  //TCommandButton(CommandList[k].Last).AnchorSideTop.Control := TCommandButton(CommandList[k].Items[i]);
-  //TCommandButton(CommandList[k].Last).AnchorSideTop.Side     := asrBottom;
-  //TCommandButton(CommandList[k].Last).AnchorSideLeft.Control := TabSheets[k];
-  //TCommandButton(CommandList[k].Last).AnchorSideRight.Control:= TabSheets[k];
-  //TCommandButton(CommandList[k].Last).AnchorSideRight.Side   := asrBottom;
-  //TCommandButton(CommandList[k].Last).Anchors := [akLeft, akRight, akTop];
   TCommandButton(CommandList[k].Last).Tag                    := CommandList[k].Count-1;
   TCommandButton(CommandList[k].Last).ShowHint               := true;
   TCommandButton(CommandList[k].Last).OnClick                := @CommandButtonClick;
@@ -193,4 +186,37 @@ begin
  end;
 end;
 
+
+procedure TFrame1.propertiesClick(Sender: TObject);
+var lv,i,aTag,j,k : integer;
+begin
+ FSender := nil;
+ for i := 0 to pred(length(TabSheets)) do
+  for lv := 0 to pred(CommandList[i].Count) do
+   begin
+    if TCommandButton(CommandList[i].Items[lv]).LastClick then
+     begin
+      FSender := TCommandButton(CommandList[i].Items[lv]);
+      aTag    := TCommandButton(CommandList[i].Items[lv]).Tag;
+      j       := i;
+     end;
+    TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
+   end;
+
+ if FSender = nil then exit;
+
+ NewPropertiesForm := TNewPropertiesForm.Create(self);
+ try
+  NewPropertiesForm.Edit_newcaption.Text := TCommandButton(CommandList[j].Items[aTag]).Caption;
+  NewPropertiesForm.Edit_newhint.Text    := TCommandButton(CommandList[j].Items[aTag]).Hint;
+
+  if NewPropertiesForm.ShowModal = mrCancel then exit;
+  TCommandButton(CommandList[j].Items[aTag]).Caption := NewPropertiesForm.Edit_newcaption.Text;
+  TCommandButton(CommandList[j].Items[aTag]).Hint    := NewPropertiesForm.Edit_newhint.Text;
+  writeValues;
+ finally
+  NewPropertiesForm.Free;
+ end;
+
+end;
 

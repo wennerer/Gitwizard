@@ -11,7 +11,8 @@ uses
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead,
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
   options_form, Translations, LCLTranslator, DefaultTranslator, LMessages,
-  LCLType, gw_rsstrings, move_button, info_form, output_form, newtab, move_toatab;
+  LCLType, gw_rsstrings, move_button, info_form, output_form, newtab, move_toatab,
+  new_properties;
 
 
 
@@ -39,6 +40,7 @@ type
   TFrame1 = class(TFrame)
     ImageList1                  : TImageList;
     deletecommand               : TMenuItem;
+    properties: TMenuItem;
     movetotab                   : TMenuItem;
     movebutton                  : TMenuItem;
     openfile                    : TMenuItem;
@@ -71,6 +73,7 @@ type
     procedure movebuttonClick(Sender: TObject);
     procedure movetotabClick(Sender: TObject);
     procedure PageControl1Change(Sender: TObject);
+    procedure propertiesClick(Sender: TObject);
     procedure ReadValues;
     procedure SpeedButton_createbackupClick(Sender: TObject);
     procedure SpeedButton_infoClick(Sender: TObject);
@@ -261,6 +264,7 @@ begin
  deletecommand.Caption                       := rs_deletecommand;
  movebutton.Caption                          := rs_movebutton;
  movetotab.Caption                           := rs_movetotab;
+ properties.Caption                          := rs_newproperties;
  TabSheets[0].Caption                        := rs_favorites;
  FTabCaptions                                := rs_favorites;
 end;
@@ -768,6 +772,7 @@ procedure TFrame1.PageControl1Change(Sender: TObject);
 begin
  if sender is TPagecontrol then FActiveTab := PageControl1.TabIndex;
 end;
+
 
 {$Include gw_speedbuttons.inc}
 {$Include gw_popups.inc}

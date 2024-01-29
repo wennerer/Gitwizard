@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Fehler bei verschiebe in anderen Tab erledigt'
+git commit -a -m 'new properties'
