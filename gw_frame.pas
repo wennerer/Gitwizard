@@ -491,9 +491,16 @@ begin
    TCommandButton(CommandList[i].Items[lv]).Anchors:=[];
    if lv = 0 then
     begin
-     if i = 0  then  TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Control := gitignore;
-     if i <> 0 then  TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Control := TabSheets[i];
-     TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Side     := asrTop;
+     if i = 0  then
+      begin
+       TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Control := gitignore;
+       TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Side     := asrBottom;
+      end;
+     if i <> 0 then
+      begin
+       TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Control := TabSheets[i];
+       TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Side     := asrTop;
+      end;
      TCommandButton(CommandList[i].Items[lv]).AnchorSideLeft.Control := TabSheets[i];
      TCommandButton(CommandList[i].Items[lv]).AnchorSideRight.Control:= TabSheets[i];
      TCommandButton(CommandList[i].Items[lv]).AnchorSideRight.Side   := asrBottom;

@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'nach mehrere Tabsheets möglich'
+git commit -a -m 'Fehler bei verschiebe in anderen Tab erledigt'

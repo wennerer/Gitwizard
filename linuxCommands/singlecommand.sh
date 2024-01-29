@@ -1,2 +1,2 @@
 #!/bin/bash
-git rm --cached '*'
+git status
