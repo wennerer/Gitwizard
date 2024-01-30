@@ -220,3 +220,28 @@ begin
 
 end;
 
+//xxxxxxxxxxxxxxxxxxxxxxxxxxxxx---TabSheets---xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+procedure TFrame1.renameClick(Sender: TObject);
+var lv : integer;
+begin
+ if FLastTabClick = 0 then
+  begin
+   showmessage(rs_notpossible);
+   exit;
+  end;
+ NewTabPropertiesForm    := TNewTabPropertiesForm.Create(self);
+ try
+  NewTabPropertiesForm.Edit1.Text := Tabsheets[FLastTabClick].Caption;
+
+  if NewTabPropertiesForm.ShowModal = mrCancel then exit;
+
+  Tabsheets[FLastTabClick].Caption:= NewTabPropertiesForm.Edit1.Text;
+  FTabCaptions   := Tabsheets[0].Caption;
+  if pred(length(TabSheets)) > 0 then
+   for lv := 1 to pred(length(TabSheets)) do FTabCaptions   := FTabCaptions+';'+Tabsheets[lv].Caption;
+  writeValues;
+ finally
+  NewTabPropertiesForm.Free;
+ end;
+end;

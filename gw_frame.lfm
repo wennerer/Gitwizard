@@ -255,8 +255,10 @@ object Frame1: TFrame1
       Width = 328
       Align = alClient
       MultiLine = True
+      PopupMenu = PopupMenu_Tabsheet
       TabOrder = 0
       OnChange = PageControl1Change
+      OnMouseDown = PageControl1MouseDown
       Options = [nboMultiLine]
     end
     object gitignore: TSpeedButton
@@ -1218,6 +1220,14 @@ object Frame1: TFrame1
       Caption = 'Properties'
       ImageIndex = 17
       OnClick = propertiesClick
+    end
+  end
+  object PopupMenu_Tabsheet: TPopupMenu
+    Left = 219
+    Top = 499
+    object rename: TMenuItem
+      Caption = 'rename'
+      OnClick = renameClick
     end
   end
 end

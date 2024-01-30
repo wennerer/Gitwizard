@@ -12,7 +12,7 @@ uses
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
   options_form, Translations, LCLTranslator, DefaultTranslator, LMessages,
   LCLType, gw_rsstrings, move_button, info_form, output_form, newtab, move_toatab,
-  new_properties;
+  new_properties, Types, new_tabproperties;
 
 
 
@@ -40,6 +40,8 @@ type
   TFrame1 = class(TFrame)
     ImageList1                  : TImageList;
     deletecommand               : TMenuItem;
+    rename: TMenuItem;
+    PopupMenu_Tabsheet: TPopupMenu;
     properties: TMenuItem;
     movetotab                   : TMenuItem;
     movebutton                  : TMenuItem;
@@ -73,8 +75,11 @@ type
     procedure movebuttonClick(Sender: TObject);
     procedure movetotabClick(Sender: TObject);
     procedure PageControl1Change(Sender: TObject);
+    procedure PageControl1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure propertiesClick(Sender: TObject);
     procedure ReadValues;
+    procedure renameClick(Sender: TObject);
     procedure SpeedButton_createbackupClick(Sender: TObject);
     procedure SpeedButton_infoClick(Sender: TObject);
     procedure SpeedButton_newtabClick(Sender: TObject);
@@ -101,6 +106,7 @@ type
     TabSheets              : array of TTabSheet;
     FTabCaptions           : string;
     FActiveTab             : integer;
+    FLastTabClick          : integer;
     procedure CommandButtonClick(Sender: TObject);
     procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; Options: TProcessOptions=[];
                              swOptions: TShowWindowOptions=swoNone);
@@ -108,6 +114,8 @@ type
     procedure SetPathToGitDirectory(aPath: string);
     procedure AdjustTheButtons;
     procedure CreateTabs;
+    procedure TabPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
+
   protected
 
   public
@@ -208,6 +216,7 @@ begin
  LastClick:=true;
 end;
 
+
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx---FRAME---XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 { TFrame1 }
@@ -218,13 +227,13 @@ var PathToEnviro     : string;
 begin
  inherited Create(AOwner);
  setlength(CommandList,1);
- CommandList[0]      := TObjectList.Create(True);
+ CommandList[0]           := TObjectList.Create(True);
  setlength(TabSheets,1);
- TabSheets[0]        := TTabSheet.Create(self);
- TabSheets[0].Parent := PageControl1;
- FActiveTab          := 0;
- gitignore.Parent    := TabSheets[0];
- gitignore.Align     := alTop;
+ TabSheets[0]             := TTabSheet.Create(self);
+ TabSheets[0].Parent      := PageControl1;
+ FActiveTab               := 0;
+ gitignore.Parent         := TabSheets[0];
+ gitignore.Align          := alTop;
  PathToEnviro    := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'packagefiles.xml';
  PathToGitWizard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizard"]]/Filename/@*');
 
@@ -265,6 +274,7 @@ begin
  movebutton.Caption                          := rs_movebutton;
  movetotab.Caption                           := rs_movetotab;
  properties.Caption                          := rs_newproperties;
+ rename.Caption                              := rs_rename;
  TabSheets[0].Caption                        := rs_favorites;
  FTabCaptions                                := rs_favorites;
 end;
@@ -452,6 +462,7 @@ begin
   end;
 end;
 
+
 procedure TFrame1.SetPathToGitDirectory(aPath : string);
 var Doc               : TXMLDocument;
     RootNode,OptionsNode,LastNode,TabNode: TDOMNode;
@@ -547,6 +558,12 @@ begin
  end;
 
 
+end;
+
+procedure TFrame1.TabPopup(Sender: TObject; MousePos: TPoint;
+  var Handled: Boolean);
+begin
+  showmessage('');
 end;
 
 procedure TFrame1.SaveABashfile(aFileName,aCommand:string);
@@ -772,6 +789,14 @@ procedure TFrame1.PageControl1Change(Sender: TObject);
 begin
  if sender is TPagecontrol then FActiveTab := PageControl1.TabIndex;
 end;
+
+procedure TFrame1.PageControl1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+ if Button = mbRight then
+  FLastTabClick := PageControl1.IndexOfPageAt(Point(X, Y));
+end;
+
 
 
 {$Include gw_speedbuttons.inc}

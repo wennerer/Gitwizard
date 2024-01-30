@@ -155,6 +155,10 @@ msgstr ""
 msgid "Enter a new caption for the button:"
 msgstr ""
 
+#: gw_rsstrings.rs_newcaptiontab
+msgid "Enter a new Caption:"
+msgstr ""
+
 #: gw_rsstrings.rs_newcommand
 msgid "Create a new command"
 msgstr ""
@@ -179,6 +183,10 @@ msgstr ""
 msgid "Creates a new tab"
 msgstr ""
 
+#: gw_rsstrings.rs_newtabproperties
+msgid "New Tabsheet Properties"
+msgstr ""
+
 #: gw_rsstrings.rs_no
 msgid "No"
 msgstr ""
@@ -199,6 +207,10 @@ msgstr ""
 msgid "No filename entered"
 msgstr ""
 
+#: gw_rsstrings.rs_notpossible
+msgid "Rename not possible"
+msgstr ""
+
 #: gw_rsstrings.rs_opendir
 msgid "Open set Directory"
 msgstr ""
@@ -215,6 +227,10 @@ msgstr ""
 #: gw_rsstrings.rs_optionsform
 msgctxt "gw_rsstrings.rs_optionsform"
 msgid "Options"
+msgstr ""
+
+#: gw_rsstrings.rs_rename
+msgid "Rename"
 msgstr ""
 
 #: gw_rsstrings.rs_restorebackup

@@ -166,6 +166,10 @@ msgstr "Der Befehl benötigt eine Eingabe"
 msgid "Enter a new caption for the button:"
 msgstr "Gib eine neue Caption für den Button ein:"
 
+#: gw_rsstrings.rs_newcaptiontab
+msgid "Enter a new Caption:"
+msgstr "Gib eine neue Caption ein:"
+
 #: gw_rsstrings.rs_newcommand
 msgid "Create a new command"
 msgstr "Erzeuge einen neuen Befehl"
@@ -190,6 +194,10 @@ msgstr "Neue Eigenschaften"
 msgid "Creates a new tab"
 msgstr "Erzeugt einen neuen Tab"
 
+#: gw_rsstrings.rs_newtabproperties
+msgid "New Tabsheet Properties"
+msgstr "Neue Eigenschaften Tabsheets"
+
 #: gw_rsstrings.rs_no
 msgid "No"
 msgstr "Nein"
@@ -210,6 +218,10 @@ msgstr "Kein Verzeichnis ausgewählt!"
 msgid "No filename entered"
 msgstr "Keinen Datei eingegeben"
 
+#: gw_rsstrings.rs_notpossible
+msgid "Rename not possible"
+msgstr "Umbenennen nicht möglich"
+
 #: gw_rsstrings.rs_opendir
 msgid "Open set Directory"
 msgstr "Öffne gesetztes Verzeichnis"
@@ -227,6 +239,10 @@ msgstr "Optionen"
 msgctxt "gw_rsstrings.rs_optionsform"
 msgid "Options"
 msgstr "Optionen"
+
+#: gw_rsstrings.rs_rename
+msgid "Rename"
+msgstr "Umbenennen"
 
 #: gw_rsstrings.rs_restorebackup
 msgid "Restore backup"

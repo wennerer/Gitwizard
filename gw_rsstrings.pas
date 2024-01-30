@@ -76,6 +76,11 @@ resourcestring
   rs_newcaption                       = 'Enter a new caption for the button:';
   rs_newhint                          = 'Enter a new hint for the button:';
 
+  rs_notpossible                      = 'Rename not possible';
+  rs_rename                           = 'Rename';
+  rs_newTabproperties                 = 'New Tabsheet Properties';
+  rs_newCaptionTab                    = 'Enter a new Caption:';
+
 implementation
 
 end.
