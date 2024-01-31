@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'tab umbennen okay'
+git commit -a -m 'Select a Command okay'

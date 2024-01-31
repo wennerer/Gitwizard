@@ -1,2 +1,2 @@
 #!/bin/bash
-git switch -c NEWBRANCH
+git switch -c {NEWBRANCH}

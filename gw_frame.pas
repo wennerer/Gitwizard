@@ -114,7 +114,7 @@ type
     procedure SetPathToGitDirectory(aPath: string);
     procedure AdjustTheButtons;
     procedure CreateTabs;
-    procedure TabPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
+    //procedure TabPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
 
   protected
 
@@ -559,12 +559,12 @@ begin
 
 
 end;
-
+(*
 procedure TFrame1.TabPopup(Sender: TObject; MousePos: TPoint;
   var Handled: Boolean);
 begin
   showmessage('');
-end;
+end; *)
 
 procedure TFrame1.SaveABashfile(aFileName,aCommand:string);
 var strList          : TStringList;
@@ -768,7 +768,7 @@ begin
     {$ENDIF}
 
 
-    InputForm.ShowModal;
+    if InputForm.ShowModal = mrCancel then exit;
 
     SaveABashfile('NeedsInput',InputForm.Edit_Complete.Text);
     ExecuteCommand('NeedsInput',[],[],swoNone);
