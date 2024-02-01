@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Seperator geht'
+git commit -a -m '< >ergänzt'

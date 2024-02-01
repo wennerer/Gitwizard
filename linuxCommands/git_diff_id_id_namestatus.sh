@@ -1,2 +1,2 @@
 #!/bin/bash
-git diff COMMITID COMMITID --name-status
+git diff <COMMITID COMMITID> --name-status

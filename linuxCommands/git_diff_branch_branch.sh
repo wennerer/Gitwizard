@@ -1,2 +1,2 @@
 #!/bin/bash
-git diff BRANCH BRANCH
+git diff <BRANCH BRANCH>

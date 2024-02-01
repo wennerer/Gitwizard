@@ -1,2 +1,2 @@
 #!/bin/bash
-git rm --cached AFILETOREMOVE
+git rm --cached <AFILETOREMOVE>

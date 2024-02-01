@@ -1,2 +1,2 @@
 #!/bin/bash
-git add NEWFILE.XXX
+git add <NEWFILE.XXX>

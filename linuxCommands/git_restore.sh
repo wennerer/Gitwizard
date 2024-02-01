@@ -1,2 +1,2 @@
 #!/bin/bash
-git restore AFILE
+git restore <AFILE>
