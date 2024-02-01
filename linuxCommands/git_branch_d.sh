@@ -1,2 +1,2 @@
 #!/bin/bash
-git branch -d OBSOLETEBRANCH
+git branch -d <OBSOLETEBRANCH>

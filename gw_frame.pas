@@ -11,10 +11,15 @@ uses
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead,
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
   options_form, Translations, LCLTranslator, DefaultTranslator, LMessages,
-  LCLType, gw_rsstrings, move_button, info_form, output_form, newtab, move_toatab,
-  new_properties, Types, new_tabproperties;
+  LCLType, Graphics, gw_rsstrings, move_button, info_form, output_form, newtab,
+  move_toatab, new_properties, Types, new_tabproperties;
 
-
+type
+ {TGWSeperator}
+ TGWSeperator = class(TShape)
+ public
+ constructor Create(AOwner: TComponent); override;
+ end;
 
 type
  { TCommandButton }
@@ -40,6 +45,7 @@ type
   TFrame1 = class(TFrame)
     ImageList1                  : TImageList;
     deletecommand               : TMenuItem;
+    addseperator: TMenuItem;
     rename: TMenuItem;
     PopupMenu_Tabsheet: TPopupMenu;
     properties: TMenuItem;
@@ -67,6 +73,7 @@ type
     SpeedButton_AnyDir          : TSpeedButton;
     SpeedButton_LastSavedProject: TSpeedButton;
     ToolBar1                    : TToolBar;
+    procedure addseperatorClick(Sender: TObject);
     procedure Checkgitignore;
     procedure Checkgitinit;
     procedure FrameResize(Sender: TObject);
@@ -206,6 +213,16 @@ begin
  end;
 end;
 
+{ TGWSeperator }
+
+constructor TGWSeperator.Create(AOwner: TComponent);
+begin
+ inherited Create(AOwner);
+ Height         := 4;
+ Pen.Style      := psClear;
+ Brush.Color    := $00D4AA00 ;
+end;
+
 
 { TCommandButton }
 
@@ -294,7 +311,7 @@ end;
 procedure TFrame1.WriteValues;
 var Doc               : TXMLDocument;
     RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,OptionsNode,
-    LastNode,TabNode,aText: TDOMNode;
+    LastNode,TabNode,SepNode,aText: TDOMNode;
     lv,i : integer;
     s  : string;
 begin
@@ -337,28 +354,36 @@ begin
       begin
        ButtonNode   := Doc.CreateElement('Tabsheet_'+unicodestring(inttostr(i))+'_Commandbutton'+unicodestring(inttostr(lv)));
        RootNode.AppendChild(ButtonNode);
+       if CommandList[i].Items[lv] is TCommandButton then
+        begin
+         CaptionNode   := Doc.CreateElement('Caption');
+         aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList[i].Items[lv]).Caption));
+         CaptionNode.AppendChild(aText);
+         ButtonNode.AppendChild(CaptionNode);
 
-       CaptionNode   := Doc.CreateElement('Caption');
-       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList[i].Items[lv]).Caption));
-       CaptionNode.AppendChild(aText);
-       ButtonNode.AppendChild(CaptionNode);
+         FilenameNode   := Doc.CreateElement('Filename');
+         aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList[i].Items[lv]).FileName));
+         FilenameNode.AppendChild(aText);
+         ButtonNode.AppendChild(FilenameNode);
 
-       FilenameNode   := Doc.CreateElement('Filename');
-       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList[i].Items[lv]).FileName));
-       FilenameNode.AppendChild(aText);
-       ButtonNode.AppendChild(FilenameNode);
+         HintNode   := Doc.CreateElement('Hint');
+         aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList[i].Items[lv]).Hint));
+         HintNode.AppendChild(aText);
+         ButtonNode.AppendChild(HintNode);
 
-       HintNode   := Doc.CreateElement('Hint');
-       aText   := Doc.CreateTextNode(Unicodestring(TCommandButton(CommandList[i].Items[lv]).Hint));
-       HintNode.AppendChild(aText);
-       ButtonNode.AppendChild(HintNode);
-
-       if TCommandButton(CommandList[i].Items[lv]).NeedsInput then s:='true' else s:='false';
-       NeedsInputNode   := Doc.CreateElement('NeedsInput');
-       aText   := Doc.CreateTextNode(Unicodestring(s));
-       NeedsInputNode.AppendChild(aText);
-       ButtonNode.AppendChild(NeedsInputNode);
-
+         if TCommandButton(CommandList[i].Items[lv]).NeedsInput then s:='true' else s:='false';
+         NeedsInputNode   := Doc.CreateElement('NeedsInput');
+         aText   := Doc.CreateTextNode(Unicodestring(s));
+         NeedsInputNode.AppendChild(aText);
+         ButtonNode.AppendChild(NeedsInputNode);
+        end
+       else
+        begin
+         SepNode   := Doc.CreateElement('Seperator');
+         aText   := Doc.CreateTextNode(Unicodestring('Seperator'+inttostr(lv)));
+         SepNode.AppendChild(aText);
+         ButtonNode.AppendChild(SepNode);
+        end;
      end;
     end;//length(Tabsheet)
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml');
@@ -393,6 +418,7 @@ var xml                 :  TXMLDocument;
          except
           On E : EConvertError do showmessage('Error by ReadValues');
          end;
+
            CommandList[cl].Add(TCommandButton.Create(self));
            TCommandButton(CommandList[cl].Last).Parent     := TabSheets[cl];
            TCommandButton(CommandList[cl].Last).BorderSpacing.Around:= 2;
@@ -417,6 +443,22 @@ var xml                 :  TXMLDocument;
           end;
          if Node.NodeName = '#text' then
           begin
+           if Pos('Seperator',string(Node.NodeValue)) <> 0 then
+            begin
+             CommandList[cl].Delete(CommandList[cl].Count-1);
+             CommandList[cl].Add(TGWSeperator.Create(self));
+             TGWSeperator(CommandList[cl].Last).Parent     := TabSheets[cl];
+             TGWSeperator(CommandList[cl].Last).BorderSpacing.Around:= 2;
+             TGWSeperator(CommandList[cl].Last).AnchorSideTop.Control := TGWSeperator(CommandList[cl].Items[i]);
+             TGWSeperator(CommandList[cl].Last).AnchorSideTop.Side     := asrBottom;
+             TGWSeperator(CommandList[cl].Last).AnchorSideLeft.Control := TabSheets[cl];
+             TGWSeperator(CommandList[cl].Last).AnchorSideRight.Control:= TabSheets[cl];
+             TGWSeperator(CommandList[cl].Last).AnchorSideRight.Side   := asrBottom;
+             TGWSeperator(CommandList[cl].Last).Anchors := [akLeft, akRight, akTop];
+             TGWSeperator(CommandList[cl].Last).Tag                    := CommandList[cl].Count-1;
+            end
+           else
+           begin
            if j = 0 then TCommandButton(CommandList[cl].Last).Caption := string(Node.NodeValue);
            if j = 1 then TCommandButton(CommandList[cl].Last).FileName := string(Node.NodeValue);
            if j = 2 then TCommandButton(CommandList[cl].Last).Hint := string(Node.NodeValue);
@@ -428,6 +470,7 @@ var xml                 :  TXMLDocument;
             end;//bol
            inc(j);
            if j=4 then j:=0;
+           end;
           end;//#text
        ParseXML(Node.FirstChild);
        Node := Node.NextSibling;
@@ -503,7 +546,10 @@ begin
  for i := 0 to pred(length(TabSheets)) do
  for lv:=0 to pred(CommandList[i].Count) do
   begin
-   TCommandButton(CommandList[i].Items[lv]).Anchors:=[];
+   if CommandList[i].Items[lv] is TCommandButton then
+    TCommandButton(CommandList[i].Items[lv]).Anchors:=[]
+   else
+    TGWSeperator(CommandList[i].Items[lv]).Anchors:=[];
    if lv = 0 then
     begin
      if i = 0  then
@@ -523,14 +569,25 @@ begin
     end
    else
     begin
-     TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Control := TCommandButton(CommandList[i].Items[lv-1]);
-     TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Side     := asrBottom;
-     TCommandButton(CommandList[i].Items[lv]).AnchorSideLeft.Control := TabSheets[i];
-     TCommandButton(CommandList[i].Items[lv]).AnchorSideRight.Control:= TabSheets[i];
-     TCommandButton(CommandList[i].Items[lv]).AnchorSideRight.Side   := asrBottom;
-     TCommandButton(CommandList[i].Items[lv]).Anchors := [akLeft, akRight, akTop];
+     if CommandList[i].Items[lv] is TCommandButton then
+      begin
+       TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Control := TCommandButton(CommandList[i].Items[lv-1]);
+       TCommandButton(CommandList[i].Items[lv]).AnchorSideTop.Side     := asrBottom;
+       TCommandButton(CommandList[i].Items[lv]).AnchorSideLeft.Control := TabSheets[i];
+       TCommandButton(CommandList[i].Items[lv]).AnchorSideRight.Control:= TabSheets[i];
+       TCommandButton(CommandList[i].Items[lv]).AnchorSideRight.Side   := asrBottom;
+       TCommandButton(CommandList[i].Items[lv]).Anchors := [akLeft, akRight, akTop];
+      end
+     else
+      begin
+       TGWSeperator(CommandList[i].Items[lv]).AnchorSideTop.Control := TCommandButton(CommandList[i].Items[lv-1]);
+       TGWSeperator(CommandList[i].Items[lv]).AnchorSideTop.Side     := asrBottom;
+       TGWSeperator(CommandList[i].Items[lv]).AnchorSideLeft.Control := TabSheets[i];
+       TGWSeperator(CommandList[i].Items[lv]).AnchorSideRight.Control:= TabSheets[i];
+       TGWSeperator(CommandList[i].Items[lv]).AnchorSideRight.Side   := asrBottom;
+       TGWSeperator(CommandList[i].Items[lv]).Anchors := [akLeft, akRight, akTop];
+      end;
     end;
-
   end;//pred(CommandList[0].Count)
 
 end;
@@ -797,7 +854,13 @@ begin
   FLastTabClick := PageControl1.IndexOfPageAt(Point(X, Y));
 end;
 
-
+(*
+procedure TFrame1.SpeedButton1Click(Sender: TObject);
+begin
+ CommandList[0].Add(TGWSeperator.Create(self));
+ TGWSeperator(CommandList[0].Last).Parent     := TabSheets[0];
+ TGWSeperator(CommandList[0].Last).BorderSpacing.Around:= 2;
+end;  *)
 
 {$Include gw_speedbuttons.inc}
 {$Include gw_popups.inc}

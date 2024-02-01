@@ -1,2 +1,2 @@
 #!/bin/bash
-git diff ./AFILE.pas
+git diff ./<AFILE.pas>

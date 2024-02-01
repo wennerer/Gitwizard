@@ -1,2 +1,2 @@
 #!/bin/bash
-git diff COMMITID COMMITID
+git diff <COMMITID COMMITID>

@@ -1,2 +1,2 @@
 #!/bin/bash
-git diff COMMITID COMMITID ./aFILE.pas
+git diff <COMMITID COMMITID ./aFILE.pas>

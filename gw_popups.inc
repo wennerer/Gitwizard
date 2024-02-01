@@ -58,13 +58,16 @@ begin
  for i := 0 to pred(length(TabSheets)) do
   for lv := 0 to pred(CommandList[i].Count) do
    begin
-    if TCommandButton(CommandList[i].Items[lv]).LastClick then
+    if CommandList[i].Items[lv] is TCommandButton then
      begin
-      FSender := TCommandButton(CommandList[i].Items[lv]);
-      aTag    := TCommandButton(CommandList[i].Items[lv]).Tag;
-      j       := i;
+      if TCommandButton(CommandList[i].Items[lv]).LastClick then
+       begin
+        FSender := TCommandButton(CommandList[i].Items[lv]);
+        aTag    := TCommandButton(CommandList[i].Items[lv]).Tag;
+        j       := i;
+       end;
+      TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
      end;
-    TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
    end;
  if FSender = nil then FSender := gitignore;
 
@@ -99,17 +102,20 @@ end;
 procedure TFrame1.movebuttonClick(Sender: TObject);
 var lv,i,aTag,j,k : integer;
 begin
-  FSender := nil;
+ FSender := nil;
  for i := 0 to pred(length(TabSheets)) do
   for lv := 0 to pred(CommandList[i].Count) do
    begin
-    if TCommandButton(CommandList[i].Items[lv]).LastClick then
+    if CommandList[i].Items[lv] is TCommandButton then
      begin
-      FSender := TCommandButton(CommandList[i].Items[lv]);
-      aTag    := TCommandButton(CommandList[i].Items[lv]).Tag;
-      j       := i;
+      if TCommandButton(CommandList[i].Items[lv]).LastClick then
+       begin
+        FSender := TCommandButton(CommandList[i].Items[lv]);
+        aTag    := TCommandButton(CommandList[i].Items[lv]).Tag;
+        j       := i;
+       end;
+      TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
      end;
-    TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
    end;
  if FSender = nil then exit;
 
@@ -140,15 +146,17 @@ begin
  for i := 0 to pred(length(TabSheets)) do
   for lv := 0 to pred(CommandList[i].Count) do
    begin
-    if TCommandButton(CommandList[i].Items[lv]).LastClick then
+    if CommandList[i].Items[lv] is TCommandButton then
      begin
-      FSender := TCommandButton(CommandList[i].Items[lv]);
-      aTag    := TCommandButton(CommandList[i].Items[lv]).Tag;
-      j       := i;
+      if TCommandButton(CommandList[i].Items[lv]).LastClick then
+       begin
+        FSender := TCommandButton(CommandList[i].Items[lv]);
+        aTag    := TCommandButton(CommandList[i].Items[lv]).Tag;
+        j       := i;
+       end;
+      TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
      end;
-    TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
    end;
-
  if FSender = nil then exit;
 
  MoveToATabForm  := TMoveToATabForm.Create(self);
@@ -194,15 +202,17 @@ begin
  for i := 0 to pred(length(TabSheets)) do
   for lv := 0 to pred(CommandList[i].Count) do
    begin
-    if TCommandButton(CommandList[i].Items[lv]).LastClick then
+    if CommandList[i].Items[lv] is TCommandButton then
      begin
-      FSender := TCommandButton(CommandList[i].Items[lv]);
-      aTag    := TCommandButton(CommandList[i].Items[lv]).Tag;
-      j       := i;
+      if TCommandButton(CommandList[i].Items[lv]).LastClick then
+       begin
+        FSender := TCommandButton(CommandList[i].Items[lv]);
+        aTag    := TCommandButton(CommandList[i].Items[lv]).Tag;
+        j       := i;
+       end;
+      TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
      end;
-    TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
    end;
-
  if FSender = nil then exit;
 
  NewPropertiesForm := TNewPropertiesForm.Create(self);
@@ -218,6 +228,41 @@ begin
   NewPropertiesForm.Free;
  end;
 
+end;
+
+procedure TFrame1.addseperatorClick(Sender: TObject);
+var lv,i,aTag,j : integer;
+begin
+ FSender := nil;
+ for i := 0 to pred(length(TabSheets)) do
+  for lv := 0 to pred(CommandList[i].Count) do
+   begin
+    if CommandList[i].Items[lv] is TCommandButton then
+     begin
+      if TCommandButton(CommandList[i].Items[lv]).LastClick then
+       begin
+        FSender := TCommandButton(CommandList[i].Items[lv]);
+        aTag    := TCommandButton(CommandList[i].Items[lv]).Tag;
+        j       := i;
+       end;
+      TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
+     end;
+   end;
+ if FSender = nil then exit;
+
+ CommandList[j].Insert(aTag+1,TGWSeperator.Create(self));
+ TGWSeperator(CommandList[j].Items[aTag+1]).Parent     := TabSheets[j];
+ TGWSeperator(CommandList[j].Items[aTag+1]).BorderSpacing.Around:= 2;
+
+ TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideTop.Control := TCommandButton(CommandList[j].Items[aTag]);
+ TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideTop.Side     := asrBottom;
+ TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideLeft.Control := TabSheets[j];
+ TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideRight.Control:= TabSheets[j];
+ TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideRight.Side   := asrBottom;
+ TGWSeperator(CommandList[j].Items[aTag+1]).Anchors := [akLeft, akRight, akTop];
+ AdjustTheButtons;
+ for lv := 0 to pred(CommandList[j].Count) do TCommandButton(CommandList[j].Items[lv]).Tag:=lv;
+ writeValues;
 end;
 
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxx---TabSheets---xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -245,3 +290,4 @@ begin
   NewTabPropertiesForm.Free;
  end;
 end;
+
