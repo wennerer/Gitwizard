@@ -112,9 +112,12 @@ begin
 end;
 
 procedure TFrame1.SpeedButton_restorebackupClick(Sender: TObject);
-var dest,source,pathtobashes: string;
+var dest,source,source2,pathtobashes: string;
     TaskDialog1: TTaskDialog;
     Button: TTaskDialogBaseButtonItem;
+    xml     :  TXMLDocument;
+    XPathResult: TXPathVariable;
+    APtr:Pointer;
  begin
   TaskDialog1   := TTaskDialog.Create(nil);
   try
@@ -145,9 +148,11 @@ var dest,source,pathtobashes: string;
 
  {$IFDEF WINDOWS}
   source := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+  source2:= PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
  {$ENDIF}
  {$IFDEF Linux}
   source := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+  source2:= PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
  {$ENDIF}
  {$IFDEF WINDOWS}
   dest := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
@@ -159,23 +164,36 @@ var dest,source,pathtobashes: string;
  {$ENDIF}
  //delete gw_commands.xml
    deletefile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml');
+   deletefile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml');
  //delete commandbashfolder
    DeleteAFolder(dest);
    sleep(200);
  //copy gw_commands.xml into config folder
    if not copyfile(source,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml')
     then showmessage(rs_gw_commands);
+   if not copyfile(source2,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml')
+    then showmessage('gw_options not found');
 
   //copy all commandfiles into commands folder
    CopyAFolder(pathtobashes,dest);
    CommandList[0].Clear;
    sleep(200);
-   readvalues;
+   if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml') then
+   begin
+    ReadXMLFile(Xml,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml');
+    XPathResult := EvaluateXPathExpression('/Options/Tabsheet/@*', Xml.DocumentElement);
+    For APtr in XPathResult.AsNodeSet do
+     FTabCaptions := string(TDOMNode(APtr).NodeValue);
+    XPathResult.Free;
+    Xml.Free;
+  end;
+  createtabs;
+  readvalues;
 end;
 
 
 procedure TFrame1.SpeedButton_createbackupClick(Sender: TObject);
-var dest1,dest,pathtobashes : string;
+var dest1,dest2,dest,pathtobashes : string;
     TaskDialog1: TTaskDialog;
     Button: TTaskDialogBaseButtonItem;
 begin
@@ -222,13 +240,18 @@ begin
   sleep(200);
    {$IFDEF WINDOWS}
     dest1 := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+    dest2 := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
    {$ENDIF}
    {$IFDEF Linux}
     dest1 := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+    dest2 := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
    {$ENDIF}
   //copy gw_commands.xml into backup folder
    if not copyfile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml',dest1)
     then showmessage(rs_gw_commands);
+   if not copyfile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml',dest2)
+    then showmessage('gw_options not found');
+
 
   //copy all commandfiles into backup folder
    CopyAFolder(pathtobashes,dest);

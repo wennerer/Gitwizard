@@ -666,11 +666,12 @@ var pathtobash : string;
     lv           : integer;
 
 begin
-  if PathToGitDirectory = '' then
-  begin
-   showmessage(rs_nodirectoryselected);
-   exit;
-  end;
+  if aCommandBash <> 'makeexecutable' then
+   if PathToGitDirectory = '' then
+    begin
+     showmessage(rs_nodirectoryselected);
+     exit;
+    end;
 
  {$IFDEF WINDOWS}
     pathtobash := PathToGitWizard+PathDelim+'winCommands'+PathDelim+ aCommandBash+'.bat';
