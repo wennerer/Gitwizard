@@ -42,6 +42,7 @@ resourcestring
   rs_moreopen                         = 'There are several packages open!';
   rs_favorites                        = 'Favorites';
   rs_newtab                           = 'Creates a new tab';
+  rs_addseperator                     = 'Add/Delete a separator below';
 
   rs_newcommandform                   = 'New Command Dialog';
   rs_nocaption                        = 'No caption entered';

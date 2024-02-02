@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Farbe verändert'
+git commit -a -m 'Add/Delete Seperator okay'

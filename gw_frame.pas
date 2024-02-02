@@ -291,6 +291,7 @@ begin
  movebutton.Caption                          := rs_movebutton;
  movetotab.Caption                           := rs_movetotab;
  properties.Caption                          := rs_newproperties;
+ addseperator.Caption                        := rs_addseperator;
  rename.Caption                              := rs_rename;
  TabSheets[0].Caption                        := rs_favorites;
  FTabCaptions                                := rs_favorites;

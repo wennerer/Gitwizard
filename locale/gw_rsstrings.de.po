@@ -12,6 +12,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: de_DE\n"
 
+#: gw_rsstrings.rs_addseperator
+msgid "Add/Delete a separator below"
+msgstr "Füge/Lösche einen Separator unterhalb hinzu"
+
 #: gw_rsstrings.rs_anydirhint
 msgid "Set Any Directory"
 msgstr "Wähle ein Verzeichnis"
