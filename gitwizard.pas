@@ -92,7 +92,7 @@ begin
   inherited CreateNew(AOwner, Num);
   Name := 'GW_MainForm';
   Caption := 'Gitwizard';
-  Color := clWindow;
+  Color := clForm;
 
   MainFrame := TFrame1.Create(self);
   MainFrame.Parent := self;

@@ -102,7 +102,7 @@ begin
   Optionsform := TOptionsform.Create(self);
   try
    Optionsform.Edit_Editor.Text := FEditor;
-   Optionsform.ShowModal;
+   if Optionsform.ShowModal = mrCancel then exit;
 
    FEditor := Optionsform.Edit_Editor.Text;
   finally

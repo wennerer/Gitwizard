@@ -250,6 +250,7 @@ begin
    end;
  if FSender = nil then exit;
 
+
  CommandList[j].Insert(aTag+1,TGWSeperator.Create(self));
  TGWSeperator(CommandList[j].Items[aTag+1]).Parent     := TabSheets[j];
  TGWSeperator(CommandList[j].Items[aTag+1]).BorderSpacing.Around:= 2;

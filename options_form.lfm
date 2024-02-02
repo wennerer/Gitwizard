@@ -7,7 +7,6 @@ object Optionsform: TOptionsform
   ClientHeight = 240
   ClientWidth = 496
   OnCreate = FormCreate
-  LCLVersion = '2.2.6.0'
   object StaticText1: TStaticText
     Left = 32
     Height = 23
@@ -122,9 +121,18 @@ object Optionsform: TOptionsform
     Left = 32
     Height = 25
     Top = 200
-    Width = 134
+    Width = 168
     Caption = 'Okay'
-    OnClick = Button1Click
+    ModalResult = 1
     TabOrder = 2
+  end
+  object Button2: TButton
+    Left = 280
+    Height = 25
+    Top = 200
+    Width = 160
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 3
   end
 end

@@ -14,10 +14,10 @@ type
 
   TOptionsform = class(TForm)
     Button1: TButton;
+    Button2: TButton;
     Edit_Editor: TEdit;
     Image1: TImage;
     StaticText1: TStaticText;
-    procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
 
@@ -34,10 +34,7 @@ implementation
 
 { TOptionsform }
 
-procedure TOptionsform.Button1Click(Sender: TObject);
-begin
-  close;
-end;
+
 
 procedure TOptionsform.FormCreate(Sender: TObject);
 begin

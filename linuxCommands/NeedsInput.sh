@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m '< >ergänzt'
+git commit -a -m 'Farbe verändert'
