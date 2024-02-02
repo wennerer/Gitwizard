@@ -121,7 +121,6 @@ type
     procedure SetPathToGitDirectory(aPath: string);
     procedure AdjustTheButtons;
     procedure CreateTabs;
-    //procedure TabPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
 
   protected
 
@@ -617,12 +616,6 @@ begin
 
 
 end;
-(*
-procedure TFrame1.TabPopup(Sender: TObject; MousePos: TPoint;
-  var Handled: Boolean);
-begin
-  showmessage('');
-end; *)
 
 procedure TFrame1.SaveABashfile(aFileName,aCommand:string);
 var strList          : TStringList;
@@ -855,14 +848,6 @@ begin
  if Button = mbRight then
   FLastTabClick := PageControl1.IndexOfPageAt(Point(X, Y));
 end;
-
-(*
-procedure TFrame1.SpeedButton1Click(Sender: TObject);
-begin
- CommandList[0].Add(TGWSeperator.Create(self));
- TGWSeperator(CommandList[0].Last).Parent     := TabSheets[0];
- TGWSeperator(CommandList[0].Last).BorderSpacing.Around:= 2;
-end;  *)
 
 {$Include gw_speedbuttons.inc}
 {$Include gw_popups.inc}
