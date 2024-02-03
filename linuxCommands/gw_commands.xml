@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandButtons>
+  <Tabsheet_0_Commandbutton0>
+    <Caption>git init</Caption>
+    <Filename>git_init</Filename>
+    <Hint>This command creates an empty Git repository</Hint>
+    <NeedsInput>false</NeedsInput>
+  </Tabsheet_0_Commandbutton0>
+  <Tabsheet_0_Commandbutton1>
+    <Seperator>Seperator1</Seperator>
+  </Tabsheet_0_Commandbutton1>
+  <Tabsheet_0_Commandbutton2>
+    <Caption>git status</Caption>
+    <Filename>git_status</Filename>
+    <Hint>Returns the status of the working directory and the staging environment</Hint>
+    <NeedsInput>false</NeedsInput>
+  </Tabsheet_0_Commandbutton2>
+  <Tabsheet_0_Commandbutton3>
+    <Caption>git add - -all</Caption>
+    <Filename>git_add_all</Filename>
+    <Hint>Adds all new or changed files in your working directory to the Git staging area</Hint>
+    <NeedsInput>false</NeedsInput>
+  </Tabsheet_0_Commandbutton3>
+  <Tabsheet_0_Commandbutton4>
+    <Caption>git commit  -a -m 'comment'</Caption>
+    <Filename>git_commit_am</Filename>
+    <Hint>Makes a commit and create a message for the commit in one command</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_0_Commandbutton4>
+  <Tabsheet_0_Commandbutton5>
+    <Seperator>Seperator5</Seperator>
+  </Tabsheet_0_Commandbutton5>
+  <Tabsheet_0_Commandbutton6>
+    <Caption>git restore '*'</Caption>
+    <Filename>git_restore_all</Filename>
+    <Hint>Discard all changes that have not yet been committed</Hint>
+    <NeedsInput>false</NeedsInput>
+  </Tabsheet_0_Commandbutton6>
+  <Tabsheet_0_Commandbutton7>
+    <Caption>git log</Caption>
+    <Filename>git_log</Filename>
+    <Hint>Lists the commits made in this repository in reverse chronological order.</Hint>
+    <NeedsInput>false</NeedsInput>
+  </Tabsheet_0_Commandbutton7>
+  <Tabsheet_0_Commandbutton8>
+    <Seperator>Seperator8</Seperator>
+  </Tabsheet_0_Commandbutton8>
+  <Tabsheet_0_Commandbutton9>
+    <Caption>git branch</Caption>
+    <Filename>git_branch</Filename>
+    <Hint>Shows all branches</Hint>
+    <NeedsInput>false</NeedsInput>
+  </Tabsheet_0_Commandbutton9>
+  <Tabsheet_0_Commandbutton10>
+    <Caption>git checkout branch</Caption>
+    <Filename>git_checkout_branch</Filename>
+    <Hint>Switch to the last commit of the specified branch</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_0_Commandbutton10>
+  <Tabsheet_0_Commandbutton11>
+    <Caption>git switch -c NewBranch</Caption>
+    <Filename>git_switch_newbranch</Filename>
+    <Hint>Creates a new branch</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_0_Commandbutton11>
+  <Tabsheet_0_Commandbutton12>
+    <Caption>git branch -d aBranch</Caption>
+    <Filename>git_branch_d</Filename>
+    <Hint>Delete a branch</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_0_Commandbutton12>
+  <Tabsheet_0_Commandbutton13>
+    <Caption>git merge aBranch</Caption>
+    <Filename>git_merge_abranch</Filename>
+    <Hint>Merge a branch with the current branch</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_0_Commandbutton13>
+  <Tabsheet_0_Commandbutton14>
+    <Seperator>Seperator14</Seperator>
+  </Tabsheet_0_Commandbutton14>
+  <Tabsheet_0_Commandbutton15>
+    <Caption>git diff</Caption>
+    <Filename>git_diff</Filename>
+    <Hint>Show changes since the last commit</Hint>
+    <NeedsInput>false</NeedsInput>
+  </Tabsheet_0_Commandbutton15>
+  <Tabsheet_0_Commandbutton16>
+    <Caption>git diff --name-status</Caption>
+    <Filename>git_diff_name_status</Filename>
+    <Hint>Show changed files since the last commit</Hint>
+    <NeedsInput>false</NeedsInput>
+  </Tabsheet_0_Commandbutton16>
+  <Tabsheet_0_Commandbutton17>
+    <Caption>git diff ./aFile</Caption>
+    <Filename>git _diff_afile</Filename>
+    <Hint>Show changes in a specific file since the last commit</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_0_Commandbutton17>
+  <Tabsheet_0_Commandbutton18>
+    <Caption>git diff ID ID</Caption>
+    <Filename>git_diff_id_id</Filename>
+    <Hint>Show changes between different commits</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_0_Commandbutton18>
+  <Tabsheet_0_Commandbutton19>
+    <Caption>git diff ID ID ./aFile</Caption>
+    <Filename>git_diff_ID_ID_aFile</Filename>
+    <Hint>Show changes in a specific file between different commits</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_0_Commandbutton19>
+  <Tabsheet_1_Commandbutton0>
+    <Caption>git add</Caption>
+    <Filename>git_add</Filename>
+    <Hint>Adds a selected file from your working directory to the Git staging area </Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_1_Commandbutton0>
+  <Tabsheet_1_Commandbutton1>
+    <Caption>git restore</Caption>
+    <Filename>git_restore</Filename>
+    <Hint>Discard changes that have not yet been committed for a selected file</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_1_Commandbutton1>
+  <Tabsheet_1_Commandbutton2>
+    <Caption>git rm - - cached</Caption>
+    <Filename>git_rm_catched</Filename>
+    <Hint>Removes a selected file from the Git staging area.</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_1_Commandbutton2>
+  <Tabsheet_1_Commandbutton3>
+    <Caption>git commit</Caption>
+    <Filename>git_commit</Filename>
+    <Hint>Creates a commit with verbose comments, which is like a snapshot of your repository.</Hint>
+    <NeedsInput>false</NeedsInput>
+  </Tabsheet_1_Commandbutton3>
+  <Tabsheet_1_Commandbutton4>
+    <Caption>git commit --amend</Caption>
+    <Filename>git_commit_amend</Filename>
+    <Hint>Change the comment of the last commit</Hint>
+    <NeedsInput>false</NeedsInput>
+  </Tabsheet_1_Commandbutton4>
+  <Tabsheet_1_Commandbutton5>
+    <Caption>git reset --hard id &amp;&amp; git clean -f</Caption>
+    <Filename>git_reset_hard_cleanf</Filename>
+    <Hint>Jump back to a commit and remove following commits</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_1_Commandbutton5>
+  <Tabsheet_1_Commandbutton6>
+    <Caption>git checkout id</Caption>
+    <Filename>git_checkout_id</Filename>
+    <Hint>Navigate between existing branches using commit-id</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_1_Commandbutton6>
+  <Tabsheet_1_Commandbutton7>
+    <Caption>git branch -v</Caption>
+    <Filename>git_branch_v</Filename>
+    <Hint>Shows the last commit of all branches</Hint>
+    <NeedsInput>false</NeedsInput>
+  </Tabsheet_1_Commandbutton7>
+  <Tabsheet_1_Commandbutton8>
+    <Caption>git diff ID ID --name-status</Caption>
+    <Filename>git_diff_id_id_namestatus</Filename>
+    <Hint>Show changed files between different commits</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_1_Commandbutton8>
+  <Tabsheet_1_Commandbutton9>
+    <Caption>git diff Branch Branch</Caption>
+    <Filename>git_diff_branch_branch</Filename>
+    <Hint>Changes between different branches</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_1_Commandbutton9>
+  <Tabsheet_1_Commandbutton10>
+    <Caption>git diff Branch Branch --name-status</Caption>
+    <Filename>git_diff_Branch_Branch_namestatus</Filename>
+    <Hint>Show changed files between different branches</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_1_Commandbutton10>
+  <Tabsheet_1_Commandbutton11>
+    <Caption>git diff branch ID ID ./aFile</Caption>
+    <Filename>git_diff_ID_ID_aFile</Filename>
+    <Hint>Show changes in a specific file in different branches</Hint>
+    <NeedsInput>true</NeedsInput>
+  </Tabsheet_1_Commandbutton11>
+</CommandButtons>
