@@ -17,6 +17,10 @@ Win_32
 Win_64
 Linux_64_Default
 Backup
+linuxCommands/git*
+linuxCommands/gw*
+winCommands/git*
+winCommands/gw*
 
 
 
