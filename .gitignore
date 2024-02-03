@@ -5,7 +5,6 @@
 *.bak
 *.res
 project1
-backup
 lib
 Debug
 Linux_64
