@@ -125,8 +125,8 @@ var dest,source,source2,pathtobashes: string;
    TaskDialog1.Title        := rs_restorebackup;
    TaskDialog1.Text         := rs_restorebackuptext;
    TaskDialog1.MainIcon     := tdiWarning;
-   //TaskDialog1.FooterText   := 'https://github.com/...';
-   //TaskDialog1.FooterIcon   := tdiInformation;
+   TaskDialog1.FooterText   := 'https://github.com/wennerer/Gitwizard.git';
+   TaskDialog1.FooterIcon   := tdiInformation;
 
    TaskDialog1.CommonButtons:=[];
    Button := TaskDialog1.Buttons.Add;
@@ -147,20 +147,26 @@ var dest,source,source2,pathtobashes: string;
 
 
  {$IFDEF WINDOWS}
-  source := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
-  source2:= PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
+  //source := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+  //source2:= PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
+  source := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim+'gw_commands.xml';
+  source2:= PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim+'gw_options.xml';
  {$ENDIF}
  {$IFDEF Linux}
-  source := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
-  source2:= PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
+  //source := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+  //source2:= PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
+  source := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim+'gw_commands.xml';
+  source2:= PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim+'gw_options.xml';
  {$ENDIF}
  {$IFDEF WINDOWS}
   dest := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
-  pathtobashes := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
+  //pathtobashes := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
+  pathtobashes := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim;
  {$ENDIF}
  {$IFDEF Linux}
   dest := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
-  pathtobashes := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
+  //pathtobashes := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
+  pathtobashes := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim;
  {$ENDIF}
  //delete gw_commands.xml
    deletefile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml');
@@ -203,8 +209,8 @@ begin
   TaskDialog1.Title        := rs_createbackup;
   TaskDialog1.Text         := rs_createnewbackup;
   TaskDialog1.MainIcon     := tdiWarning;
-  //TaskDialog1.FooterText   := 'https://github.com/....';
-  //TaskDialog1.FooterIcon   := tdiInformation;
+  TaskDialog1.FooterText   := 'https://github.com/wennerer/Gitwizard.git';
+  TaskDialog1.FooterIcon   := tdiInformation;
 
   TaskDialog1.CommonButtons:=[];
   Button := TaskDialog1.Buttons.Add;
@@ -228,23 +234,29 @@ begin
   begin
    {$IFDEF WINDOWS}
     pathtobashes := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
-    dest := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
+    //dest := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
+    dest := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim;
    {$ENDIF}
    {$IFDEF Linux}
     pathtobashes := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
-    dest := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
+    //dest := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
+    dest := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim;
    {$ENDIF}
   //delete old backup
    DeleteAFolder(dest);
 
   sleep(200);
    {$IFDEF WINDOWS}
-    dest1 := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
-    dest2 := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
+    //dest1 := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+    dest1 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim+'gw_commands.xml';
+    //dest2 := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
+    dest2 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim+'gw_options.xml';
    {$ENDIF}
    {$IFDEF Linux}
-    dest1 := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
-    dest2 := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
+    //dest1 := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
+    dest1 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim+'gw_commands.xml';
+    //dest2 := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
+    dest2 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim+'gw_options.xml';
    {$ENDIF}
   //copy gw_commands.xml into backup folder
    if not copyfile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml',dest1)
