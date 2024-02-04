@@ -270,6 +270,7 @@ begin
  writeValues;
 end;
 
+
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxx---TabSheets---xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 procedure TFrame1.renameClick(Sender: TObject);

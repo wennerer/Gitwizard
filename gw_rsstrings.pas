@@ -44,6 +44,7 @@ resourcestring
   rs_newtab                           = 'Creates a new tab';
   rs_addseperator                     = 'Add/Delete a separator below';
 
+
   rs_newcommandform                   = 'New Command Dialog';
   rs_nocaption                        = 'No caption entered';
   rs_nofilename                       = 'No filename entered';

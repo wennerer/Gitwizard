@@ -600,6 +600,7 @@ begin
  try
   sl.Delimiter:=';';
   sl.DelimitedText:= FTabCaptions;
+
   for lv := 1 to pred(sl.Count) do
    begin
     setlength(TabSheets,sl.Count);

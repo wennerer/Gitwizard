@@ -267,3 +267,4 @@ msgstr "Wähle einen Editor:"
 #: gw_rsstrings.rs_yes
 msgid "Yes"
 msgstr "Ja"
+
