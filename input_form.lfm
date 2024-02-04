@@ -9,6 +9,7 @@ object InputForm: TInputForm
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
+  LCLVersion = '2.2.6.0'
   object StaticText1: TStaticText
     Left = 24
     Height = 23

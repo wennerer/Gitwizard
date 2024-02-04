@@ -59,7 +59,6 @@ end;
 
 procedure TInputForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  if sender is TButton then showmessage('');
   if mr then ModalResult := mrOk;
 end;
 
