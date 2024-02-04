@@ -43,6 +43,8 @@ resourcestring
   rs_favorites                        = 'Favorites';
   rs_newtab                           = 'Creates a new tab';
   rs_addseperator                     = 'Add/Delete a separator below';
+  rs_selectabackupfolderDest          = 'Please select a backup-folder as destination';
+  rs_selectabackupfolderSource        = 'Please select a source backup-folder';
 
 
   rs_newcommandform                   = 'New Command Dialog';

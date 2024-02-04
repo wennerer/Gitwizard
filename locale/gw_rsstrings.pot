@@ -245,6 +245,14 @@ msgstr ""
 msgid "Would you like to load the data from the last backup? All old files in the command folder are deleted!"
 msgstr ""
 
+#: gw_rsstrings.rs_selectabackupfolderdest
+msgid "Please select a backup-folder as destination"
+msgstr ""
+
+#: gw_rsstrings.rs_selectabackupfoldersource
+msgid "Please select a source backup-folder"
+msgstr ""
+
 #: gw_rsstrings.rs_selectanewtab
 msgid "Select a new tabsheet:"
 msgstr ""

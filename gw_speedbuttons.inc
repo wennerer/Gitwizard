@@ -112,12 +112,13 @@ begin
 end;
 
 procedure TFrame1.SpeedButton_restorebackupClick(Sender: TObject);
-var dest,source,source2,pathtobashes: string;
-    TaskDialog1: TTaskDialog;
-    Button: TTaskDialogBaseButtonItem;
-    xml     :  TXMLDocument;
-    XPathResult: TXPathVariable;
-    APtr:Pointer;
+var dest,source,source1 : string;
+    TaskDialog1         : TTaskDialog;
+    Button              : TTaskDialogBaseButtonItem;
+    xml                 :  TXMLDocument;
+    XPathResult         : TXPathVariable;
+    APtr                :Pointer;
+    DirectoryDialog     : TSelectDirectoryDialog;
  begin
   TaskDialog1   := TTaskDialog.Create(nil);
   try
@@ -145,43 +146,41 @@ var dest,source,source2,pathtobashes: string;
    TaskDialog1.Free;
   end;
 
+  {$IFDEF WINDOWS}
+   Dest := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
+   Source1 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim;
+  {$ENDIF}
 
- {$IFDEF WINDOWS}
-  //source := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
-  //source2:= PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
-  source := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim+'gw_commands.xml';
-  source2:= PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim+'gw_options.xml';
- {$ENDIF}
- {$IFDEF Linux}
-  //source := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
-  //source2:= PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
-  source := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim+'gw_commands.xml';
-  source2:= PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim+'gw_options.xml';
- {$ENDIF}
- {$IFDEF WINDOWS}
-  dest := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
-  //pathtobashes := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
-  pathtobashes := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim;
- {$ENDIF}
- {$IFDEF Linux}
-  dest := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
-  //pathtobashes := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
-  pathtobashes := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim;
- {$ENDIF}
- //delete gw_commands.xml
+  {$IFDEF Linux}
+   Dest := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
+   Source1 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim;
+  {$ENDIF}
+
+   DirectoryDialog         := TSelectDirectoryDialog.Create(self);
+    try
+     DirectoryDialog.Title      := rs_selectabackupfoldersource;
+     DirectoryDialog.InitialDir := Source1;
+     if DirectoryDialog.Execute then Source := DirectoryDialog.FileName+PathDelim;
+    finally
+     DirectoryDialog.Free;
+    end;
+
+  //delete gw_commands.xml
    deletefile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml');
    deletefile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml');
- //delete commandbashfolder
-   DeleteAFolder(dest);
+  //delete commandbashfolder
+   DeleteAFolder(Dest);
    sleep(200);
- //copy gw_commands.xml into config folder
-   if not copyfile(source,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml')
+
+
+  //copy gw_commands.xml into config folder
+   if not copyfile(source+'gw_commands.xml',IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml')
     then showmessage(rs_gw_commands);
-   if not copyfile(source2,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml')
+   if not copyfile(source+'gw_options.xml',IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_options.xml')
     then showmessage('gw_options not found');
 
   //copy all commandfiles into commands folder
-   CopyAFolder(pathtobashes,dest);
+   CopyAFolder(Source,Dest);
    CommandList[0].Clear;
    sleep(200);
    if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml') then
@@ -199,9 +198,10 @@ end;
 
 
 procedure TFrame1.SpeedButton_createbackupClick(Sender: TObject);
-var dest1,dest2,dest,pathtobashes : string;
-    TaskDialog1: TTaskDialog;
-    Button: TTaskDialogBaseButtonItem;
+var dest1,dest,pathtobashes : string;
+    TaskDialog1             : TTaskDialog;
+    Button                  : TTaskDialogBaseButtonItem;
+    DirectoryDialog         : TSelectDirectoryDialog;
 begin
  TaskDialog1   := TTaskDialog.Create(nil);
  try
@@ -234,40 +234,36 @@ begin
   begin
    {$IFDEF WINDOWS}
     pathtobashes := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
-    //dest := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim;
-    dest := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim;
+    dest1 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim;
    {$ENDIF}
    {$IFDEF Linux}
     pathtobashes := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
-    //dest := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim;
-    dest := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim;
+    dest1 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim;
    {$ENDIF}
-  //delete old backup
-   DeleteAFolder(dest);
 
-  sleep(200);
-   {$IFDEF WINDOWS}
-    //dest1 := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
-    dest1 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim+'gw_commands.xml';
-    //dest2 := PathToGitWizard+PathDelim+'winCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
-    dest2 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim+'gw_options.xml';
-   {$ENDIF}
-   {$IFDEF Linux}
-    //dest1 := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_commands.xml';
-    dest1 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim+'gw_commands.xml';
-    //dest2 := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim+'backup'+PathDelim+'gw_options.xml';
-    dest2 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim+'gw_options.xml';
-   {$ENDIF}
-  //copy gw_commands.xml into backup folder
-   if not copyfile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml',dest1)
-    then showmessage(rs_gw_commands);
-   if not copyfile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml',dest2)
-    then showmessage('gw_options not found');
+   DirectoryDialog         := TSelectDirectoryDialog.Create(self);
+   try
+    DirectoryDialog.Title      := rs_selectabackupfolderDest;
+    DirectoryDialog.InitialDir := dest1;
+    if DirectoryDialog.Execute then Dest := DirectoryDialog.FileName+PathDelim;
+   finally
+    DirectoryDialog.Free;
+   end;
 
+   //delete old backup
+    DeleteAFolder(dest);
+    sleep(200);
 
-  //copy all commandfiles into backup folder
-   CopyAFolder(pathtobashes,dest);
-  end;
+   //copy gw_commands.xml into backup folder
+    if not copyfile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_commands.xml',Dest+PathDelim+'gw_commands.xml')
+     then showmessage(rs_gw_commands);
+    if not copyfile(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml',Dest+PathDelim+'gw_options.xml')
+     then showmessage('gw_options not found');
+
+    //copy all commandfiles into backup folder
+    CopyAFolder(pathtobashes,Dest);
+    end
+   else showmessage(rs_gw_commands);
  end;
 
 procedure TFrame1.SpeedButton_infoClick(Sender: TObject);

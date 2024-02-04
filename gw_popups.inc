@@ -196,7 +196,7 @@ end;
 
 
 procedure TFrame1.propertiesClick(Sender: TObject);
-var lv,i,aTag,j,k : integer;
+var lv,i,aTag,j : integer;
 begin
  FSender := nil;
  for i := 0 to pred(length(TabSheets)) do
