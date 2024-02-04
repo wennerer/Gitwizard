@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'test1'
+git commit -a -m 'mit Enter'
