@@ -7,7 +7,7 @@ interface
 
 uses
   Classes, SysUtils, StrUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, gw_rsstrings;
+  ExtCtrls, LCLType, gw_rsstrings;
 
 type
 
@@ -20,11 +20,14 @@ type
     Image1: TImage;
     StaticText1: TStaticText;
     Timer1: TTimer;
+    procedure Edit_CompleteKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure FormActivate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
-
+    mr : boolean;
   public
 
   end;
@@ -44,11 +47,30 @@ begin
  Caption := rs_InputForm;
  StaticText1.Caption:= rs_CopleteCommand;
  Button2.Caption:= rs_Cancel;
+ mr := false;
 end;
+
+
 
 procedure TInputForm.FormActivate(Sender: TObject);
 begin
  Timer1.Enabled:=true;
+end;
+
+procedure TInputForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  if sender is TButton then showmessage('');
+  if mr then ModalResult := mrOk;
+end;
+
+procedure TInputForm.Edit_CompleteKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+ if key = VK_RETURN then
+  begin
+   mr := true;
+   Close;
+  end;
 end;
 
 procedure TInputForm.Timer1Timer(Sender: TObject);

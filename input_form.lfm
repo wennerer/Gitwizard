@@ -7,8 +7,8 @@ object InputForm: TInputForm
   ClientHeight = 240
   ClientWidth = 653
   OnActivate = FormActivate
+  OnClose = FormClose
   OnCreate = FormCreate
-  LCLVersion = '2.2.6.0'
   object StaticText1: TStaticText
     Left = 24
     Height = 23
@@ -25,6 +25,7 @@ object InputForm: TInputForm
     Height = 27
     Top = 72
     Width = 600
+    OnKeyDown = Edit_CompleteKeyDown
     TabOrder = 3
   end
   object Image1: TImage

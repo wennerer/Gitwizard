@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'backup mit dialog'
+git commit -a -m '<aComment>'

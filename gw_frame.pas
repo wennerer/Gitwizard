@@ -822,7 +822,7 @@ begin
 
 
     if InputForm.ShowModal = mrCancel then exit;
-
+    showmessage('da');
     SaveABashfile('NeedsInput',InputForm.Edit_Complete.Text);
     ExecuteCommand('NeedsInput',[],[],swoNone);
    finally
