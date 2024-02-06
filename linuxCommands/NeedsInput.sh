@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'mit Enter'
+git commit -a -m 'Fehler Backup erstellen behoben'
