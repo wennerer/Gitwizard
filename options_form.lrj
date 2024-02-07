@@ -1,7 +1,7 @@
 {"version":1,"strings":[
 {"hash":108725763,"name":"toptionsform.caption","sourcebytes":[79,112,116,105,111,110,115],"value":"Options"},
 {"hash":28275850,"name":"toptionsform.statictext1.caption","sourcebytes":[83,101,108,101,99,116,32,97,110,32,101,100,105,116,111,114,58],"value":"Select an editor:"},
-{"hash":32436,"name":"toptionsform.edit_editor.text","sourcebytes":[120,101,100],"value":"xed"},
 {"hash":352649,"name":"toptionsform.button1.caption","sourcebytes":[79,107,97,121],"value":"Okay"},
-{"hash":77089212,"name":"toptionsform.button2.caption","sourcebytes":[67,97,110,99,101,108],"value":"Cancel"}
+{"hash":77089212,"name":"toptionsform.button2.caption","sourcebytes":[67,97,110,99,101,108],"value":"Cancel"},
+{"hash":7236234,"name":"toptionsform.statictext2.caption","sourcebytes":[79,119,110,32,66,97,99,107,117,112,32,70,111,108,100,101,114,58],"value":"Own Backup Folder:"}
 ]}

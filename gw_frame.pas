@@ -114,6 +114,7 @@ type
     FTabCaptions           : string;
     FActiveTab             : integer;
     FLastTabClick          : integer;
+    FOwnBackupFile         : string;
     procedure CommandButtonClick(Sender: TObject);
     procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; {%H-}Options: TProcessOptions=[];
                              swOptions: TShowWindowOptions=swoNone);
@@ -250,6 +251,7 @@ begin
  FActiveTab               := 0;
  gitignore.Parent         := TabSheets[0];
  gitignore.Align          := alTop;
+ FOwnBackupFile           := '';
  PathToEnviro    := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'packagefiles.xml';
  PathToGitWizard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizard"]]/Filename/@*');
 
@@ -311,7 +313,7 @@ end;
 procedure TFrame1.WriteValues;
 var Doc               : TXMLDocument;
     RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,OptionsNode,
-    LastNode,TabNode,SepNode,aText: TDOMNode;
+    LastNode,TabNode,SepNode,aText,OwnFileNode: TDOMNode;
     lv,i : integer;
     s  : string;
 begin
@@ -333,6 +335,10 @@ begin
     TabNode := Doc.CreateElement('Tabsheet');
     TDOMElement(TabNode).SetAttribute('TabCaptions',unicodestring(FTabCaptions));
     RootNode.Appendchild(TabNode);
+
+    OwnFileNode := Doc.CreateElement('OwnFile');
+    TDOMElement(OwnFileNode).SetAttribute('OwnFile',unicodestring(FOwnBackupFile));
+    RootNode.Appendchild(OwnFileNode);
 
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_options.xml');
   finally
@@ -496,9 +502,14 @@ begin
      PathToGitDirectory := string(TDOMNode(APtr).NodeValue);
     XPathResult.Free;
 
-     XPathResult := EvaluateXPathExpression('/Options/Tabsheet/@*', Xml.DocumentElement);
+    XPathResult := EvaluateXPathExpression('/Options/Tabsheet/@*', Xml.DocumentElement);
     For APtr in XPathResult.AsNodeSet do
      FTabCaptions := string(TDOMNode(APtr).NodeValue);
+    XPathResult.Free;
+
+    XPathResult := EvaluateXPathExpression('/Options/OwnFile/@*', Xml.DocumentElement);
+    For APtr in XPathResult.AsNodeSet do
+     FOwnBackupFile := string(TDOMNode(APtr).NodeValue);
     XPathResult.Free;
 
     Xml.Free;

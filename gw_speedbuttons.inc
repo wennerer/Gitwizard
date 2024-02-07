@@ -102,9 +102,11 @@ begin
   Optionsform := TOptionsform.Create(self);
   try
    Optionsform.Edit_Editor.Text := FEditor;
+   Optionsform.DirectoryEdit1.Directory := FOwnBackupFile;
    if Optionsform.ShowModal = mrCancel then exit;
 
    FEditor := Optionsform.Edit_Editor.Text;
+   FOwnBackupFile := Optionsform.DirectoryEdit1.Directory;
   finally
    Optionsform.Free;
   end;
@@ -148,19 +150,22 @@ var dest,source,source1 : string;
 
   {$IFDEF WINDOWS}
    Dest := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
-   Source1 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim;
+   Source1 := PathToGitWizard+PathDelim+'providedCommands'+PathDelim+'winCommands'+PathDelim;
   {$ENDIF}
 
   {$IFDEF Linux}
    Dest := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
-   Source1 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim;
+   Source1 := PathToGitWizard+PathDelim+'providedCommands'+PathDelim+'linuxCommands'+PathDelim;
   {$ENDIF}
+
+  if pos(PathDelim,FOwnBackupFile) <> 0 then Source1 := FOwnBackupFile;
 
    DirectoryDialog         := TSelectDirectoryDialog.Create(self);
     try
      DirectoryDialog.Title      := rs_selectabackupfoldersource;
      DirectoryDialog.InitialDir := Source1;
-     if DirectoryDialog.Execute then Source := DirectoryDialog.FileName+PathDelim;
+     if DirectoryDialog.Execute then Source := DirectoryDialog.FileName+PathDelim else exit;
+
     finally
      DirectoryDialog.Free;
     end;
@@ -234,18 +239,21 @@ begin
   begin
    {$IFDEF WINDOWS}
     pathtobashes := PathToGitWizard+PathDelim+'winCommands'+PathDelim;
-    dest1 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'winCommands'+PathDelim;
+    dest1 := PathToGitWizard+PathDelim+'providedCommands'+PathDelim+'winCommands'+PathDelim;
    {$ENDIF}
    {$IFDEF Linux}
     pathtobashes := PathToGitWizard+PathDelim+'linuxCommands'+PathDelim;
-    dest1 := PathToGitWizard+PathDelim+'myOwnCommands'+PathDelim+'linuxCommands'+PathDelim;
+    dest1 := PathToGitWizard+PathDelim+'providedCommands'+PathDelim+'linuxCommands'+PathDelim;
    {$ENDIF}
+
+   if pos(PathDelim,FOwnBackupFile) <> 0 then Dest1 := FOwnBackupFile;
 
    DirectoryDialog         := TSelectDirectoryDialog.Create(self);
    try
     DirectoryDialog.Title      := rs_selectabackupfolderDest;
     DirectoryDialog.InitialDir := dest1;
-    if DirectoryDialog.Execute then Dest := DirectoryDialog.FileName+PathDelim;
+    if DirectoryDialog.Execute then Dest := DirectoryDialog.FileName+PathDelim else exit;
+
    finally
     DirectoryDialog.Free;
    end;

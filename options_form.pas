@@ -6,7 +6,8 @@ unit options_form;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,gw_rsstrings;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
+  EditBtn, gw_rsstrings;
 
 type
 
@@ -15,9 +16,11 @@ type
   TOptionsform = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    DirectoryEdit1: TDirectoryEdit;
     Edit_Editor: TEdit;
     Image1: TImage;
     StaticText1: TStaticText;
+    StaticText2: TStaticText;
     procedure FormCreate(Sender: TObject);
   private
 
@@ -40,7 +43,9 @@ procedure TOptionsform.FormCreate(Sender: TObject);
 begin
  Caption := rs_Optionsform;
  StaticText1.Caption := rs_selectEditor;
+ Button2.Caption:= rs_Cancel;
 end;
+
 
 end.
 

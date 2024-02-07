@@ -1,32 +1,32 @@
 object Optionsform: TOptionsform
   Left = 441
-  Height = 240
+  Height = 293
   Top = 250
   Width = 496
   Caption = 'Options'
-  ClientHeight = 240
+  ClientHeight = 293
   ClientWidth = 496
   OnCreate = FormCreate
   object StaticText1: TStaticText
     Left = 32
-    Height = 23
+    Height = 21
     Top = 104
-    Width = 134
+    Width = 132
     AutoSize = True
     Caption = 'Select an editor:'
-    Font.Height = 18
+    Font.Height = -16
+    Font.Name = 'Sans'
     ParentFont = False
     TabOrder = 0
   end
   object Edit_Editor: TEdit
     Left = 200
     Height = 32
-    Top = 95
+    Top = 96
     Width = 240
     Font.Height = 18
     ParentFont = False
     TabOrder = 1
-    Text = 'xed'
   end
   object Image1: TImage
     Left = 32
@@ -120,7 +120,7 @@ object Optionsform: TOptionsform
   object Button1: TButton
     Left = 32
     Height = 25
-    Top = 200
+    Top = 232
     Width = 168
     Caption = 'Okay'
     ModalResult = 1
@@ -129,10 +129,33 @@ object Optionsform: TOptionsform
   object Button2: TButton
     Left = 280
     Height = 25
-    Top = 200
+    Top = 232
     Width = 160
     Caption = 'Cancel'
     ModalResult = 2
     TabOrder = 3
+  end
+  object DirectoryEdit1: TDirectoryEdit
+    Left = 200
+    Height = 27
+    Top = 144
+    Width = 266
+    ShowHidden = False
+    ButtonWidth = 23
+    NumGlyphs = 1
+    MaxLength = 0
+    TabOrder = 4
+  end
+  object StaticText2: TStaticText
+    Left = 32
+    Height = 21
+    Top = 150
+    Width = 161
+    AutoSize = True
+    Caption = 'Own Backup Folder:'
+    Font.Height = -16
+    Font.Name = 'Sans'
+    ParentFont = False
+    TabOrder = 5
   end
 end

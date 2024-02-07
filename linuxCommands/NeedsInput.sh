@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Fehler Backup erstellen behoben'
+git commit -a -m 'providetcommands'
