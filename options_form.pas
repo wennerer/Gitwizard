@@ -44,6 +44,7 @@ begin
  Caption := rs_Optionsform;
  StaticText1.Caption := rs_selectEditor;
  Button2.Caption:= rs_Cancel;
+ StaticText2.Caption := rs_ownfolder;
 end;
 
 

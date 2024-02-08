@@ -54,6 +54,7 @@ resourcestring
 
   rs_Optionsform                      = 'Options';
   rs_selectEditor                     = 'Select an editor:';
+  rs_ownfolder                        = 'Own Backup Folder:';
 
   rs_EnterACaption                    = 'Please enter a caption for the new button:';
   rs_EnterAFilename                   = 'Please enter a filename for the new bash:';

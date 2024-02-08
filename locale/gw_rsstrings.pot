@@ -233,6 +233,10 @@ msgctxt "gw_rsstrings.rs_optionsform"
 msgid "Options"
 msgstr ""
 
+#: gw_rsstrings.rs_ownfolder
+msgid "Own Backup Folder:"
+msgstr ""
+
 #: gw_rsstrings.rs_rename
 msgid "Rename"
 msgstr ""

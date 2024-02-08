@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'providetcommands'
+git commit -a -m 'helpfiles01'

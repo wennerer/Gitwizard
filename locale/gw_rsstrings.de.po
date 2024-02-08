@@ -244,6 +244,10 @@ msgctxt "gw_rsstrings.rs_optionsform"
 msgid "Options"
 msgstr "Optionen"
 
+#: gw_rsstrings.rs_ownfolder
+msgid "Own Backup Folder:"
+msgstr "Eigenes Backup Verzeichnis:"
+
 #: gw_rsstrings.rs_rename
 msgid "Rename"
 msgstr "Umbenennen"
@@ -258,11 +262,11 @@ msgstr "Möchtest du die Daten vom letzten Backup laden? Alle Dateien im Command
 
 #: gw_rsstrings.rs_selectabackupfolderdest
 msgid "Please select a backup-folder as destination"
-msgstr ""
+msgstr "Bitte wähle ein Backup-Verzeichnis als Ziel"
 
 #: gw_rsstrings.rs_selectabackupfoldersource
 msgid "Please select a source backup-folder"
-msgstr ""
+msgstr "Bitte wähle ein Quell-Backup-Verzeichnis"
 
 #: gw_rsstrings.rs_selectanewtab
 msgid "Select a new tabsheet:"
@@ -275,4 +279,3 @@ msgstr "Wähle einen Editor:"
 #: gw_rsstrings.rs_yes
 msgid "Yes"
 msgstr "Ja"
-
