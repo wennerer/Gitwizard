@@ -10,7 +10,7 @@ uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead,
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
-  options_form, Translations, LCLTranslator, DefaultTranslator, LMessages,
+  options_form, Translations,(* LCLTranslator, DefaultTranslator,*) LMessages,
   LCLType, Graphics, gw_rsstrings, move_button, info_form, output_form, newtab,
   move_toatab, new_properties, Types, new_tabproperties;
 
@@ -257,7 +257,7 @@ begin
 
  FFirst := true;
 
- GetLanguageIDs(s{%H-},lang{%H-});
+ (*GetLanguageIDs(s{%H-},lang{%H-});
  SetDefaultlang(lang);
 
  localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'gw_rsstrings.%s.po';
@@ -271,7 +271,7 @@ begin
  localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'options_form.%s.po';
  Translations.TranslateUnitResourceStrings('options_form', Format(localedir, [lang]));
  localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'move_button.%s.po';
- Translations.TranslateUnitResourceStrings('move_button', Format(localedir, [lang]));
+ Translations.TranslateUnitResourceStrings('move_button', Format(localedir, [lang])); *)
 
  Input.Hint                                  := rs_forcommans;
  SpeedButton_SingleInput.Hint                := rs_excecute;
