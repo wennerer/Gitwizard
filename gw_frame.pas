@@ -10,7 +10,7 @@ uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead,
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
-  options_form, Translations,(* LCLTranslator, DefaultTranslator,*) LMessages,
+  options_form, Translations, LMessages,
   LCLType, Graphics, gw_rsstrings, move_button, info_form, output_form, newtab,
   move_toatab, new_properties, Types, new_tabproperties;
 
@@ -45,10 +45,10 @@ type
   TFrame1 = class(TFrame)
     ImageList1                  : TImageList;
     deletecommand               : TMenuItem;
-    addseperator: TMenuItem;
-    rename: TMenuItem;
-    PopupMenu_Tabsheet: TPopupMenu;
-    properties: TMenuItem;
+    addseperator                : TMenuItem;
+    rename                      : TMenuItem;
+    PopupMenu_Tabsheet          : TPopupMenu;
+    properties                  : TMenuItem;
     movetotab                   : TMenuItem;
     movebutton                  : TMenuItem;
     openfile                    : TMenuItem;
@@ -108,7 +108,6 @@ type
     FEditor                : string;
     PathToGitDirectory     : string; //The path to the directory that is to be versioned using git
     PathToGitWizard        : string; //The path to the directory where the gitwizard package is located
-    Lang                   : string;
     FFirst                 : boolean;
     TabSheets              : array of TTabSheet;
     FTabCaptions           : string;
@@ -240,7 +239,6 @@ end;
 
 constructor TFrame1.Create(AOwner: TComponent);
 var PathToEnviro     : string;
-    localedir,s      : string;
 begin
  inherited Create(AOwner);
  setlength(CommandList,1);
@@ -256,22 +254,6 @@ begin
  PathToGitWizard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizard"]]/Filename/@*');
 
  FFirst := true;
-
- (*GetLanguageIDs(s{%H-},lang{%H-});
- SetDefaultlang(lang);
-
- localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'gw_rsstrings.%s.po';
- Translations.TranslateUnitResourceStrings('gw_rsstrings', Format(localedir, [lang]));
- localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'gw_frame.%s.po';
- Translations.TranslateUnitResourceStrings('gw_frame', Format(localedir, [lang]));
- localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'newcommand.%s.po';
- Translations.TranslateUnitResourceStrings('newcommand', Format(localedir, [lang]));
- localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'input_form.%s.po';
- Translations.TranslateUnitResourceStrings('input_form', Format(localedir, [lang]));
- localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'options_form.%s.po';
- Translations.TranslateUnitResourceStrings('options_form', Format(localedir, [lang]));
- localedir := PathToGitWizard+Pathdelim+'locale'+PathDelim+'move_button.%s.po';
- Translations.TranslateUnitResourceStrings('move_button', Format(localedir, [lang])); *)
 
  Input.Hint                                  := rs_forcommans;
  SpeedButton_SingleInput.Hint                := rs_excecute;

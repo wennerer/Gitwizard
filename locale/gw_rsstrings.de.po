@@ -138,6 +138,10 @@ msgstr "Alle Icons sind von Roland Hahn. Herzlichen Dank!"
 msgid "Complete the command dialog"
 msgstr "Vervollständige den Befehl Dialog"
 
+#: gw_rsstrings.rs_lang
+msgid "en"
+msgstr "de"
+
 #: gw_rsstrings.rs_lastsavedproject
 msgid "Set Last Saved Project-Directory"
 msgstr "Setzt das letzte gespeicherte Project-Verzeichnis"
@@ -233,6 +237,10 @@ msgstr "Öffne gesetztes Verzeichnis"
 #: gw_rsstrings.rs_openfile
 msgid "Open File"
 msgstr "Öffne die Datei"
+
+#: gw_rsstrings.rs_openhelpfile
+msgid "Open helpfile"
+msgstr "Öffne die Hilfe-Datei"
 
 #: gw_rsstrings.rs_options
 msgctxt "gw_rsstrings.rs_options"

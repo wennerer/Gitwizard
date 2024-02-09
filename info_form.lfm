@@ -6,6 +6,7 @@ object InfoForm: TInfoForm
   Caption = 'Info GitWizzard'
   ClientHeight = 500
   ClientWidth = 500
+  OnCreate = FormCreate
   LCLVersion = '2.2.6.0'
   object StaticText1: TStaticText
     Left = 160
@@ -144,5 +145,14 @@ object InfoForm: TInfoForm
       FFFD032FBDF452BBAD0BB3852A2A2A0CFF030FCDFCD2F7556F0A000000004945
       4E44AE426082
     }
+  end
+  object Button1: TButton
+    Left = 80
+    Height = 25
+    Top = 416
+    Width = 336
+    Caption = 'Open helpfile'
+    OnClick = Button1Click
+    TabOrder = 4
   end
 end

@@ -278,19 +278,8 @@ procedure TFrame1.SpeedButton_infoClick(Sender: TObject);
 begin
  InfoForm := TInfoform.Create(self);
   try
-   InfoForm.Memo1.Lines.Add(rs_InfoLine1);
-   InfoForm.Memo1.Lines.Add(rs_InfoLine2);
-   InfoForm.Memo1.Lines.Add(' ');
-   InfoForm.Memo1.Lines.Add(' ');
-   InfoForm.Memo1.Lines.Add(rs_InfoLine3);
-   InfoForm.Memo1.Lines.Add(' ');
-   InfoForm.Memo1.Lines.Add(' ');
-   InfoForm.Memo1.Lines.Add(' ');
-   InfoForm.Memo1.Lines.Add(' ');
-   InfoForm.Memo1.Lines.Add(rs_InfoLine4);
-
-
    InfoForm.ShowModal;
+   if InfoForm.openfile then OpenDocument(PathtoGitWizard+PathDelim+'help'+PathDelim+'helpfile_'+rs_lang +'.pdf');
   finally
    Optionsform.Free;
   end;
