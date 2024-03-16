@@ -10,7 +10,7 @@ uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead,
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
-  options_form, Translations, LMessages,
+  options_form, Translations, LMessages, gw_highlighter,
   LCLType, Graphics, gw_rsstrings, move_button, info_form, output_form, newtab,
   move_toatab, new_properties, Types, new_tabproperties;
 
@@ -114,6 +114,7 @@ type
     FActiveTab             : integer;
     FLastTabClick          : integer;
     FOwnBackupFile         : string;
+    FSynHL                 : TgwHighlighter;
     procedure CommandButtonClick(Sender: TObject);
     procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; {%H-}Options: TProcessOptions=[];
                              swOptions: TShowWindowOptions=swoNone);
@@ -254,6 +255,7 @@ begin
  PathToGitWizard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizard"]]/Filename/@*');
 
  FFirst := true;
+ FSynHl := TgwHighlighter.Create(Self);
 
  Input.Hint                                  := rs_forcommans;
  SpeedButton_SingleInput.Hint                := rs_excecute;
@@ -284,6 +286,7 @@ end;
 destructor TFrame1.Destroy;
 var lv : integer;
 begin
+ FSynHl.Free;
  for lv :=0 to length(CommandList) do
   FreeAndNil(CommandList[lv]);
  for lv :=0 to length(TabSheets) do
@@ -673,9 +676,12 @@ begin
   end;
  s:= '';
 
+
+
  if RunCommandInDir(PathToGitDirectory,pathtobash,Com,s,[poStderrToOutput],swOptions) then
   begin
    outputform   := TOutPutForm.Create(self);
+   outputform.SynEdit1.Highlighter := FSynHl;
    sl := TStringList.Create;
    try
     sl.Text:=s;
@@ -690,6 +696,7 @@ begin
    end;
   end //run
  else showmessage(rs_comerror);
+
 end;
 
 procedure TFrame1.SpeedButton_SingleInputClick(Sender: TObject);
@@ -799,35 +806,32 @@ end;
 procedure TFrame1.CommandButtonClick(Sender: TObject);
 var strList : TStringlist;
 begin
- if (Sender as TCommandButton).NeedsInput then
-  begin
-   InputForm  := TInputForm.Create(self);
-   strList    := TStringlist.Create;
-   try
-    {$IFDEF WINDOWS}
+   if (Sender as TCommandButton).NeedsInput then
+    begin
+     InputForm  := TInputForm.Create(self);
+     strList    := TStringlist.Create;
+     try
+     {$IFDEF WINDOWS}
       strList.LoadFromFile(PathToGitWizard+'\winCommands\'+(Sender as TCommandButton).FileName+'.bat');
       InputForm.Edit_Complete.Text := strList[0];
-    {$ENDIF}
-    {$IFDEF Linux}
-     strList.LoadFromFile(PathToGitWizard+'/linuxCommands/'+(Sender as TCommandButton).FileName+'.sh');
-     InputForm.Edit_Complete.Text := strList[1];
-    {$ENDIF}
-
-
-    if InputForm.ShowModal = mrCancel then exit;
-
-    SaveABashfile('NeedsInput',InputForm.Edit_Complete.Text);
-    ExecuteCommand('NeedsInput',[],[],swoNone);
-   finally
-    InputForm.Free;
-    strList.Free;
+     {$ENDIF}
+     {$IFDEF Linux}
+      strList.LoadFromFile(PathToGitWizard+'/linuxCommands/'+(Sender as TCommandButton).FileName+'.sh');
+      InputForm.Edit_Complete.Text := strList[1];
+     {$ENDIF}
+      if InputForm.ShowModal = mrCancel then exit;
+      SaveABashfile('NeedsInput',InputForm.Edit_Complete.Text);
+      ExecuteCommand('NeedsInput',[],[],swoNone);
+     finally
+      InputForm.Free;
+      strList.Free;
+     end;
+    exit;
    end;
 
-  exit;
-  end;
+   ExecuteCommand((Sender as TCommandButton).FileName,[],[],swoNone);
+   Checkgitinit;
 
- ExecuteCommand((Sender as TCommandButton).FileName,[],[],swoNone);
- Checkgitinit;
 end;
 
 

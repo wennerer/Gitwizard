@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'testi18'
+git commit -a -m 'Highligther start'
