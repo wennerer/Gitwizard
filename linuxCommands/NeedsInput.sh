@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'minus'
+git commit -a -m 'Plus'

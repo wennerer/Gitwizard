@@ -11,7 +11,7 @@ type
 {Klasse für die Erstellung eines Highlighters}
 TRangeState = (rsUnknown, rsComment);
 //ID zur Kategorisierung der Token
-TtkTokenKind = (tkComment, tkKey, tkNull, tkSpace, tkString, tkUnknown,tkMinus);
+TtkTokenKind = (tkComment, tkKey, tkNull, tkSpace, tkString, tkUnknown, tkMinus, tkPlus);
 TProcTableProc = procedure of object; //Prozedurtyp zur Verarbeitung des Tokens nach dem Anfangszeichen.
 
 { TgwHighlighter }
@@ -31,6 +31,7 @@ protected
  fAtriCadena    : TSynHighlighterAttributes;
 
  fAtriMinus     : TSynHighlighterAttributes;
+ fAtriPlus      : TSynHighlighterAttributes;
 public
  procedure SetLine(const NewValue: String; LineNumber: Integer); override;
  procedure Next; override;
@@ -48,6 +49,7 @@ private
  function KeyComp(const aKey: String): Boolean;
  //Funktionen zur Verarbeitung von Bezeichnern
  procedure ProcMinus;  //-
+ procedure ProcPlus;   //+
 
  procedure ProcNull;
  procedure ProcSlash;
@@ -98,6 +100,10 @@ begin
  fAtriMinus.Foreground :=  clRed; //rote Schriftfarbe
  AddAttribute(fAtriMinus);
 
+ //Plus-Attribut
+ fAtriPlus := TSynHighlighterAttributes.Create('Plus');
+ fAtriPlus.Foreground :=  clGreen; //grüne Schriftfarbe
+ AddAttribute(fAtriPlus);
 
  (*
 //Kommentar-Attribut
@@ -118,10 +124,9 @@ begin
 
 //String-Attribut
  fAtriCadena := TSynHighlighterAttributes.Create('String');
- fAtriCadena.Foreground := clBlue;
-
-//blaue Schriftfarbe
+ fAtriCadena.Foreground := clBlue; //blaue Schriftfarbe
  AddAttribute(fAtriCadena);
+
  CreaTablaDeMetodos;
 end;
 
@@ -132,6 +137,7 @@ begin
  for I := #0 to #255 do
   case I of
    '-'    : fProcTable[I] := @ProcMinus;
+   '+'    : fProcTable[I] := @ProcPlus;
 
    '"'    : fProcTable[I] := @ProcString;
    '/'    : fProcTable[I] := @ProcSlash;
@@ -181,15 +187,13 @@ begin
         while not (linAct[PosFin] in [#0, #10, #13]) do Inc(PosFin);
        end;
 
-  else //muss der "Minus"-Operator sein.
+  else //Minus oder Bindestrich
    begin
     if (Pos('@',linAct) =  1) then
-
      while not (linAct[PosFin] in [#0, #10, #13,'+']) do
       begin
        Inc(PosFin);
        fTokenID := tkMinus;
-
       end
     else
      if Pos('-',linAct) =  1 then
@@ -198,18 +202,59 @@ begin
        Inc(PosFin);
        fTokenID := tkMinus;
       end
-
-    else
-     begin
-      Inc(PosFin);
-      fTokenID := tkUnknown;
-     end;
-
-
+     else
+      begin
+       Inc(PosFin);
+       fTokenID := tkUnknown;
+      end;
    end;
  end;
-
 end;
+
+procedure TgwHighlighter.ProcPlus;
+//Verarbeitet das Symbol '+'.
+begin
+ case LinAct[PosFin + 1] of
+ //siehe nächstes Zeichen
+  '+':
+//Grün bis zum Zeilenenede
+       begin
+        fTokenID := tkPlus;
+        inc(PosFin, 2);
+//zum nächsten Token springen
+        while not (linAct[PosFin] in [#0, #10, #13]) do Inc(PosFin);
+       end;
+
+  else
+  begin
+    if (Pos('@',linAct) =  1) then
+     while not (linAct[PosFin] in [#0, #10, #13,'@']) do
+      begin
+       Inc(PosFin);
+       fTokenID := tkPlus;
+      end
+    else
+    if Pos('+',linAct) =  1 then
+     while not (linAct[PosFin] in [#0, #10, #13]) do
+      begin
+       Inc(PosFin);
+       fTokenID := tkPlus;
+      end
+     else
+      begin
+       Inc(PosFin);
+       fTokenID := tkUnknown;
+      end;
+   end;
+end;
+end;
+
+
+
+
+
+
+
 
 procedure TgwHighlighter.ProcString;
 //Verarbeitet das Anführungszeichen.
@@ -383,6 +428,7 @@ function TgwHighlighter.GetTokenAttribute: TSynHighlighterAttributes;
 begin
  case fTokenID of
   tkMinus   : Result := fAtriMinus;
+  tkPlus    : Result := fAtriPlus;
 
   tkComment : Result := fAtriComent;
   tkKey     : Result := fAtriClave;
@@ -437,7 +483,7 @@ begin
 end;
 
 ///////// Implementierung der Bereichsfunktionalitäten //////////
-procedure TgwHighlighter.ReSetRange;
+procedure TgwHighlighter.ResetRange;
 begin
  inherited;
  fRange := rsUnknown;
