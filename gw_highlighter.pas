@@ -11,7 +11,7 @@ type
 {Klasse für die Erstellung eines Highlighters}
 TRangeState = (rsUnknown, rsComment);
 //ID zur Kategorisierung der Token
-TtkTokenKind = (tkComment, tkKey, tkNull, tkSpace, tkString, tkUnknown);
+TtkTokenKind = (tkComment, tkKey, tkNull, tkSpace, tkString, tkUnknown,tkMinus);
 TProcTableProc = procedure of object; //Prozedurtyp zur Verarbeitung des Tokens nach dem Anfangszeichen.
 
 { TgwHighlighter }
@@ -24,10 +24,13 @@ protected
  fProcTable     : array[#0..#255] of TProcTableProc; //Tabelle der Verfahren
  fTokenID       : TtkTokenKind; //Id des aktuellen Tokens
  fRange         : TRangeState; //definiert die Kategorien von Token
+
  fAtriComent    : TSynHighlighterAttributes;
  fAtriClave     : TSynHighlighterAttributes;
  fAtriEspac     : TSynHighlighterAttributes;
  fAtriCadena    : TSynHighlighterAttributes;
+
+ fAtriMinus     : TSynHighlighterAttributes;
 public
  procedure SetLine(const NewValue: String; LineNumber: Integer); override;
  procedure Next; override;
@@ -43,8 +46,9 @@ private
  procedure CommentProc;
  procedure CreaTablaDeMetodos;
  function KeyComp(const aKey: String): Boolean;
- procedure ProcMinus;
-//Funktionen zur Verarbeitung von Identifikatoren
+ //Funktionen zur Verarbeitung von Bezeichnern
+ procedure ProcMinus;  //-
+
  procedure ProcNull;
  procedure ProcSlash;
  procedure ProcSpace;
@@ -55,6 +59,7 @@ private
  procedure ProcD;
  procedure ProcE;
  procedure ProcL;
+public
  function GetRange: Pointer; override;
  procedure SetRange(Value: Pointer); override;
  procedure ResetRange; override;
@@ -88,26 +93,33 @@ constructor TgwHighlighter.Create(AOwner: TComponent);
 //Konstruktor der Klasse. Hier müssen die zu verwendenden Attribute angelegt werden.
 begin
  inherited Create(AOwner);
+ //Minus-Attribut
+ fAtriMinus := TSynHighlighterAttributes.Create('Minus');
+ fAtriMinus.Foreground :=  clRed; //rote Schriftfarbe
+ AddAttribute(fAtriMinus);
+
+
+ (*
 //Kommentar-Attribut
  fAtriComent := TSynHighlighterAttributes.Create('Comment');
- fAtriComent.Style := [fsItalic];
-//kursiv geschrieben
- fAtriComent.Foreground := clGray;
-//graue Schriftfarbe
- AddAttribute(fAtriComent);
+ fAtriComent.Style := [fsItalic]; //kursiv geschrieben
+ fAtriComent.Foreground :=  clGray; //graue Schriftfarbe
+ AddAttribute(fAtriComent); *)
+
 //Schlüsselwort-Attribut
  fAtriClave := TSynHighlighterAttributes.Create('Key');
- fAtriClave.Style := [fsBold];
-//fettgedruckt
- fAtriClave.Foreground:=clGreen;
-//grüne Schriftfarbe
+ fAtriClave.Style := [fsBold]; //fettgedruckt
+ fAtriClave.Foreground:=clGreen; //grüne Schriftfarbe
  AddAttribute(fAtriClave);
+
 //Leerzeichen Attribute. Keine Attribute
  fAtriEspac := TSynHighlighterAttributes.Create('space');
  AddAttribute(fAtriEspac);
+
 //String-Attribut
  fAtriCadena := TSynHighlighterAttributes.Create('String');
  fAtriCadena.Foreground := clBlue;
+
 //blaue Schriftfarbe
  AddAttribute(fAtriCadena);
  CreaTablaDeMetodos;
@@ -120,6 +132,7 @@ begin
  for I := #0 to #255 do
   case I of
    '-'    : fProcTable[I] := @ProcMinus;
+
    '"'    : fProcTable[I] := @ProcString;
    '/'    : fProcTable[I] := @ProcSlash;
    'B','b': fProcTable[I] := @ProcB;
@@ -160,19 +173,42 @@ begin
  case LinAct[PosFin + 1] of
  //siehe nächstes Zeichen
   '-':
-//ist ein einzeiliger Kommentar
+//Rot bis zum Zeilenenede
        begin
-        fTokenID := tkComment;
+        fTokenID := tkMinus;
         inc(PosFin, 2);
 //zum nächsten Token springen
         while not (linAct[PosFin] in [#0, #10, #13]) do Inc(PosFin);
        end;
+
   else //muss der "Minus"-Operator sein.
    begin
-    inc(PosFin);
-    fTokenID := tkUnknown;
+    if (Pos('@',linAct) =  1) then
+
+     while not (linAct[PosFin] in [#0, #10, #13,'+']) do
+      begin
+       Inc(PosFin);
+       fTokenID := tkMinus;
+
+      end
+    else
+     if Pos('-',linAct) =  1 then
+     while not (linAct[PosFin] in [#0, #10, #13]) do
+      begin
+       Inc(PosFin);
+       fTokenID := tkMinus;
+      end
+
+    else
+     begin
+      Inc(PosFin);
+      fTokenID := tkUnknown;
+     end;
+
+
    end;
-  end
+ end;
+
 end;
 
 procedure TgwHighlighter.ProcString;
@@ -234,7 +270,7 @@ begin
    fTokenID := tkKey; StartCodeFoldBlock(nil);
   end else
   if KeyComp('Y')
-  then fTokenID := tkKey else
+  then fTokenID :=  tkKey else
   fTokenID := tkUnknown; //gemeinsamer Bezeichner
 end;
 
@@ -346,6 +382,8 @@ function TgwHighlighter.GetTokenAttribute: TSynHighlighterAttributes;
 //Gibt Informationen über den aktuellen Token zurück
 begin
  case fTokenID of
+  tkMinus   : Result := fAtriMinus;
+
   tkComment : Result := fAtriComent;
   tkKey     : Result := fAtriClave;
   tkSpace   : Result := fAtriEspac;
