@@ -1,3 +1,8 @@
+//Much of this is taken from the Synedit Bible writen by Tito Hinostroza
+// see https://github.com/t-edson/La-Biblia-del-Synedit
+
+{This is a part of GitWizard}
+
 unit gw_highlighter;
 
 {$mode objfpc}{$H+}
