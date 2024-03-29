@@ -185,7 +185,7 @@ begin
  sl := TStringlist.Create;
  try
   FindAllFiles(sl,aFolder,'*',false);
-  for lv :=0 to pred(sl.Count) do
+  for lv := 0 to pred(sl.Count) do
    DeleteFile(sl[lv]);
  finally
   sl.Free;

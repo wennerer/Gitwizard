@@ -9,12 +9,32 @@ msgstr ""
 msgid "Set Any Directory"
 msgstr ""
 
+#: gw_rsstrings.rs_backwards
+msgid "Backwards"
+msgstr ""
+
+#: gw_rsstrings.rs_bookmarks
+msgid "Bookmarks:"
+msgstr ""
+
 #: gw_rsstrings.rs_cancel
 msgid "Cancel"
 msgstr ""
 
 #: gw_rsstrings.rs_checkoptionsdialog
 msgid "Please check optionsdialog!"
+msgstr ""
+
+#: gw_rsstrings.rs_clearallbokmark
+msgid "Delete All Bookmarks"
+msgstr ""
+
+#: gw_rsstrings.rs_clearbokmark
+msgid "Delete a Bookmark"
+msgstr ""
+
+#: gw_rsstrings.rs_close
+msgid "close"
 msgstr ""
 
 #: gw_rsstrings.rs_comerror
@@ -47,6 +67,10 @@ msgstr ""
 
 #: gw_rsstrings.rs_directorynotfound
 msgid "Directory not found!"
+msgstr ""
+
+#: gw_rsstrings.rs_downwards
+msgid "Downwards"
 msgstr ""
 
 #: gw_rsstrings.rs_enteracaption
@@ -89,8 +113,20 @@ msgstr ""
 msgid "File not found!"
 msgstr ""
 
+#: gw_rsstrings.rs_foltall
+msgid "Folt All"
+msgstr ""
+
+#: gw_rsstrings.rs_folting
+msgid "Folting:"
+msgstr ""
+
 #: gw_rsstrings.rs_forcommans
 msgid "Edit for single commands"
+msgstr ""
+
+#: gw_rsstrings.rs_gotobokmark
+msgid "Goto a Bookmark"
 msgstr ""
 
 #: gw_rsstrings.rs_gw_commands
@@ -239,6 +275,10 @@ msgctxt "gw_rsstrings.rs_optionsform"
 msgid "Options"
 msgstr ""
 
+#: gw_rsstrings.rs_output
+msgid "GitWizard Output"
+msgstr ""
+
 #: gw_rsstrings.rs_ownfolder
 msgid "Own Backup Folder:"
 msgstr ""
@@ -255,6 +295,10 @@ msgstr ""
 msgid "Would you like to load the data from the last backup? All old files in the command folder are deleted!"
 msgstr ""
 
+#: gw_rsstrings.rs_searching
+msgid "Searching:"
+msgstr ""
+
 #: gw_rsstrings.rs_selectabackupfolderdest
 msgid "Please select a backup-folder as destination"
 msgstr ""
@@ -269,6 +313,14 @@ msgstr ""
 
 #: gw_rsstrings.rs_selecteditor
 msgid "Select an editor:"
+msgstr ""
+
+#: gw_rsstrings.rs_setbokmark
+msgid "Set a Bookmark"
+msgstr ""
+
+#: gw_rsstrings.rs_unfoltall
+msgid "Unfolt All"
 msgstr ""
 
 #: gw_rsstrings.rs_yes

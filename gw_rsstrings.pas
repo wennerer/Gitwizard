@@ -89,6 +89,23 @@ resourcestring
 
   rs_lang                             = 'en';
 
+  rs_output                           = 'GitWizard Output';
+  rs_close                            = 'close';
+  rs_bookmarks                        = 'Bookmarks:';
+  rs_setbokmark                       = 'Set a Bookmark';
+  rs_clearallbokmark                  = 'Delete All Bookmarks';
+  rs_gotobokmark                      = 'Goto a Bookmark';
+  rs_clearbokmark                     = 'Delete a Bookmark';
+  rs_FoltAll                          = 'Folt All';
+  rs_UnFoltAll                        = 'Unfolt All';
+  rs_Folting                          = 'Folting:';
+  rs_searching                        = 'Searching:';
+  rs_downwards                        = 'Downwards';
+  rs_backwards                        = 'Backwards';
+
+
+
+
 implementation
 
 end.

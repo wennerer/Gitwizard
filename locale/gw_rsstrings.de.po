@@ -20,6 +20,14 @@ msgstr "Füge/Lösche einen Separator unterhalb hinzu"
 msgid "Set Any Directory"
 msgstr "Wähle ein Verzeichnis"
 
+#: gw_rsstrings.rs_backwards
+msgid "Backwards"
+msgstr "Rückwärts"
+
+#: gw_rsstrings.rs_bookmarks
+msgid "Bookmarks:"
+msgstr "Lesezeichen:"
+
 #: gw_rsstrings.rs_cancel
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -27,6 +35,18 @@ msgstr "Abbrechen"
 #: gw_rsstrings.rs_checkoptionsdialog
 msgid "Please check optionsdialog!"
 msgstr "Bitte schaue in den Options_Dialog!"
+
+#: gw_rsstrings.rs_clearallbokmark
+msgid "Delete All Bookmarks"
+msgstr "Lösche alle Lesezeichen"
+
+#: gw_rsstrings.rs_clearbokmark
+msgid "Delete a Bookmark"
+msgstr "Lösche ein Lesezeichen"
+
+#: gw_rsstrings.rs_close
+msgid "close"
+msgstr "schließen"
 
 #: gw_rsstrings.rs_comerror
 msgid "The command is incorrect!"
@@ -59,6 +79,10 @@ msgstr "Lösche den Befehl"
 #: gw_rsstrings.rs_directorynotfound
 msgid "Directory not found!"
 msgstr "Verzeichnis nicht gefunden!"
+
+#: gw_rsstrings.rs_downwards
+msgid "Downwards"
+msgstr "Abwärts"
 
 #: gw_rsstrings.rs_enteracaption
 msgid "Please enter a caption for the new button:"
@@ -100,9 +124,21 @@ msgstr "Datei existiert schon!"
 msgid "File not found!"
 msgstr "Datei nicht gefunden!"
 
+#: gw_rsstrings.rs_foltall
+msgid "Folt All"
+msgstr "Alles Falten"
+
+#: gw_rsstrings.rs_folting
+msgid "Folting:"
+msgstr "Falten:"
+
 #: gw_rsstrings.rs_forcommans
 msgid "Edit for single commands"
 msgstr "Eingabe für einzelne Befehle"
+
+#: gw_rsstrings.rs_gotobokmark
+msgid "Goto a Bookmark"
+msgstr "Gehe zu Lesezeichen"
 
 #: gw_rsstrings.rs_gw_commands
 msgid "File not found: gw_commands.xml!"
@@ -252,6 +288,10 @@ msgctxt "gw_rsstrings.rs_optionsform"
 msgid "Options"
 msgstr "Optionen"
 
+#: gw_rsstrings.rs_output
+msgid "GitWizard Output"
+msgstr "GitWizard Ausgabe"
+
 #: gw_rsstrings.rs_ownfolder
 msgid "Own Backup Folder:"
 msgstr "Eigenes Backup Verzeichnis:"
@@ -268,6 +308,10 @@ msgstr "Backup wieder herstellen"
 msgid "Would you like to load the data from the last backup? All old files in the command folder are deleted!"
 msgstr "Möchtest du die Daten vom letzten Backup laden? Alle Dateien im Command-Ordner werden gelöscht!"
 
+#: gw_rsstrings.rs_searching
+msgid "Searching:"
+msgstr "Suchen:"
+
 #: gw_rsstrings.rs_selectabackupfolderdest
 msgid "Please select a backup-folder as destination"
 msgstr "Bitte wähle ein Backup-Verzeichnis als Ziel"
@@ -283,6 +327,14 @@ msgstr "Wähle ein neues Tabsheet:"
 #: gw_rsstrings.rs_selecteditor
 msgid "Select an editor:"
 msgstr "Wähle einen Editor:"
+
+#: gw_rsstrings.rs_setbokmark
+msgid "Set a Bookmark"
+msgstr "Setze ein Lesezeichen"
+
+#: gw_rsstrings.rs_unfoltall
+msgid "Unfolt All"
+msgstr "Alles Entfalten"
 
 #: gw_rsstrings.rs_yes
 msgid "Yes"

@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Plus'
+git commit -a -m 'mit Lesezeichen,Falten,Suchen'

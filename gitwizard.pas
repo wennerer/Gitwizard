@@ -45,7 +45,7 @@ type
 procedure Register;
 
 
-var GW_MainForm           : TGW_MainForm = nil;
+var GW_MainForm        : TGW_MainForm = nil;
     Cmd                : TIDEMenuCommand  = nil;
     CmdMessageComposer : TIDECommand;
 
