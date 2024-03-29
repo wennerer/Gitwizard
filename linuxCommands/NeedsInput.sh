@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'help angepasst'
+git commit -a -m 'aufgeräumt'
