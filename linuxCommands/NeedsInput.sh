@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'aufgeräumt2'
+git commit -a -m 'Version 0.0.1.4'
