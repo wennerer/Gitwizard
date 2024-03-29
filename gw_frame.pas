@@ -83,7 +83,7 @@ type
     procedure movetotabClick({%H-}Sender: TObject);
     procedure PageControl1Change(Sender: TObject);
     procedure PageControl1MouseDown({%H-}Sender: TObject; Button: TMouseButton;
-      {%H-}Shift: TShiftState; X, Y: Integer);
+                                    {%H-}Shift: TShiftState; X, Y: Integer);
     procedure propertiesClick({%H-}Sender: TObject);
     procedure ReadValues;
     procedure renameClick({%H-}Sender: TObject);

@@ -29,8 +29,6 @@ protected
  fRange         : TRangeState; //definiert die Kategorien von Token
  fHeaderCount   : integer;
 
- Durchlauf      : integer; //nur für Testzwecke debugln
-
  fAtriSpace     : TSynHighlighterAttributes;
  fAtriString    : TSynHighlighterAttributes;
 
@@ -128,8 +126,6 @@ begin
  AddAttribute(fAtriSpace);
 
 
- Durchlauf :=0;
-
  fHeaderCount := 0;
  CreatingMethods;
 end;
@@ -149,7 +145,8 @@ begin
   // '/'    : fProcTable[I] := @ProcSlash;
 
    #0     : fProcTable[I] := @ProcNull; //Das Zeichen zur Markierung des Zeichenkettenendes wird gelesen.
-   #1..#9, #11, #12, #14..#32 : fProcTable[I] := @ProcSpace;
+  // #1..#9, #11, #12, #14..#32 : fProcTable[I] := @ProcSpace;
+   #32    : fProcTable[I] := @ProcSpace;
   else fProcTable[I] := @ProcUnknown;
 end;
 end;
@@ -275,7 +272,7 @@ begin
    inc(FHeaderCount);
   end
  else FTokenID := tkUnknown;
- Inc(PosEnd,2);
+ if FTokenID = tkHeader then Inc(PosEnd,2) else inc(PosEnd);
 
  //if fTokenID = tkHeader then inc(Durchlauf);
  //if fTokenID = tkHeader then debugln(inttostr(Durchlauf));

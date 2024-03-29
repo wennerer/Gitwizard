@@ -8,6 +8,7 @@ object OutPutForm: TOutPutForm
   ClientWidth = 950
   FormStyle = fsSystemStayOnTop
   OnCreate = FormCreate
+  LCLVersion = '2.2.6.0'
   inline SynEdit1: TSynEdit
     Left = 5
     Height = 487

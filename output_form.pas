@@ -63,7 +63,7 @@ implementation
 
 procedure TOutPutForm.Button1Click(Sender: TObject);
 begin
-  close;
+ close;
 end;
 
 procedure TOutPutForm.FormCreate(Sender: TObject);
@@ -110,7 +110,7 @@ end;
 
 procedure TOutPutForm.SpeedButton_SetBookmarksClick(Sender: TObject);
 begin
- SynEdit1.BookMarkOptions.BookmarkImages := ImageList2 ;
+ SynEdit1.BookMarkOptions.BookmarkImages := ImageList2;
  SynEdit1.SetBookMark (GetABookmark,1,SynEdit1.CaretY);
 end;
 

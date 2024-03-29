@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'mit Lesezeichen,Falten,Suchen'
+git commit -a -m 'space geändert'
