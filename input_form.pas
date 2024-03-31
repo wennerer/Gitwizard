@@ -16,10 +16,13 @@ type
   TInputForm = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    ComboBox1: TComboBox;
     Edit_Complete: TEdit;
     Image1: TImage;
     StaticText1: TStaticText;
     Timer1: TTimer;
+    procedure ComboBox1Change(Sender: TObject);
+    procedure ComboBox1DblClick(Sender: TObject);
     procedure Edit_CompleteKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormActivate(Sender: TObject);
@@ -27,7 +30,10 @@ type
     procedure FormCreate(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
-    mr : boolean;
+    mr           : boolean;
+    secondchoice : boolean;
+    lastchoice   : string;
+    StartPos     : integer;
   public
 
   end;
@@ -48,6 +54,7 @@ begin
  StaticText1.Caption:= rs_CopleteCommand;
  Button2.Caption:= rs_Cancel;
  mr := false;
+ secondchoice := false;
 end;
 
 
@@ -71,6 +78,39 @@ begin
    Close;
   end;
 end;
+
+procedure TInputForm.ComboBox1Change(Sender: TObject);
+var s : String;
+    EndPos : integer;
+begin
+ s := Edit_Complete.Text;
+ if not secondchoice then
+  begin
+   StartPos := pos('<',s);
+   if StartPos = 0 then exit;
+   EndPos := PosEx('>',s,StartPos+1);
+   if EndPos = 0 then exit;
+   Delete(s, StartPos, (EndPos-StartPos)+1);
+   Insert(ComboBox1.Text, s, StartPos);
+   Edit_Complete.Text := s;
+   lastchoice := ComboBox1.Text;
+   secondchoice := true;
+  end
+ else
+  begin
+   Delete(s, StartPos, (length(lastchoice)));
+   Insert(ComboBox1.Text, s, StartPos);
+   Edit_Complete.Text := s;
+   lastchoice := ComboBox1.Text;
+  end;
+end;
+
+procedure TInputForm.ComboBox1DblClick(Sender: TObject);
+begin
+ showmessage('');
+end;
+
+
 
 procedure TInputForm.Timer1Timer(Sender: TObject);
 var s : string;

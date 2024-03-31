@@ -2,5 +2,6 @@
 {"hash":22081959,"name":"tinputform.caption","sourcebytes":[67,111,109,112,108,101,116,101,32,116,104,101,32,99,111,109,109,97,110,100,32,100,105,97,108,111,103],"value":"Complete the command dialog"},
 {"hash":134189802,"name":"tinputform.statictext1.caption","sourcebytes":[67,111,109,112,108,101,116,101,32,116,104,101,32,99,111,109,109,97,110,100,58],"value":"Complete the command:"},
 {"hash":352649,"name":"tinputform.button1.caption","sourcebytes":[79,107,97,121],"value":"Okay"},
-{"hash":77089212,"name":"tinputform.button2.caption","sourcebytes":[67,97,110,99,101,108],"value":"Cancel"}
+{"hash":77089212,"name":"tinputform.button2.caption","sourcebytes":[67,97,110,99,101,108],"value":"Cancel"},
+{"hash":211282501,"name":"tinputform.combobox1.text","sourcebytes":[86,111,114,100,101,102,105,110,105,101,114,116,101,32,65,114,103,117,109,101,110,116,101],"value":"Vordefinierte Argumente"}
 ]}
