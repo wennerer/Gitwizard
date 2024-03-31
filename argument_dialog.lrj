@@ -1,0 +1,6 @@
+{"version":1,"strings":[
+{"hash":229159124,"name":"targument_form.caption","sourcebytes":[78,101,119,32,65,114,103,117,109,101,110,116],"value":"New Argument"},
+{"hash":176876970,"name":"targument_form.statictext1.caption","sourcebytes":[78,101,119,32,97,114,103,117,109,101,110,116,58],"value":"New argument:"},
+{"hash":352649,"name":"targument_form.button1.caption","sourcebytes":[79,107,97,121],"value":"Okay"},
+{"hash":77089212,"name":"targument_form.button2.caption","sourcebytes":[67,97,110,99,101,108],"value":"Cancel"}
+]}

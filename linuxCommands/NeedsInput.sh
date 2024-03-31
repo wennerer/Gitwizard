@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'mit Combobox'
+git commit -a -m 'mit argumentdialog'

@@ -7,7 +7,7 @@ interface
 
 uses
   Classes, SysUtils, StrUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, LCLType, gw_rsstrings;
+  ExtCtrls, LCLType, gw_rsstrings, argument_dialog;
 
 type
 
@@ -107,7 +107,16 @@ end;
 
 procedure TInputForm.ComboBox1DblClick(Sender: TObject);
 begin
- showmessage('');
+ try
+  Argument_Form:= TArgument_Form.Create(self);
+
+  if  Argument_Form.ShowModal = mrCancel then exit;
+  ComboBox1.Items.Add(Argument_Form.Edit1.Text);
+ finally
+  Argument_Form.Free;
+ end;
+
+
 end;
 
 
