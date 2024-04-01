@@ -115,6 +115,7 @@ type
     FLastTabClick          : integer;
     FOwnBackupFile         : string;
     FSynHL                 : TgwHighlighter;
+
     procedure CommandButtonClick(Sender: TObject);
     procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; {%H-}Options: TProcessOptions=[];
                              swOptions: TShowWindowOptions=swoNone);
@@ -126,6 +127,7 @@ type
   protected
 
   public
+    FArguments             : string;
     constructor Create(AOwner: TComponent); override;
     destructor  Destroy; override;
   end;
@@ -251,6 +253,7 @@ begin
  gitignore.Parent         := TabSheets[0];
  gitignore.Align          := alTop;
  FOwnBackupFile           := '';
+
  PathToEnviro    := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'packagefiles.xml';
  PathToGitWizard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizard"]]/Filename/@*');
 
@@ -298,7 +301,7 @@ end;
 procedure TFrame1.WriteValues;
 var Doc               : TXMLDocument;
     RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,OptionsNode,
-    LastNode,TabNode,SepNode,aText,OwnFileNode: TDOMNode;
+    LastNode,TabNode,SepNode,aText,OwnFileNode,ArgumentNode: TDOMNode;
     lv,i : integer;
     s  : string;
 begin
@@ -324,6 +327,10 @@ begin
     OwnFileNode := Doc.CreateElement('OwnFile');
     TDOMElement(OwnFileNode).SetAttribute('OwnFile',unicodestring(FOwnBackupFile));
     RootNode.Appendchild(OwnFileNode);
+
+    ArgumentNode := Doc.CreateElement('Arguments');
+    TDOMElement(ArgumentNode).SetAttribute('Arguments',unicodestring(FArguments));
+    RootNode.Appendchild(ArgumentNode);
 
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_options.xml');
   finally

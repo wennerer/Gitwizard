@@ -6,8 +6,9 @@ unit input_form;
 interface
 
 uses
-  Classes, SysUtils, StrUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, LCLType, gw_rsstrings, argument_dialog;
+  Classes, SysUtils, StrUtils, DOM, XPath, XMLRead, Forms, Controls, Graphics,
+  Dialogs, StdCtrls, ExtCtrls, LCLType, LazIDEIntf, gw_rsstrings,
+  argument_dialog;
 
 type
 
@@ -42,19 +43,47 @@ var
   InputForm: TInputForm;
 
 implementation
-
+uses gw_frame;
 {$R *.lfm}
 
 { TInputForm }
 
 
 procedure TInputForm.FormCreate(Sender: TObject);
+var xml         :  TXMLDocument;
+    XPathResult : TXPathVariable;
+    APtr        :Pointer;
+    sl          : TStringlist;
+    lv          : integer;
 begin
  Caption := rs_InputForm;
  StaticText1.Caption:= rs_CopleteCommand;
  Button2.Caption:= rs_Cancel;
  mr := false;
  secondchoice := false;
+
+ if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml') then
+   begin
+    ReadXMLFile(Xml,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+ 'gw_options.xml');
+
+    XPathResult := EvaluateXPathExpression('/Options/Arguments/@*', Xml.DocumentElement);
+    For APtr in XPathResult.AsNodeSet do
+     (Owner as TFrame1).FArguments := string(TDOMNode(APtr).NodeValue);
+    XPathResult.Free;
+
+    Xml.Free;
+    sl := TStringlist.Create;
+    try
+     sl.StrictDelimiter:= true;
+     sl.Delimiter:=';';
+     sl.DelimitedText:= (Owner as TFrame1).FArguments;
+
+     for lv := 0 to pred(sl.Count) do ComboBox1.Items.Add(sl[lv]);
+    finally
+     sl.Free;
+    end;
+
+  end;
 end;
 
 
@@ -106,16 +135,24 @@ begin
 end;
 
 procedure TInputForm.ComboBox1DblClick(Sender: TObject);
+var s           : string;
+
 begin
+ Argument_Form:= TArgument_Form.Create(self);
  try
-  Argument_Form:= TArgument_Form.Create(self);
 
   if  Argument_Form.ShowModal = mrCancel then exit;
   ComboBox1.Items.Add(Argument_Form.Edit1.Text);
+  s := Argument_Form.Edit1.Text;
  finally
   Argument_Form.Free;
  end;
+ if (Owner as TFrame1).FArguments = '' then
+  (Owner as TFrame1).FArguments:= s
+ else
+  (Owner as TFrame1).FArguments:= (Owner as TFrame1).FArguments+';'+s;
 
+ (Owner as TFrame1).WriteValues;
 
 end;
 
@@ -126,7 +163,8 @@ var s : string;
     i1,i2 : integer;
 begin
  Timer1.Enabled:=false;
-  //selected Command
+
+ //selected Command
  Edit_Complete.SetFocus;
  s := Edit_Complete.Text;
  i1 := pos('<',s)-1;

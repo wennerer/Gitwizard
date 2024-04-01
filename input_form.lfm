@@ -142,9 +142,6 @@ object InputForm: TInputForm
     Top = 167
     Width = 200
     ItemHeight = 0
-    Items.Strings = (
-      'Initialer Commit'
-    )
     OnChange = ComboBox1Change
     OnDblClick = ComboBox1DblClick
     TabOrder = 4

@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'mit argumentdialog'
+git commit -a -m 'Argumente einpflegen geht'
