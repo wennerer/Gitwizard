@@ -9,7 +9,6 @@ object InputForm: TInputForm
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
-  LCLVersion = '2.2.6.0'
   object StaticText1: TStaticText
     Left = 24
     Height = 23
@@ -139,13 +138,16 @@ object InputForm: TInputForm
   object ComboBox1: TComboBox
     Left = 112
     Height = 27
+    Hint = 'Doppelclick to insert a new argument'
     Top = 167
     Width = 200
     ItemHeight = 0
     OnChange = ComboBox1Change
     OnDblClick = ComboBox1DblClick
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 4
-    Text = 'Vordefinierte Argumente'
+    Text = 'Predefined arguments'
   end
   object Timer1: TTimer
     Enabled = False

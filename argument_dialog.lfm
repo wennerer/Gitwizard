@@ -6,6 +6,7 @@ object Argument_Form: TArgument_Form
   Caption = 'New Argument'
   ClientHeight = 165
   ClientWidth = 488
+  OnCreate = FormCreate
   object StaticText1: TStaticText
     Left = 18
     Height = 21

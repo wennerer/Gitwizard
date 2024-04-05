@@ -12,6 +12,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: de_DE\n"
 
+#: gw_rsstrings.rs_addargument
+msgid "Add and edit arguments for the input dialogue"
+msgstr "Argumente für den Eingabedialog einfügen und bearbeiten"
+
 #: gw_rsstrings.rs_addseperator
 msgid "Add/Delete a separator below"
 msgstr "Füge/Lösche einen Separator unterhalb hinzu"
@@ -72,6 +76,10 @@ msgstr "Möchtest du ein neues Backup erzeugen? Alle alten Dateien im Backup-Ord
 msgid "Edit default gitignore"
 msgstr "Standard gitignore bearbeiten"
 
+#: gw_rsstrings.rs_delete
+msgid "Delete a argument"
+msgstr "Lösche ein Argument"
+
 #: gw_rsstrings.rs_deletecommand
 msgid "Delete command"
 msgstr "Lösche den Befehl"
@@ -83,6 +91,10 @@ msgstr "Verzeichnis nicht gefunden!"
 #: gw_rsstrings.rs_downwards
 msgid "Downwards"
 msgstr "Abwärts"
+
+#: gw_rsstrings.rs_ea
+msgid "Edited arguments"
+msgstr "Bearbeite Argumente"
 
 #: gw_rsstrings.rs_enteracaption
 msgid "Please enter a caption for the new button:"
@@ -174,6 +186,14 @@ msgstr "Alle Icons sind von Roland Hahn. Herzlichen Dank!"
 msgid "Complete the command dialog"
 msgstr "Vervollständige den Befehl Dialog"
 
+#: gw_rsstrings.rs_insertargument
+msgid "Insert a new argument"
+msgstr "Argument einfügen"
+
+#: gw_rsstrings.rs_insertnewargument
+msgid "Doppelclick to insert a new argument"
+msgstr "Doppelklick zum Einfügen eines neuen Arguments"
+
 #: gw_rsstrings.rs_lang
 msgid "en"
 msgstr "de"
@@ -194,6 +214,10 @@ msgstr "Es sind mehrere Packages geöffnet!"
 msgid "Move Button"
 msgstr "Verschiebe den Button"
 
+#: gw_rsstrings.rs_movedown
+msgid "Move down"
+msgstr "Nach unten"
+
 #: gw_rsstrings.rs_movetoatab
 msgid "Move a button to a new tabsheet"
 msgstr "Bewege den Button auf ein anderes Tabsheet"
@@ -202,9 +226,21 @@ msgstr "Bewege den Button auf ein anderes Tabsheet"
 msgid "Move to another tab"
 msgstr "Verschiebe zu einem anderen Tab"
 
+#: gw_rsstrings.rs_moveup
+msgid "Move up"
+msgstr "Nach oben"
+
+#: gw_rsstrings.rs_na
+msgid "New Argument"
+msgstr "Neues Argument"
+
 #: gw_rsstrings.rs_needinput
 msgid "The command requires an input"
 msgstr "Der Befehl benötigt eine Eingabe"
+
+#: gw_rsstrings.rs_newarg
+msgid "New argument:"
+msgstr "Neues Argument:"
 
 #: gw_rsstrings.rs_newcaption
 msgid "Enter a new caption for the button:"
@@ -295,6 +331,10 @@ msgstr "GitWizard Ausgabe"
 #: gw_rsstrings.rs_ownfolder
 msgid "Own Backup Folder:"
 msgstr "Eigenes Backup Verzeichnis:"
+
+#: gw_rsstrings.rs_prearguments
+msgid "Predefined arguments"
+msgstr "Vordefinierte Argumente"
 
 #: gw_rsstrings.rs_rename
 msgid "Rename"

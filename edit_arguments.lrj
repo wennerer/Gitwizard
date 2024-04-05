@@ -1,0 +1,9 @@
+{"version":1,"strings":[
+{"hash":224847309,"name":"teditargument_form.caption","sourcebytes":[69,100,105,116,65,114,103,117,109,101,110,116,95,70,111,114,109],"value":"EditArgument_Form"},
+{"hash":74217360,"name":"teditargument_form.speedbutton_moveup.caption","sourcebytes":[77,111,118,101,32,117,112],"value":"Move up"},
+{"hash":209126078,"name":"teditargument_form.speedbutton_movedown.caption","sourcebytes":[77,111,118,101,32,100,111,119,110],"value":"Move down"},
+{"hash":141532324,"name":"teditargument_form.speedbutton_newargument.caption","sourcebytes":[73,110,115,101,114,116,32,97,32,110,101,119,32,97,114,103,117,109,101,110,116],"value":"Insert a new argument"},
+{"hash":47763476,"name":"teditargument_form.speedbutton_delete.caption","sourcebytes":[68,101,108,101,116,101,32,97,32,97,114,103,117,109,101,110,116],"value":"Delete a argument"},
+{"hash":77089212,"name":"teditargument_form.button1.caption","sourcebytes":[67,97,110,99,101,108],"value":"Cancel"},
+{"hash":352649,"name":"teditargument_form.button2.caption","sourcebytes":[79,107,97,121],"value":"Okay"}
+]}

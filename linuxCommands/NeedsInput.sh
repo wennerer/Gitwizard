@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Argumente einpflegen geht'
+git commit -a -m 'Version0.0.1.5'

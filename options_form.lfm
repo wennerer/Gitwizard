@@ -1,10 +1,10 @@
 object Optionsform: TOptionsform
   Left = 441
-  Height = 229
+  Height = 310
   Top = 250
   Width = 737
   Caption = 'Options'
-  ClientHeight = 229
+  ClientHeight = 310
   ClientWidth = 737
   OnCreate = FormCreate
   object StaticText1: TStaticText
@@ -23,7 +23,7 @@ object Optionsform: TOptionsform
     Left = 336
     Height = 32
     Top = 32
-    Width = 352
+    Width = 350
     Font.Height = 18
     ParentFont = False
     TabOrder = 1
@@ -31,7 +31,7 @@ object Optionsform: TOptionsform
   object Image1: TImage
     Left = 624
     Height = 64
-    Top = 129
+    Top = 208
     Width = 64
     Picture.Data = {
       1754506F727461626C654E6574776F726B47726170686963EA09000089504E47
@@ -120,7 +120,7 @@ object Optionsform: TOptionsform
   object Button1: TButton
     Left = 32
     Height = 25
-    Top = 168
+    Top = 247
     Width = 240
     Caption = 'Okay'
     ModalResult = 1
@@ -129,7 +129,7 @@ object Optionsform: TOptionsform
   object Button2: TButton
     Left = 352
     Height = 25
-    Top = 168
+    Top = 247
     Width = 216
     Caption = 'Cancel'
     ModalResult = 2
@@ -157,5 +157,14 @@ object Optionsform: TOptionsform
     Font.Name = 'Sans'
     ParentFont = False
     TabOrder = 5
+  end
+  object Button_Argument: TButton
+    Left = 32
+    Height = 25
+    Top = 132
+    Width = 654
+    Caption = 'Add and edit arguments for the input dialogue'
+    OnClick = Button_ArgumentClick
+    TabOrder = 6
   end
 end

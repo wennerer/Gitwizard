@@ -56,9 +56,11 @@ var xml         :  TXMLDocument;
     sl          : TStringlist;
     lv          : integer;
 begin
- Caption := rs_InputForm;
- StaticText1.Caption:= rs_CopleteCommand;
- Button2.Caption:= rs_Cancel;
+ Caption             := rs_InputForm;
+ StaticText1.Caption := rs_CopleteCommand;
+ Button2.Caption     := rs_Cancel;
+ ComboBox1.Text      := rs_prearguments;
+ ComboBox1.Hint      := rs_insertnewargument;
  mr := false;
  secondchoice := false;
 

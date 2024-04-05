@@ -55,6 +55,7 @@ resourcestring
   rs_Optionsform                      = 'Options';
   rs_selectEditor                     = 'Select an editor:';
   rs_ownfolder                        = 'Own Backup Folder:';
+  rs_AddArgument                      = 'Add and edit arguments for the input dialogue';
 
   rs_EnterACaption                    = 'Please enter a caption for the new button:';
   rs_EnterAFilename                   = 'Please enter a filename for the new bash:';
@@ -65,6 +66,8 @@ resourcestring
 
   rs_InputForm                        = 'Complete the command dialog';
   rs_CopleteCommand                   = 'Complete the command:';
+  rs_prearguments                     = 'Predefined arguments';
+  rs_insertnewargument                = 'Doppelclick to insert a new argument';
 
   rs_NewPos                           = 'New Position:';
   rs_EnterNewPos                      = 'Enter a new position!';
@@ -103,8 +106,14 @@ resourcestring
   rs_downwards                        = 'Downwards';
   rs_backwards                        = 'Backwards';
 
+  rs_InsertArgument                   = 'Insert a new argument';
+  rs_moveup                           = 'Move up';
+  rs_movedown                         = 'Move down';
+  rs_delete                           = 'Delete a argument';
+  rs_ea                               = 'Edited arguments';
 
-
+  rs_newarg                           = 'New argument:';
+  rs_na                               = 'New Argument';
 
 implementation
 

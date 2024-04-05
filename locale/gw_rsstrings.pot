@@ -1,6 +1,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+#: gw_rsstrings.rs_addargument
+msgid "Add and edit arguments for the input dialogue"
+msgstr ""
+
 #: gw_rsstrings.rs_addseperator
 msgid "Add/Delete a separator below"
 msgstr ""
@@ -61,6 +65,10 @@ msgstr ""
 msgid "Edit default gitignore"
 msgstr ""
 
+#: gw_rsstrings.rs_delete
+msgid "Delete a argument"
+msgstr ""
+
 #: gw_rsstrings.rs_deletecommand
 msgid "Delete command"
 msgstr ""
@@ -71,6 +79,10 @@ msgstr ""
 
 #: gw_rsstrings.rs_downwards
 msgid "Downwards"
+msgstr ""
+
+#: gw_rsstrings.rs_ea
+msgid "Edited arguments"
 msgstr ""
 
 #: gw_rsstrings.rs_enteracaption
@@ -161,6 +173,14 @@ msgstr ""
 msgid "Complete the command dialog"
 msgstr ""
 
+#: gw_rsstrings.rs_insertargument
+msgid "Insert a new argument"
+msgstr ""
+
+#: gw_rsstrings.rs_insertnewargument
+msgid "Doppelclick to insert a new argument"
+msgstr ""
+
 #: gw_rsstrings.rs_lang
 msgid "en"
 msgstr ""
@@ -181,6 +201,10 @@ msgstr ""
 msgid "Move Button"
 msgstr ""
 
+#: gw_rsstrings.rs_movedown
+msgid "Move down"
+msgstr ""
+
 #: gw_rsstrings.rs_movetoatab
 msgid "Move a button to a new tabsheet"
 msgstr ""
@@ -189,8 +213,20 @@ msgstr ""
 msgid "Move to another tab"
 msgstr ""
 
+#: gw_rsstrings.rs_moveup
+msgid "Move up"
+msgstr ""
+
+#: gw_rsstrings.rs_na
+msgid "New Argument"
+msgstr ""
+
 #: gw_rsstrings.rs_needinput
 msgid "The command requires an input"
+msgstr ""
+
+#: gw_rsstrings.rs_newarg
+msgid "New argument:"
 msgstr ""
 
 #: gw_rsstrings.rs_newcaption
@@ -281,6 +317,10 @@ msgstr ""
 
 #: gw_rsstrings.rs_ownfolder
 msgid "Own Backup Folder:"
+msgstr ""
+
+#: gw_rsstrings.rs_prearguments
+msgid "Predefined arguments"
 msgstr ""
 
 #: gw_rsstrings.rs_rename
