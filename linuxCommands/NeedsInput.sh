@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Version0.0.1.5'
+git commit -a -m 'Fehler Seperator an letzter Stelle weg'

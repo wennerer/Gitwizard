@@ -250,20 +250,21 @@ begin
    end;
  if FSender = nil then exit;
 
- if CommandList[j].Items[aTag+1] is TCommandButton then
-  begin
-   CommandList[j].Insert(aTag+1,TGWSeperator.Create(self));
-   TGWSeperator(CommandList[j].Items[aTag+1]).Parent     := TabSheets[j];
-   TGWSeperator(CommandList[j].Items[aTag+1]).BorderSpacing.Around:= 2;
-   TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideTop.Control := TCommandButton(CommandList[j].Items[aTag]);
-   TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideTop.Side     := asrBottom;
-   TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideLeft.Control := TabSheets[j];
-   TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideRight.Control:= TabSheets[j];
-   TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideRight.Side   := asrBottom;
-   TGWSeperator(CommandList[j].Items[aTag+1]).Anchors := [akLeft, akRight, akTop];
-  end
- else
-  CommandList[j].Delete(aTag+1);
+ if pred(CommandList[j].Count) > TCommandButton(CommandList[j].Items[aTag]).Tag then
+  if CommandList[j].Items[aTag+1] is TCommandButton then
+   begin
+    CommandList[j].Insert(aTag+1,TGWSeperator.Create(self));
+    TGWSeperator(CommandList[j].Items[aTag+1]).Parent     := TabSheets[j];
+    TGWSeperator(CommandList[j].Items[aTag+1]).BorderSpacing.Around:= 2;
+    TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideTop.Control := TCommandButton(CommandList[j].Items[aTag]);
+    TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideTop.Side     := asrBottom;
+    TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideLeft.Control := TabSheets[j];
+    TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideRight.Control:= TabSheets[j];
+    TGWSeperator(CommandList[j].Items[aTag+1]).AnchorSideRight.Side   := asrBottom;
+    TGWSeperator(CommandList[j].Items[aTag+1]).Anchors := [akLeft, akRight, akTop];
+   end
+  else
+   CommandList[j].Delete(aTag+1);
 
  AdjustTheButtons;
  for lv := 0 to pred(CommandList[j].Count) do TCommandButton(CommandList[j].Items[lv]).Tag:=lv;
