@@ -77,6 +77,10 @@ msgstr ""
 msgid "Delete not possible"
 msgstr ""
 
+#: gw_rsstrings.rs_deletetab
+msgid "Delete"
+msgstr ""
+
 #: gw_rsstrings.rs_directorynotfound
 msgid "Directory not found!"
 msgstr ""

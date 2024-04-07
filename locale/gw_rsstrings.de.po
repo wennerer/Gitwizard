@@ -86,7 +86,11 @@ msgstr "Lösche den Befehl"
 
 #: gw_rsstrings.rs_deletenotpossible
 msgid "Delete not possible"
-msgstr ""
+msgstr "LÖschen nicht möglich"
+
+#: gw_rsstrings.rs_deletetab
+msgid "Delete"
+msgstr "Löschen"
 
 #: gw_rsstrings.rs_directorynotfound
 msgid "Directory not found!"
@@ -224,7 +228,7 @@ msgstr "Nach unten"
 
 #: gw_rsstrings.rs_moveordelete
 msgid "The tab contains commands. Please delete or move all commands."
-msgstr ""
+msgstr "Der Tab beeinhaltet Befehle. Bitte lösche oder verschiebe alle Befehle."
 
 #: gw_rsstrings.rs_movetoatab
 msgid "Move a button to a new tabsheet"
@@ -387,4 +391,3 @@ msgstr "Alles Entfalten"
 #: gw_rsstrings.rs_yes
 msgid "Yes"
 msgstr "Ja"
-

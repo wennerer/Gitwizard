@@ -91,6 +91,7 @@ resourcestring
   rs_newTabproperties                 = 'New Tabsheet Properties';
   rs_newCaptionTab                    = 'Enter a new Caption:';
   rs_moveordelete                     = 'The tab contains commands. Please delete or move all commands.';
+  rs_deletetab                        = 'Delete';
 
   rs_lang                             = 'en';
 

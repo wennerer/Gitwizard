@@ -283,6 +283,7 @@ begin
  properties.Caption                          := rs_newproperties;
  addseperator.Caption                        := rs_addseperator;
  rename.Caption                              := rs_rename;
+ deleteTab.Caption                           := rs_deletetab;
  TabSheets[0].Caption                        := rs_favorites;
  FTabCaptions                                := rs_favorites;
 end;
