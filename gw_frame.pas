@@ -46,6 +46,7 @@ type
     ImageList1                  : TImageList;
     deletecommand               : TMenuItem;
     addseperator                : TMenuItem;
+    deleteTab: TMenuItem;
     rename                      : TMenuItem;
     PopupMenu_Tabsheet          : TPopupMenu;
     properties                  : TMenuItem;
@@ -76,6 +77,7 @@ type
     procedure addseperatorClick({%H-}Sender: TObject);
     procedure Checkgitignore;
     procedure Checkgitinit;
+    procedure deleteTabClick(Sender: TObject);
     procedure FrameResize({%H-}Sender: TObject);
     procedure gitignoreClick({%H-}Sender: TObject);
     procedure InputKeyDown(Sender: TObject; var Key: Word; {%H-}Shift: TShiftState);

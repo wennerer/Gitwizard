@@ -298,3 +298,33 @@ begin
  end;
 end;
 
+
+procedure TFrame1.deleteTabClick(Sender: TObject);
+var i,j,lv : integer;
+begin
+ if FLastTabClick = 0 then
+  begin
+   showmessage(rs_deletenotpossible);
+   exit;
+  end;
+
+ if CommandList[FLastTabClick].Count <> 0 then
+  begin
+   showmessage(rs_moveordelete);
+   exit;
+  end;
+ i := Pos(TabSheets[FLastTabClick].Caption,FTabCaptions);
+ j := length(TabSheets[FLastTabClick].Caption)+1;
+ Delete(FTabCaptions,i-1,j);
+
+ TabSheets[FLastTabClick].Free;
+ SetLength(TabSheets, Length(TabSheets) - 1);
+
+ CommandList[FLastTabClick].Clear;
+ for lv := FLastTabClick to pred(high(CommandList)) do
+   CommandList[lv] := CommandList[lv+1];
+ SetLength(CommandList, Length(CommandList) - 1);
+
+ writeValues;
+end;
+

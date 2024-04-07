@@ -73,6 +73,10 @@ msgstr ""
 msgid "Delete command"
 msgstr ""
 
+#: gw_rsstrings.rs_deletenotpossible
+msgid "Delete not possible"
+msgstr ""
+
 #: gw_rsstrings.rs_directorynotfound
 msgid "Directory not found!"
 msgstr ""
@@ -203,6 +207,10 @@ msgstr ""
 
 #: gw_rsstrings.rs_movedown
 msgid "Move down"
+msgstr ""
+
+#: gw_rsstrings.rs_moveordelete
+msgid "The tab contains commands. Please delete or move all commands."
 msgstr ""
 
 #: gw_rsstrings.rs_movetoatab

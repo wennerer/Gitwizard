@@ -86,9 +86,11 @@ resourcestring
   rs_newhint                          = 'Enter a new hint for the button:';
 
   rs_notpossible                      = 'Rename not possible';
+  rs_deletenotpossible                = 'Delete not possible';
   rs_rename                           = 'Rename';
   rs_newTabproperties                 = 'New Tabsheet Properties';
   rs_newCaptionTab                    = 'Enter a new Caption:';
+  rs_moveordelete                     = 'The tab contains commands. Please delete or move all commands.';
 
   rs_lang                             = 'en';
 
