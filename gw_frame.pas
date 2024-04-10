@@ -507,6 +507,11 @@ begin
      FOwnBackupFile := string(TDOMNode(APtr).NodeValue);
     XPathResult.Free;
 
+    XPathResult := EvaluateXPathExpression('/Options/Arguments/@*', Xml.DocumentElement);
+    For APtr in XPathResult.AsNodeSet do
+     FOwnBackupFile := string(TDOMNode(APtr).NodeValue);
+    XPathResult.Free;
+
     Xml.Free;
   end;
 end;
