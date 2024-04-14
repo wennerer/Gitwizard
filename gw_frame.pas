@@ -46,7 +46,7 @@ type
     ImageList1                  : TImageList;
     deletecommand               : TMenuItem;
     addseperator                : TMenuItem;
-    deleteTab: TMenuItem;
+    deleteTab                   : TMenuItem;
     rename                      : TMenuItem;
     PopupMenu_Tabsheet          : TPopupMenu;
     properties                  : TMenuItem;
@@ -509,7 +509,7 @@ begin
 
     XPathResult := EvaluateXPathExpression('/Options/Arguments/@*', Xml.DocumentElement);
     For APtr in XPathResult.AsNodeSet do
-     FOwnBackupFile := string(TDOMNode(APtr).NodeValue);
+     FArguments := string(TDOMNode(APtr).NodeValue);
     XPathResult.Free;
 
     Xml.Free;
