@@ -519,7 +519,7 @@ end;
 
 procedure TFrame1.SetPathToGitDirectory(aPath : string);
 var Doc               : TXMLDocument;
-    RootNode,OptionsNode,LastNode,TabNode: TDOMNode;
+    RootNode,OptionsNode,LastNode,TabNode,OwnFileNode,ArgumentNode: TDOMNode;
 begin
  if PathToGitDirectory = '' then exit;
  Path_Panel.Caption := AdjustText(aPath,Path_Panel);
@@ -544,6 +544,14 @@ begin
     TabNode := Doc.CreateElement('Tabsheet');
     TDOMElement(TabNode).SetAttribute('TabCaptions',unicodestring(FTabCaptions));
     RootNode.Appendchild(TabNode);
+
+    OwnFileNode := Doc.CreateElement('OwnFile');
+    TDOMElement(OwnFileNode).SetAttribute('OwnFile',unicodestring(FOwnBackupFile));
+    RootNode.Appendchild(OwnFileNode);
+
+    ArgumentNode := Doc.CreateElement('Arguments');
+    TDOMElement(ArgumentNode).SetAttribute('Arguments',unicodestring(FArguments));
+    RootNode.Appendchild(ArgumentNode);
 
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_options.xml');
   finally
