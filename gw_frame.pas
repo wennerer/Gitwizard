@@ -17,6 +17,8 @@ uses
 type
  {TGWSeperator}
  TGWSeperator = class(TShape)
+ private
+
  public
  constructor Create(AOwner: TComponent); override;
  end;
@@ -230,11 +232,11 @@ end;
 
 { TCommandButton }
 
-procedure TCommandButton.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
-  Y: Integer);
+procedure TCommandButton.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
  inherited MouseDown(Button, Shift, X, Y);
- LastClick:=true;
+
+ FLastClick:=true;
 end;
 
 
@@ -777,6 +779,7 @@ procedure TFrame1.FrameResize(Sender: TObject);
 var xml     :  TXMLDocument;
     XPathResult: TXPathVariable;
     APtr:Pointer;
+
 begin
  if not FFirst then exit;
  FFirst := false;

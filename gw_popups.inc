@@ -12,8 +12,11 @@ begin
  for i := 0 to pred(length(TabSheets)) do
   for lv := 0 to pred(CommandList[i].Count) do
    begin
-    if TCommandButton(CommandList[i].Items[lv]).LastClick then FSender := TCommandButton(CommandList[i].Items[lv]);
-    TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
+    if TCommandButton(CommandList[i].Items[lv]) is TCommandButton then
+     begin
+      if TCommandButton(CommandList[i].Items[lv]).LastClick then FSender := TCommandButton(CommandList[i].Items[lv]);
+      TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
+     end;
    end;
 
 
