@@ -10,7 +10,7 @@ uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead,
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
-  options_form, Translations, LMessages, gw_highlighter,
+  options_form, Translations, ProjectIntf, LMessages, gw_highlighter,
   LCLType, Graphics, gw_rsstrings, move_button, info_form, output_form, newtab,
   move_toatab, new_properties, Types, new_tabproperties;
 
@@ -123,6 +123,7 @@ type
     procedure CommandButtonClick(Sender: TObject);
     procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; {%H-}Options: TProcessOptions=[];
                              swOptions: TShowWindowOptions=swoNone);
+    function OnProjectOpened(Sender: TObject; AProject: TLazProject): TModalResult;
     procedure SaveABashfile(aFileName, aCommand: string);
     procedure SetPathToGitDirectory(aPath: string);
     procedure AdjustTheButtons;
@@ -288,6 +289,8 @@ begin
  deleteTab.Caption                           := rs_deletetab;
  TabSheets[0].Caption                        := rs_favorites;
  FTabCaptions                                := rs_favorites;
+
+ LazarusIDE.AddHandlerOnProjectOpened(@OnProjectOpened);
 end;
 
 
@@ -722,6 +725,11 @@ begin
   end //run
  else showmessage(rs_comerror);
 
+end;
+
+function TFrame1.OnProjectOpened(Sender: TObject; AProject: TLazProject): TModalResult;
+begin
+  showmessage('Opened');
 end;
 
 procedure TFrame1.SpeedButton_SingleInputClick(Sender: TObject);

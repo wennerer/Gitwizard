@@ -25,8 +25,8 @@ unit gitwizard;
 interface
 
 uses
-  Classes, SysUtils, IDEWindowIntf, MenuIntf, IDECommands, Forms, LCLType,
-  Dialogs, Graphics, gw_frame;
+  Classes, SysUtils, IDEWindowIntf, MenuIntf, IDECommands, Forms,
+  LCLType, Dialogs, Graphics, gw_frame;
 
 resourcestring
   mnuShowGitwizard = 'Gitwizard';
@@ -96,6 +96,8 @@ begin
 
   MainFrame := TFrame1.Create(self);
   MainFrame.Parent := self;
+
+
 
 end;
 
