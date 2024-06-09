@@ -12,6 +12,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: de_DE\n"
 
+#: gw_rsstrings.rs_accept
+msgid "Accept"
+msgstr "Annehmen"
+
 #: gw_rsstrings.rs_addargument
 msgid "Add and edit arguments for the input dialogue"
 msgstr "Argumente für den Eingabedialog einfügen und bearbeiten"
@@ -20,9 +24,17 @@ msgstr "Argumente für den Eingabedialog einfügen und bearbeiten"
 msgid "Add/Delete a separator below"
 msgstr "Füge/Lösche einen Separator unterhalb hinzu"
 
+#: gw_rsstrings.rs_always
+msgid "Always show this dialogue"
+msgstr "Zeige immer diesen Dialog"
+
 #: gw_rsstrings.rs_anydirhint
 msgid "Set Any Directory"
 msgstr "Wähle ein Verzeichnis"
+
+#: gw_rsstrings.rs_auto
+msgid "Show no dialogue and take over the new project automatically"
+msgstr "Übernehme das Projekt automatisch ohne Dialog"
 
 #: gw_rsstrings.rs_backwards
 msgid "Backwards"
@@ -250,6 +262,10 @@ msgstr "Neues Argument"
 msgid "The command requires an input"
 msgstr "Der Befehl benötigt eine Eingabe"
 
+#: gw_rsstrings.rs_never
+msgid "Do not show any dialogue and do not take over the new project"
+msgstr "Zeige keinen Dialog und übernehme das neue Projekt nicht automatisch"
+
 #: gw_rsstrings.rs_newarg
 msgid "New argument:"
 msgstr "Neues Argument:"
@@ -277,6 +293,14 @@ msgstr "Gib einen neuen Hint für den Button ein:"
 #: gw_rsstrings.rs_newpos
 msgid "New Position:"
 msgstr "Neue Position:"
+
+#: gw_rsstrings.rs_newprojectopened
+msgid ""
+"A new project has been opened.\n"
+"Would you like to transfer this to the GitWizard?"
+msgstr ""
+"Es wurde ein neues Projekt geöffnet. \n"
+"Möchten Sie dieses in den GitWizard übernehmen?"
 
 #: gw_rsstrings.rs_newproperties
 msgid "New Properties"
@@ -313,6 +337,10 @@ msgstr "Keinen Datei eingegeben"
 #: gw_rsstrings.rs_notpossible
 msgid "Rename not possible"
 msgstr "Umbenennen nicht möglich"
+
+#: gw_rsstrings.rs_npo
+msgid "A New Project Was Opened!"
+msgstr "Ein neues Projekt wurde geöffnet!"
 
 #: gw_rsstrings.rs_opendir
 msgid "Open set Directory"
@@ -383,6 +411,10 @@ msgstr "Wähle einen Editor:"
 #: gw_rsstrings.rs_setbokmark
 msgid "Set a Bookmark"
 msgstr "Setze ein Lesezeichen"
+
+#: gw_rsstrings.rs_settings
+msgid "Settings:"
+msgstr "Einstellungen :"
 
 #: gw_rsstrings.rs_unfoltall
 msgid "Unfolt All"

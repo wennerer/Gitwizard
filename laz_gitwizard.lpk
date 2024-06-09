@@ -13,7 +13,7 @@
     <Description Value="Gitwizard integrates the operation of git into the Lazarus IDE. Commands are called up using a script and can be created or changed by the user."/>
     <License Value="GPL - see :   http://www.gnu.org/copyleft/gpl.html"/>
     <Version Release="1" Build="9"/>
-    <Files Count="18">
+    <Files Count="19">
       <Item1>
         <Filename Value="gitwizard.pas"/>
         <HasRegisterProc Value="True"/>
@@ -87,6 +87,10 @@
         <Filename Value="edit_arguments.pas"/>
         <UnitName Value="edit_arguments"/>
       </Item18>
+      <Item19>
+        <Filename Value="projectopened.pas"/>
+        <UnitName Value="projectopened"/>
+      </Item19>
     </Files>
     <CompatibilityMode Value="True"/>
     <i18n>

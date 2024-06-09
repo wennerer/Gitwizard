@@ -118,6 +118,14 @@ resourcestring
   rs_newarg                           = 'New argument:';
   rs_na                               = 'New Argument';
 
+  rs_NPO                              = 'A New Project Was Opened!';
+  rs_NewProjectOpened                 = 'A new project has been opened.'+#13+#10+'Would you like to transfer this to the GitWizard?';
+  rs_Accept                           = 'Accept';
+  rs_Always                           = 'Always show this dialogue';
+  rs_Auto                             = 'Show no dialogue and take over the new project automatically';
+  rs_Never                            = 'Do not show any dialogue and do not take over the new project';
+  rs_Settings                         = 'Settings:';
+
 implementation
 
 end.

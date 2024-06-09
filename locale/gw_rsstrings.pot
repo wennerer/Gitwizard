@@ -1,6 +1,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+#: gw_rsstrings.rs_accept
+msgid "Accept"
+msgstr ""
+
 #: gw_rsstrings.rs_addargument
 msgid "Add and edit arguments for the input dialogue"
 msgstr ""
@@ -9,8 +13,16 @@ msgstr ""
 msgid "Add/Delete a separator below"
 msgstr ""
 
+#: gw_rsstrings.rs_always
+msgid "Always show this dialogue"
+msgstr ""
+
 #: gw_rsstrings.rs_anydirhint
 msgid "Set Any Directory"
+msgstr ""
+
+#: gw_rsstrings.rs_auto
+msgid "Show no dialogue and take over the new project automatically"
 msgstr ""
 
 #: gw_rsstrings.rs_backwards
@@ -237,6 +249,10 @@ msgstr ""
 msgid "The command requires an input"
 msgstr ""
 
+#: gw_rsstrings.rs_never
+msgid "Do not show any dialogue and do not take over the new project"
+msgstr ""
+
 #: gw_rsstrings.rs_newarg
 msgid "New argument:"
 msgstr ""
@@ -263,6 +279,12 @@ msgstr ""
 
 #: gw_rsstrings.rs_newpos
 msgid "New Position:"
+msgstr ""
+
+#: gw_rsstrings.rs_newprojectopened
+msgid ""
+"A new project has been opened.\n"
+"Would you like to transfer this to the GitWizard?"
 msgstr ""
 
 #: gw_rsstrings.rs_newproperties
@@ -299,6 +321,10 @@ msgstr ""
 
 #: gw_rsstrings.rs_notpossible
 msgid "Rename not possible"
+msgstr ""
+
+#: gw_rsstrings.rs_npo
+msgid "A New Project Was Opened!"
 msgstr ""
 
 #: gw_rsstrings.rs_opendir
@@ -369,6 +395,10 @@ msgstr ""
 
 #: gw_rsstrings.rs_setbokmark
 msgid "Set a Bookmark"
+msgstr ""
+
+#: gw_rsstrings.rs_settings
+msgid "Settings:"
 msgstr ""
 
 #: gw_rsstrings.rs_unfoltall

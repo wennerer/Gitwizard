@@ -1262,4 +1262,9 @@ object Frame1: TFrame1
       OnClick = deleteTabClick
     end
   end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 72
+    Top = 499
+  end
 end

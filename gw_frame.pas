@@ -12,7 +12,12 @@ uses
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
   options_form, Translations, ProjectIntf, LMessages, gw_highlighter,
   LCLType, Graphics, gw_rsstrings, move_button, info_form, output_form, newtab,
-  move_toatab, new_properties, Types, new_tabproperties;
+  move_toatab, new_properties, Types, new_tabproperties, ProjectOpened;
+
+const
+ WithDialog = 0;
+ Auto       = 1;
+ Never      = 2;
 
 type
  {TGWSeperator}
@@ -75,6 +80,7 @@ type
     SpeedButton_LastSavedPackage: TSpeedButton;
     SpeedButton_AnyDir          : TSpeedButton;
     SpeedButton_LastSavedProject: TSpeedButton;
+    Timer1                      : TTimer;
     ToolBar1                    : TToolBar;
     procedure addseperatorClick({%H-}Sender: TObject);
     procedure Checkgitignore;
@@ -97,6 +103,7 @@ type
     procedure SpeedButton_opendirClick({%H-}Sender: TObject);
     procedure SpeedButton_optionsClick({%H-}Sender: TObject);
     procedure SpeedButton_restorebackupClick({%H-}Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
     procedure WriteValues;
     procedure deletecommandClick({%H-}Sender: TObject);
     procedure openfileClick({%H-}Sender: TObject);
@@ -119,10 +126,13 @@ type
     FLastTabClick          : integer;
     FOwnBackupFile         : string;
     FSynHL                 : TgwHighlighter;
+    FAutoPath              : integer;
+    FOldProjectDir         : string;
 
     procedure CommandButtonClick(Sender: TObject);
     procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; {%H-}Options: TProcessOptions=[];
                              swOptions: TShowWindowOptions=swoNone);
+
     function OnProjectOpened(Sender: TObject; AProject: TLazProject): TModalResult;
     procedure SaveABashfile(aFileName, aCommand: string);
     procedure SetPathToGitDirectory(aPath: string);
@@ -262,8 +272,9 @@ begin
  PathToEnviro    := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'packagefiles.xml';
  PathToGitWizard := ReadPathToDir(PathToEnviro,'/CONFIG/UserPkgLinks//*[Name[@Value="laz_gitwizard"]]/Filename/@*');
 
- FFirst := true;
- FSynHl := TgwHighlighter.Create(Self);
+ FFirst    := true;
+ FSynHl    := TgwHighlighter.Create(Self);
+ FAutoPath := WithDialog;
 
  Input.Hint                                  := rs_forcommans;
  SpeedButton_SingleInput.Hint                := rs_excecute;
@@ -290,7 +301,7 @@ begin
  TabSheets[0].Caption                        := rs_favorites;
  FTabCaptions                                := rs_favorites;
 
- LazarusIDE.AddHandlerOnProjectOpened(@OnProjectOpened);
+
 end;
 
 
@@ -674,6 +685,7 @@ begin
 end;
 
 
+
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx----Execute Commands----XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 procedure TFrame1.ExecuteCommand(aCommandBash:String;Com:array of TProcessString;
@@ -727,9 +739,40 @@ begin
 
 end;
 
+procedure TFrame1.Timer1Timer(Sender: TObject);
+begin
+ Timer1.Enabled:=false;
+ LazarusIDE.AddHandlerOnProjectOpened(@OnProjectOpened);
+end;
+
 function TFrame1.OnProjectOpened(Sender: TObject; AProject: TLazProject): TModalResult;
 begin
-  showmessage('Opened');
+ //showmessage(AProject.Directory+'      '+FOldProjectDir);
+ if AProject.Directory = '' then exit;
+ if FOldProjectDir+PathDelim = AProject.Directory then exit;
+
+ if FAutoPath = Never then
+  begin
+   Result := mrIgnore;
+   exit;
+  end;
+ if FAutoPath = Auto then
+  begin
+   SpeedButton_LastSavedProjectClick(Sender);
+   Result := mrOk;
+   exit;
+  end;
+
+ //WithDialog
+ Form_ProjectOpened := TForm_ProjectOpened.Create(self);
+  try
+   if Form_ProjectOpened.ShowModal = mrCancel then exit;
+   SpeedButton_LastSavedProjectClick(Sender);
+   Result := mrOk;
+
+  finally
+   Form_ProjectOpened.Free;
+  end;
 end;
 
 procedure TFrame1.SpeedButton_SingleInputClick(Sender: TObject);
@@ -804,11 +847,14 @@ begin
  CreateTabs;
  if fileexists(IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_commands.xml') then ReadValues;
  if PathToGitDirectory = '' then exit;
+ FOldProjectDir := PathToGitDirectory;
  Path_Panel.Caption := AdjustText(PathToGitDirectory,Path_Panel);
  Path_Panel.Hint:= PathToGitDirectory;
  Checkgitignore;
  Checkgitinit;
  BringToFront;
+
+
 end;
 
 procedure TFrame1.gitignoreClick(Sender: TObject);

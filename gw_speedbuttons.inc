@@ -9,6 +9,7 @@ begin
  PathToEnviro := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'environmentoptions.xml';
  PathToGitDirectory := ReadPathToDir(PathToEnviro,'/CONFIG/EnvironmentOptions/AutoSave/@*');
  SetPathToGitDirectory(PathToGitDirectory);
+ FOldProjectDir := PathToGitDirectory;
 end;
 
 procedure TFrame1.SpeedButton_LastSavedPackageClick(Sender: TObject);
@@ -200,7 +201,6 @@ var dest,source,source1 : string;
   createtabs;
   readvalues;
 end;
-
 
 procedure TFrame1.SpeedButton_createbackupClick(Sender: TObject);
 var dest1,dest,pathtobashes : string;
