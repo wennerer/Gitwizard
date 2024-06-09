@@ -11,6 +11,7 @@ uses
 resourcestring
   rs_comnotfound                      = 'Command-File not found!';
   rs_comerror                         = 'The command is incorrect!';
+  rs_gitrepository                    = 'No Git repository found!';
   rs_ignorenofound                    = 'Default gitignore not found!';
   rs_nodirectoryselected              = 'No directory selected!';
   rs_Filealreadyexists                = 'File already exists!';

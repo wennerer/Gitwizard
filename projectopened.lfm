@@ -7,6 +7,7 @@ object Form_ProjectOpened: TForm_ProjectOpened
   ClientHeight = 330
   ClientWidth = 528
   OnCreate = FormCreate
+  LCLVersion = '2.2.6.0'
   object Image1: TImage
     Left = 8
     Height = 64

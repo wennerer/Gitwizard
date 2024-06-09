@@ -157,6 +157,10 @@ msgstr ""
 msgid "Edit for single commands"
 msgstr ""
 
+#: gw_rsstrings.rs_gitrepository
+msgid "No Git repository found!"
+msgstr ""
+
 #: gw_rsstrings.rs_gotobokmark
 msgid "Goto a Bookmark"
 msgstr ""

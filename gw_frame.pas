@@ -84,7 +84,7 @@ type
     ToolBar1                    : TToolBar;
     procedure addseperatorClick({%H-}Sender: TObject);
     procedure Checkgitignore;
-    procedure Checkgitinit;
+    function Checkgitinit: boolean;
     procedure deleteTabClick(Sender: TObject);
     procedure FrameResize({%H-}Sender: TObject);
     procedure gitignoreClick({%H-}Sender: TObject);
@@ -351,9 +351,9 @@ begin
     TDOMElement(ArgumentNode).SetAttribute('Arguments',unicodestring(FArguments));
     RootNode.Appendchild(ArgumentNode);
 
-    ArgumentNode := Doc.CreateElement('AutoPath');
-    TDOMElement(ArgumentNode).SetAttribute('AutoPath',unicodestring(inttostr(FAutoPath)));
-    RootNode.Appendchild(ArgumentNode);
+    AutoPathNode := Doc.CreateElement('AutoPath');
+    TDOMElement(AutoPathNode).SetAttribute('AutoPath',unicodestring(inttostr(FAutoPath)));
+    RootNode.Appendchild(AutoPathNode);
 
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_options.xml');
   finally
@@ -747,7 +747,11 @@ begin
     sl.Free;
    end;
   end //run
- else showmessage(rs_comerror);
+ else
+  begin
+   if Checkgitinit then showmessage(rs_comerror)
+   else showmessage(rs_gitrepository);
+  end;
 
 end;
 
@@ -819,7 +823,7 @@ begin
  gitignore.ImageIndex:= 14 else gitignore.ImageIndex:= -1;
 end;
 
-procedure TFrame1.Checkgitinit;
+function TFrame1.Checkgitinit: boolean;
 var lv,i : integer;
     s    : string;
 begin
@@ -828,6 +832,7 @@ begin
   begin
    for lv:=0 to pred(CommandList[0].Count) do
     begin
+     Result := true;
      s := TCommandButton(CommandList[0].Items[lv]).Caption;
      i := Pos('init',s);
      if i <> 0 then TCommandButton(CommandList[0].Items[lv]).ImageIndex:=14;
@@ -837,6 +842,7 @@ begin
   begin
    for lv:=0 to pred(CommandList[0].Count) do
     begin
+     Result := false;
      s := TCommandButton(CommandList[0].Items[lv]).Caption;
      i := Pos('init',s);
      if i <> 0 then TCommandButton(CommandList[0].Items[lv]).ImageIndex:=-1;

@@ -168,6 +168,10 @@ msgstr "Falten:"
 msgid "Edit for single commands"
 msgstr "Eingabe für einzelne Befehle"
 
+#: gw_rsstrings.rs_gitrepository
+msgid "No Git repository found!"
+msgstr "Kein Git Repository gefunden!"
+
 #: gw_rsstrings.rs_gotobokmark
 msgid "Goto a Bookmark"
 msgstr "Gehe zu Lesezeichen"
