@@ -320,7 +320,7 @@ end;
 procedure TFrame1.WriteValues;
 var Doc               : TXMLDocument;
     RootNode, ButtonNode,CaptionNode,HintNode,FilenameNode,NeedsInputNode,OptionsNode,
-    LastNode,TabNode,SepNode,aText,OwnFileNode,ArgumentNode: TDOMNode;
+    LastNode,TabNode,SepNode,aText,OwnFileNode,ArgumentNode,AutoPathNode: TDOMNode;
     lv,i : integer;
     s  : string;
 begin
@@ -349,6 +349,10 @@ begin
 
     ArgumentNode := Doc.CreateElement('Arguments');
     TDOMElement(ArgumentNode).SetAttribute('Arguments',unicodestring(FArguments));
+    RootNode.Appendchild(ArgumentNode);
+
+    ArgumentNode := Doc.CreateElement('AutoPath');
+    TDOMElement(ArgumentNode).SetAttribute('AutoPath',unicodestring(inttostr(FAutoPath)));
     RootNode.Appendchild(ArgumentNode);
 
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_options.xml');
@@ -528,20 +532,28 @@ begin
      FArguments := string(TDOMNode(APtr).NodeValue);
     XPathResult.Free;
 
+    XPathResult := EvaluateXPathExpression('/Options/AutoPath/@*', Xml.DocumentElement);
+    For APtr in XPathResult.AsNodeSet do
+     FAutoPath  := strtoint(string(TDOMNode(APtr).NodeValue));
+    XPathResult.Free;
+
     Xml.Free;
   end;
 end;
 
 
 procedure TFrame1.SetPathToGitDirectory(aPath : string);
-var Doc               : TXMLDocument;
-    RootNode,OptionsNode,LastNode,TabNode,OwnFileNode,ArgumentNode: TDOMNode;
+//var Doc               : TXMLDocument;
+  //  RootNode,OptionsNode,LastNode,TabNode,OwnFileNode,ArgumentNode: TDOMNode;
 begin
+ FOldProjectDir := PathToGitDirectory;
  if PathToGitDirectory = '' then exit;
  Path_Panel.Caption := AdjustText(aPath,Path_Panel);
  Path_Panel.Hint:= aPath;
  Checkgitinit;
  Checkgitignore;
+ WriteValues;
+ (*
  try
     Doc := TXMLDocument.Create;
 
@@ -572,7 +584,7 @@ begin
     writeXMLFile(Doc,IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'gw_options.xml');
   finally
     Doc.Free;
-  end;
+  end;  *)
 end;
 
 procedure TFrame1.AdjustTheButtons;
@@ -751,15 +763,18 @@ begin
  if AProject.Directory = '' then exit;
  if FOldProjectDir+PathDelim = AProject.Directory then exit;
 
+
  if FAutoPath = Never then
   begin
    Result := mrIgnore;
+   WriteValues;
    exit;
   end;
  if FAutoPath = Auto then
   begin
    SpeedButton_LastSavedProjectClick(Sender);
    Result := mrOk;
+   WriteValues;
    exit;
   end;
 
@@ -769,7 +784,10 @@ begin
    if Form_ProjectOpened.ShowModal = mrCancel then exit;
    SpeedButton_LastSavedProjectClick(Sender);
    Result := mrOk;
-
+   if Form_ProjectOpened.RadioButton1.Checked then FAutoPath := WithDialog;
+   if Form_ProjectOpened.RadioButton2.Checked then FAutoPath := Auto;
+   if Form_ProjectOpened.RadioButton3.Checked then FAutoPath := Never;
+   WriteValues;
   finally
    Form_ProjectOpened.Free;
   end;

@@ -1,10 +1,10 @@
 object Optionsform: TOptionsform
   Left = 441
-  Height = 310
+  Height = 436
   Top = 250
   Width = 737
   Caption = 'Options'
-  ClientHeight = 310
+  ClientHeight = 436
   ClientWidth = 737
   OnCreate = FormCreate
   object StaticText1: TStaticText
@@ -31,7 +31,7 @@ object Optionsform: TOptionsform
   object Image1: TImage
     Left = 624
     Height = 64
-    Top = 208
+    Top = 336
     Width = 64
     Picture.Data = {
       1754506F727461626C654E6574776F726B47726170686963EA09000089504E47
@@ -120,7 +120,7 @@ object Optionsform: TOptionsform
   object Button1: TButton
     Left = 32
     Height = 25
-    Top = 247
+    Top = 375
     Width = 240
     Caption = 'Okay'
     ModalResult = 1
@@ -129,7 +129,7 @@ object Optionsform: TOptionsform
   object Button2: TButton
     Left = 352
     Height = 25
-    Top = 247
+    Top = 375
     Width = 216
     Caption = 'Cancel'
     ModalResult = 2
@@ -166,5 +166,28 @@ object Optionsform: TOptionsform
     Caption = 'Add and edit arguments for the input dialogue'
     OnClick = Button_ArgumentClick
     TabOrder = 6
+  end
+  object RadioGroup1: TRadioGroup
+    Left = 36
+    Height = 105
+    Top = 184
+    Width = 650
+    AutoFill = True
+    Caption = 'Settings for path transfer:'
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 88
+    ClientWidth = 648
+    Items.Strings = (
+      'Always show dialogue'
+      'Show no dialogue and take over the opened project automatically'
+      'Do not show any dialogue and do not take over the opened project'
+    )
+    TabOrder = 7
   end
 end

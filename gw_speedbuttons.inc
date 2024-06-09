@@ -9,7 +9,7 @@ begin
  PathToEnviro := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'environmentoptions.xml';
  PathToGitDirectory := ReadPathToDir(PathToEnviro,'/CONFIG/EnvironmentOptions/AutoSave/@*');
  SetPathToGitDirectory(PathToGitDirectory);
- FOldProjectDir := PathToGitDirectory;
+
 end;
 
 procedure TFrame1.SpeedButton_LastSavedPackageClick(Sender: TObject);
@@ -24,6 +24,7 @@ begin
   end;
  PathToGitDirectory := s;
  SetPathToGitDirectory(PathToGitDirectory);
+
 end;
 
 procedure TFrame1.SpeedButton_AnyDirClick(Sender: TObject);
@@ -102,12 +103,16 @@ procedure TFrame1.SpeedButton_optionsClick(Sender: TObject);
 begin
   Optionsform := TOptionsform.Create(self);
   try
-   Optionsform.Edit_Editor.Text := FEditor;
+   Optionsform.Edit_Editor.Text         := FEditor;
    Optionsform.DirectoryEdit1.Directory := FOwnBackupFile;
+   Optionsform.RadioGroup1.ItemIndex    := FAutoPath;
+
    if Optionsform.ShowModal = mrCancel then exit;
 
-   FEditor := Optionsform.Edit_Editor.Text;
+   FEditor        := Optionsform.Edit_Editor.Text;
    FOwnBackupFile := Optionsform.DirectoryEdit1.Directory;
+   FAutoPath      := Optionsform.RadioGroup1.ItemIndex;
+
   finally
    Optionsform.Free;
   end;

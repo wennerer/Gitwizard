@@ -7,7 +7,6 @@ object Form_ProjectOpened: TForm_ProjectOpened
   ClientHeight = 330
   ClientWidth = 528
   OnCreate = FormCreate
-  LCLVersion = '2.2.6.0'
   object Image1: TImage
     Left = 8
     Height = 64
@@ -138,16 +137,16 @@ object Form_ProjectOpened: TForm_ProjectOpened
     Left = 8
     Height = 23
     Top = 264
-    Width = 400
-    Caption = 'Show no dialogue and take over the new project automatically'
+    Width = 421
+    Caption = 'Show no dialogue and take over the opened project automatically'
     TabOrder = 4
   end
   object RadioButton3: TRadioButton
     Left = 8
     Height = 23
     Top = 296
-    Width = 407
-    Caption = 'Do not show any dialogue and do not take over the new project'
+    Width = 428
+    Caption = 'Do not show any dialogue and do not take over the opened project'
     TabOrder = 5
   end
   object Shape1: TShape

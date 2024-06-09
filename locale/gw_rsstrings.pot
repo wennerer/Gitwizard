@@ -14,7 +14,7 @@ msgid "Add/Delete a separator below"
 msgstr ""
 
 #: gw_rsstrings.rs_always
-msgid "Always show this dialogue"
+msgid "Always show a dialogue"
 msgstr ""
 
 #: gw_rsstrings.rs_anydirhint
@@ -22,7 +22,7 @@ msgid "Set Any Directory"
 msgstr ""
 
 #: gw_rsstrings.rs_auto
-msgid "Show no dialogue and take over the new project automatically"
+msgid "Do not display a dialogue and automatically accept the open project"
 msgstr ""
 
 #: gw_rsstrings.rs_backwards
@@ -250,7 +250,7 @@ msgid "The command requires an input"
 msgstr ""
 
 #: gw_rsstrings.rs_never
-msgid "Do not show any dialogue and do not take over the new project"
+msgid "Do not show any dialogue and do not take over any project"
 msgstr ""
 
 #: gw_rsstrings.rs_newarg
@@ -283,7 +283,7 @@ msgstr ""
 
 #: gw_rsstrings.rs_newprojectopened
 msgid ""
-"A new project has been opened.\n"
+"A project has been opened.\n"
 "Would you like to transfer this to the GitWizard?"
 msgstr ""
 
@@ -324,7 +324,7 @@ msgid "Rename not possible"
 msgstr ""
 
 #: gw_rsstrings.rs_npo
-msgid "A New Project Was Opened!"
+msgid "A Project Was Opened!"
 msgstr ""
 
 #: gw_rsstrings.rs_opendir
@@ -355,6 +355,10 @@ msgstr ""
 
 #: gw_rsstrings.rs_ownfolder
 msgid "Own Backup Folder:"
+msgstr ""
+
+#: gw_rsstrings.rs_pathtransfer
+msgid "Settings for path transfer:"
 msgstr ""
 
 #: gw_rsstrings.rs_prearguments

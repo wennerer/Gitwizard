@@ -56,6 +56,7 @@ resourcestring
   rs_selectEditor                     = 'Select an editor:';
   rs_ownfolder                        = 'Own Backup Folder:';
   rs_AddArgument                      = 'Add and edit arguments for the input dialogue';
+  rs_PathTransfer                     = 'Settings for path transfer:';
 
   rs_EnterACaption                    = 'Please enter a caption for the new button:';
   rs_EnterAFilename                   = 'Please enter a filename for the new bash:';
@@ -118,12 +119,12 @@ resourcestring
   rs_newarg                           = 'New argument:';
   rs_na                               = 'New Argument';
 
-  rs_NPO                              = 'A New Project Was Opened!';
-  rs_NewProjectOpened                 = 'A new project has been opened.'+#13+#10+'Would you like to transfer this to the GitWizard?';
+  rs_NPO                              = 'A Project Was Opened!';
+  rs_NewProjectOpened                 = 'A project has been opened.'+#13+#10+'Would you like to transfer this to the GitWizard?';
   rs_Accept                           = 'Accept';
-  rs_Always                           = 'Always show this dialogue';
-  rs_Auto                             = 'Show no dialogue and take over the new project automatically';
-  rs_Never                            = 'Do not show any dialogue and do not take over the new project';
+  rs_Always                           = 'Always show a dialogue';
+  rs_Auto                             = 'Do not display a dialogue and automatically accept the open project';
+  rs_Never                            = 'Do not show any dialogue and do not take over any project';
   rs_Settings                         = 'Settings:';
 
 implementation

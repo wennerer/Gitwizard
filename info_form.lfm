@@ -3,18 +3,17 @@ object InfoForm: TInfoForm
   Height = 500
   Top = 250
   Width = 500
-  Caption = 'Info GitWizzard'
+  Caption = 'Info GitWizard'
   ClientHeight = 500
   ClientWidth = 500
   OnCreate = FormCreate
-  LCLVersion = '2.2.6.0'
   object StaticText1: TStaticText
     Left = 160
     Height = 65
     Top = 24
-    Width = 288
+    Width = 260
     AutoSize = True
-    Caption = 'GitWizzard'
+    Caption = 'GitWizard'
     Font.Color = clWindowText
     Font.Height = -53
     Font.Name = 'Sans'

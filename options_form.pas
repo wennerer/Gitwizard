@@ -20,6 +20,7 @@ type
     DirectoryEdit1: TDirectoryEdit;
     Edit_Editor: TEdit;
     Image1: TImage;
+    RadioGroup1: TRadioGroup;
     StaticText1: TStaticText;
     StaticText2: TStaticText;
     procedure Button_ArgumentClick(Sender: TObject);
@@ -48,6 +49,12 @@ begin
  Button2.Caption         := rs_Cancel;
  StaticText2.Caption     := rs_ownfolder;
  Button_Argument.Caption := rs_AddArgument;
+ RadioGroup1.Caption     := rs_PathTransfer;
+ RadioGroup1.Items.Strings[0] := rs_Always;
+ RadioGroup1.Items.Strings[1] := rs_Auto;
+ RadioGroup1.Items.Strings[2] := rs_Never;
+
+
 end;
 
 procedure TOptionsform.Button_ArgumentClick(Sender: TObject);
