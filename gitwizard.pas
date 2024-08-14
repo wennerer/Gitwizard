@@ -51,7 +51,7 @@ var GW_MainForm        : TGW_MainForm = nil;
 
 implementation
 
-procedure CreateGW_MainForm(Sender: TObject; aFormName: string; var AForm: TCustomForm; DoDisableAutoSizing: boolean);
+procedure CreateGW_MainForm({%H-}Sender: TObject; aFormName: string; var AForm: TCustomForm; DoDisableAutoSizing: boolean);
 begin
  if CompareText(aFormName,'GW_MainForm')<>0 then exit;
 
@@ -60,7 +60,7 @@ begin
  AForm:=GW_MainForm;
 end;
 
-procedure OnCmdClick(Sender: TObject);
+procedure OnCmdClick({%H-}Sender: TObject);
 begin
  IDEWindowCreators.ShowForm(GW_MainForm.Name,true);
 end;

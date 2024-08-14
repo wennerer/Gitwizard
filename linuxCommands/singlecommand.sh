@@ -1,2 +1,2 @@
 #!/bin/bash
-git log branch
+git status

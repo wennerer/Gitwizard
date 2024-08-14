@@ -3,7 +3,6 @@
 *.so
 *.lib
 *.bak
-*.res
 project1
 lib
 Debug

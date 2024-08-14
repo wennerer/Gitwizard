@@ -9,6 +9,11 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
+      <Other>
+        <Verbosity>
+          <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
+        </Verbosity>
+      </Other>
     </CompilerOptions>
     <Description Value="Gitwizard integrates the operation of git into the Lazarus IDE. Commands are called up using a script and can be created or changed by the user."/>
     <License Value="GPL - see :   http://www.gnu.org/copyleft/gpl.html"/>
@@ -89,7 +94,7 @@
       </Item18>
       <Item19>
         <Filename Value="projectopened.pas"/>
-        <UnitName Value="projectopened"/>
+        <UnitName Value="ProjectOpened"/>
       </Item19>
     </Files>
     <CompatibilityMode Value="True"/>

@@ -41,6 +41,7 @@ protected
  fAtriPlus      : TSynHighlighterAttributes;
  fAtriHeader    : TSynHighlighterAttributes;
  fAtriDiff      : TSynHighlighterAttributes;
+ function GetDefaultAttribute({%H-}Index: integer): TSynHighlighterAttributes;override;
 public
  procedure SetLine(const NewValue: String; LineNumber: Integer); override;
  procedure Next; override;
@@ -335,6 +336,14 @@ begin
  and (fProcTable[linAct[PosEnd]] = @ProcUnknown)) do
  inc(PosEnd);
  fTokenID := tkUnknown;
+end;
+
+function TgwHighlighter.GetDefaultAttribute(Index: integer
+  ): TSynHighlighterAttributes;
+begin
+ exit;
+  //Only because of Warning: Constructing a class "TgwHighlighter" with abstract method "GetDefaultAttribute"
+ Result := fAtriString;
 end;
 
 procedure TgwHighlighter.SetLine(const NewValue: String; LineNumber: Integer);

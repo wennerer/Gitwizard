@@ -10,7 +10,7 @@ uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead,
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
-  options_form, Translations, ProjectIntf, LMessages, gw_highlighter,
+  options_form, Translations, ProjectIntf, gw_highlighter,
   LCLType, Graphics, gw_rsstrings, move_button, info_form, output_form, newtab,
   move_toatab, new_properties, Types, new_tabproperties, ProjectOpened;
 
@@ -85,7 +85,7 @@ type
     procedure addseperatorClick({%H-}Sender: TObject);
     procedure Checkgitignore;
     function Checkgitinit: boolean;
-    procedure deleteTabClick(Sender: TObject);
+    procedure deleteTabClick({%H-}Sender: TObject);
     procedure FrameResize({%H-}Sender: TObject);
     procedure gitignoreClick({%H-}Sender: TObject);
     procedure InputKeyDown(Sender: TObject; var Key: Word; {%H-}Shift: TShiftState);
@@ -103,7 +103,7 @@ type
     procedure SpeedButton_opendirClick({%H-}Sender: TObject);
     procedure SpeedButton_optionsClick({%H-}Sender: TObject);
     procedure SpeedButton_restorebackupClick({%H-}Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
+    procedure Timer1Timer({%H-}Sender: TObject);
     procedure WriteValues;
     procedure deletecommandClick({%H-}Sender: TObject);
     procedure openfileClick({%H-}Sender: TObject);
@@ -221,7 +221,8 @@ begin
    begin
     copyfile(sl[lv],aDestFolder+ExtractFileName(sl[lv]));
     {$IFDEF Linux}
-     if not RunCommandInDir(aDestFolder,'chmod a+x '+aDestFolder+ExtractFileName(sl[lv]),s)
+     //if not RunCommandInDir(aDestFolder,'chmod a+x '+aDestFolder+ExtractFileName(sl[lv]),s)
+     if not RunCommandInDir(aDestFolder,'','chmod a+x '+aDestFolder+ExtractFileName(sl[lv]),s,[poStderrToOutput],swoNone)
       then showmessage(s);
     {$ENDIF}
    end;
