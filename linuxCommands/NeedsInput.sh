@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'gitignore + .res'
+git commit -a -m 'jetzt mit image.res'
