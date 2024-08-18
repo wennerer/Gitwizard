@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'lastcklick verbessert'
+git commit -a -m 'Revision hinzugefügt'
