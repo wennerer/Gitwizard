@@ -273,6 +273,7 @@ object Frame1: TFrame1
       Images = ImageList1
       Layout = blGlyphRight
       OnClick = gitignoreClick
+      OnMouseEnter = gitignoreMouseEnter
       ShowHint = True
       ParentShowHint = False
       PopupMenu = PopupMenu_CommandButtons

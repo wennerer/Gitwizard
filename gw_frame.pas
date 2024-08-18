@@ -88,6 +88,7 @@ type
     procedure deleteTabClick({%H-}Sender: TObject);
     procedure FrameResize({%H-}Sender: TObject);
     procedure gitignoreClick({%H-}Sender: TObject);
+    procedure gitignoreMouseEnter(Sender: TObject);
     procedure InputKeyDown(Sender: TObject; var Key: Word; {%H-}Shift: TShiftState);
     procedure movebuttonClick({%H-}Sender: TObject);
     procedure movetotabClick({%H-}Sender: TObject);
@@ -898,6 +899,19 @@ begin
              PathToGitDirectory+PathDelim+'.gitignore')
  then showmessage('Ok') else showmessage('Error');
  Checkgitignore;
+end;
+
+procedure TFrame1.gitignoreMouseEnter(Sender: TObject);
+var i,lv : integer;
+begin
+ for i := 0 to pred(length(TabSheets)) do
+  for lv := 0 to pred(CommandList[i].Count) do
+   begin
+    if TCommandButton(CommandList[i].Items[lv]) is TCommandButton then
+     begin
+      TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
+     end;
+   end;
 end;
 
 procedure TFrame1.InputKeyDown(Sender: TObject; var Key: Word;
