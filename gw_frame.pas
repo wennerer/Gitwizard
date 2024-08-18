@@ -131,6 +131,7 @@ type
     FOldProjectDir         : string;
 
     procedure CommandButtonClick(Sender: TObject);
+    procedure CommandButtons_MouseEnter(Sender: TObject);
     procedure ExecuteCommand(aCommandBash: String;Com: array of TProcessString; {%H-}Options: TProcessOptions=[];
                              swOptions: TShowWindowOptions=swoNone);
 
@@ -251,7 +252,6 @@ begin
 
  FLastClick:=true;
 end;
-
 
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx---FRAME---XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -462,6 +462,7 @@ var xml                 :  TXMLDocument;
            TCommandButton(CommandList[cl].Last).LastClick              := false;
            TCommandButton(CommandList[cl].Last).Images                 := ImageList1;
            TCommandButton(CommandList[cl].Last).Layout                 := blGlyphRight;
+           TCommandButton(CommandList[cl].Last).OnMouseEnter           := @CommandButtons_MouseEnter;
            inc(k);
           end;
          if Node.NodeName = '#text' then
@@ -903,7 +904,20 @@ end;
 
 procedure TFrame1.gitignoreMouseEnter(Sender: TObject);
 var i,lv : integer;
-begin
+begin    //this set lastclick to gitignore
+ for i := 0 to pred(length(TabSheets)) do
+  for lv := 0 to pred(CommandList[i].Count) do
+   begin
+    if TCommandButton(CommandList[i].Items[lv]) is TCommandButton then
+     begin
+      TCommandButton(CommandList[i].Items[lv]).LastClick:= false;
+     end;
+   end;
+end;
+
+procedure TFrame1.CommandButtons_MouseEnter(Sender: TObject);
+var i,lv : integer;
+begin    //this set all commandbutton to lastcklick false
  for i := 0 to pred(length(TabSheets)) do
   for lv := 0 to pred(CommandList[i].Count) do
    begin
@@ -925,6 +939,7 @@ end;
 procedure TFrame1.CommandButtonClick(Sender: TObject);
 var strList : TStringlist;
 begin
+
    if (Sender as TCommandButton).NeedsInput then
     begin
      InputForm  := TInputForm.Create(self);
@@ -952,7 +967,6 @@ begin
    Checkgitinit;
 
 end;
-
 
 procedure TFrame1.PageControl1Change(Sender: TObject);
 begin

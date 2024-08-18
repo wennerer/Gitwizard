@@ -2,6 +2,7 @@
 
 
 //The Popup
+
 procedure TFrame1.openfileClick(Sender: TObject);
 var aPath,s : string;
     sa      : array of string;
@@ -185,6 +186,7 @@ begin
   TCommandButton(CommandList[k].Last).LastClick              := false;
   TCommandButton(CommandList[k].Last).Images                 := ImageList1;
   TCommandButton(CommandList[k].Last).Layout                 := blGlyphRight;
+  TCommandButton(CommandList[k].Last).OnMouseEnter           :=@CommandButtons_MouseEnter;
 
   CommandList[j].Delete(aTag);
 

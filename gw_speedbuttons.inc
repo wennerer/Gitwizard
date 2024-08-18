@@ -89,6 +89,7 @@ begin
  TCommandButton(CommandList[FActiveTab].Last).LastClick              := false;
  TCommandButton(CommandList[FActiveTab].Last).Images                 := ImageList1;
  TCommandButton(CommandList[FActiveTab].Last).Layout                 := blGlyphRight;
+ TCommandButton(CommandList[FActiveTab].Last).OnMouseEnter           := @CommandButtons_MouseEnter;
  SaveABashfile(TCommandButton(CommandList[FActiveTab].Last).FileName,aCommand);
  WriteValues;
  Checkgitinit;

@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'gitignore lastcklick'
+git commit -a -m 'lastcklick verbessert'
