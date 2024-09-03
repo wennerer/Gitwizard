@@ -804,10 +804,51 @@ end;
 
 function TFrame1.OnSaveEditorFile(Sender: TObject; aFile: TLazProjectFile;
   SaveStep: TSaveEditorFileStep; TargetFilename: string): TModalResult;
+var Directory,s : string;
+    i : integer;
 begin
-  //if SaveStep = sefsSaveAs then showmessage('Save AS');
-  if SaveStep = sefsSavedAs then showmessage(aFile.Filename);
-  result := mrOk;
+ //if SaveStep = sefsSaveAs then showmessage('Save AS');
+ //if SaveStep = sefsSavedAs then showmessage(aFile.Filename);
+ Result := mrOk;
+ if SaveStep <> sefsSavedAs then exit;
+ if aFile.Filename = '' then exit;
+
+ {$IFDEF WINDOWS}
+   s:='\';
+ {$ENDIF}
+ {$IFDEF Linux}
+   s:='/';
+ {$ENDIF}
+  Directory:=ReverseString(aFile.Filename);
+  i:=Pos(s,Directory);
+  Delete(Directory, 1, i-1);
+  Directory:=ReverseString(Directory);
+
+ if FOldProjectDir+PathDelim = Directory then exit;
+
+ if FAutoPath = Never then
+  begin
+   WriteValues;
+   exit;
+  end;
+ if FAutoPath = Auto then
+  begin
+   SpeedButton_LastSavedProjectClick(Sender);
+   WriteValues;
+   exit;
+  end;
+ //WithDialog
+ Form_ProjectOpened := TForm_ProjectOpened.Create(self);
+  try
+   if Form_ProjectOpened.ShowModal = mrCancel then exit;
+   SpeedButton_LastSavedProjectClick(Sender);
+   if Form_ProjectOpened.RadioButton1.Checked then FAutoPath := WithDialog;
+   if Form_ProjectOpened.RadioButton2.Checked then FAutoPath := Auto;
+   if Form_ProjectOpened.RadioButton3.Checked then FAutoPath := Never;
+   WriteValues;
+  finally
+   Form_ProjectOpened.Free;
+  end;
 end;
 
 procedure TFrame1.SpeedButton_SingleInputClick(Sender: TObject);

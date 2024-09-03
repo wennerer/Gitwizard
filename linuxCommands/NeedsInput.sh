@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Step1 SaveAs'
+git commit -a -m 'mit Dialog bei Save As'
