@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'mit Dialog bei Save As'
+git commit -a -m 'mit Save as und Version'
