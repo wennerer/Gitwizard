@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Revision hinzugefügt'
+git commit -a -m 'Step1 SaveAs'

@@ -10,8 +10,8 @@ uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Buttons, Dialogs, StdCtrls,
   ExtCtrls, FileCtrl, LCLIntf, Menus, LazIDEIntf, FileUtil, DOM, XMLRead,
   XMLWrite, XPath, process, Contnrs, gettext, StrUtils, newcommand, input_form,
-  options_form, Translations, ProjectIntf, gw_highlighter,
-  LCLType, Graphics, gw_rsstrings, move_button, info_form, output_form, newtab,
+  options_form, Translations, ProjectIntf, gw_highlighter, LCLType, Graphics,
+  gw_rsstrings, move_button, info_form, output_form, newtab,
   move_toatab, new_properties, Types, new_tabproperties, ProjectOpened;
 
 const
@@ -136,6 +136,8 @@ type
                              swOptions: TShowWindowOptions=swoNone);
 
     function OnProjectOpened(Sender: TObject; AProject: TLazProject): TModalResult;
+    function OnSaveEditorFile(Sender: TObject; aFile: TLazProjectFile;
+      SaveStep: TSaveEditorFileStep; TargetFilename: string): TModalResult;
     procedure SaveABashfile(aFileName, aCommand: string);
     procedure SetPathToGitDirectory(aPath: string);
     procedure AdjustTheButtons;
@@ -303,7 +305,7 @@ begin
  TabSheets[0].Caption                        := rs_favorites;
  FTabCaptions                                := rs_favorites;
 
-
+ LazarusIDE.AddHandlerOnSaveEditorFile(@OnSaveEditorFile);
 end;
 
 
@@ -798,6 +800,14 @@ begin
   finally
    Form_ProjectOpened.Free;
   end;
+end;
+
+function TFrame1.OnSaveEditorFile(Sender: TObject; aFile: TLazProjectFile;
+  SaveStep: TSaveEditorFileStep; TargetFilename: string): TModalResult;
+begin
+  //if SaveStep = sefsSaveAs then showmessage('Save AS');
+  if SaveStep = sefsSavedAs then showmessage(aFile.Filename);
+  result := mrOk;
 end;
 
 procedure TFrame1.SpeedButton_SingleInputClick(Sender: TObject);
