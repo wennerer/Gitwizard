@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'mit Save as und Version'
+git commit -a -m 'Fehler in CopyAFolder mit chmod beseitigt'

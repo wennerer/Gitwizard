@@ -217,19 +217,22 @@ procedure CopyAFolder(aSourceFolder,aDestFolder: string);
 var sl : TStringList;
     lv : integer;
     s  : string;
+    dest : string;
 begin
  sl := TStringlist.Create;
  try
   FindAllFiles(sl,aSourceFolder,'*',false);
+  Dest := Copy(aDestFolder, 1, length(aDestFolder)-1);
+  for lv :=0 to pred(sl.Count) do
+   copyfile(sl[lv],aDestFolder+ExtractFileName(sl[lv]));
+  {$IFDEF Linux}
   for lv :=0 to pred(sl.Count) do
    begin
-    copyfile(sl[lv],aDestFolder+ExtractFileName(sl[lv]));
-    {$IFDEF Linux}
-     //if not RunCommandInDir(aDestFolder,'chmod a+x '+aDestFolder+ExtractFileName(sl[lv]),s)
-     if not RunCommandInDir(aDestFolder,'','chmod a+x '+aDestFolder+ExtractFileName(sl[lv]),s,[poStderrToOutput],swoNone)
-      then showmessage(s);
-    {$ENDIF}
+    //if not RunCommandInDir(Dest,'','chmod a+x '+ExtractFileName(sl[lv]),s,[poStderrToOutput],swoNone)
+    //then if s <> '' then showmessage(s);
+    if not RunCommandIndir(Dest,'chmod a+x '+ExtractFileName(sl[lv]),s) then if s <> '' then showmessage(s);
    end;
+  {$ENDIF}
  finally
   sl.Free;
  end;
