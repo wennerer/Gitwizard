@@ -1,2 +1,2 @@
 #!/bin/bash
-git commit -a -m 'Fehler in CopyAFolder mit chmod beseitigt'
+git commit -a -m 'Initialer Commit'
