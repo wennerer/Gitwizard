@@ -7,9 +7,8 @@ procedure TFrame1.SpeedButton_LastSavedProjectClick(Sender: TObject);
 var PathToEnviro : string;
 begin
  PathToEnviro := IncludeTrailingPathDelimiter(LazarusIDE.GetPrimaryConfigPath)+'environmentoptions.xml';
- PathToGitDirectory := ReadPathToDir(PathToEnviro,'/CONFIG/EnvironmentOptions/AutoSave/@*');
+ PathToGitDirectory := ReadPathToDir(PathToEnviro,'/CONFIG/EnvironmentOptions/AutoSave/@LastSavedProjectFile');
  SetPathToGitDirectory(PathToGitDirectory);
-
 end;
 
 procedure TFrame1.SpeedButton_LastSavedPackageClick(Sender: TObject);
